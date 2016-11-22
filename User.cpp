@@ -1,14 +1,27 @@
 #include "User.h"
 
-User::User(const UserProperty &properties) : m_Properties(properties), m_Cart(new Cart())
+User::User(const UserProperty &properties) : QObject(0),
+    m_properties(properties), m_cart(new Cart())
 {
 }
 
-User::User()
+
+Cart* User::cart() const
 {
+    return m_cart;
 }
 
-Cart* User::getCart()
+UserProperty User::properties() const
 {
-    return m_Cart;
+    return m_properties;
+}
+
+void User::setCart(Cart *cart)
+{
+    this->m_cart = cart;
+}
+
+void User::setProperties(const UserProperty &properties)
+{
+    this->m_properties = properties;
 }

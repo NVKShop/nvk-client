@@ -2,17 +2,14 @@
 #define Product_H
 
 #include <QGraphicsPixmapItem>
-
+#include "ProductProperty.h"
 class Product : public QGraphicsPixmapItem
 {
 public:
-    Product(const int x,const int y, const QPixmap& pixmap);
-    Product(const QPixmap&);
+    Product(const QPixmap&, const ProductProperty& property);
     ~Product();
-    enum Category {
-        // categories
-    };
 
+    ProductProperty m_properties;
     QRectF boundingRect() const Q_DECL_OVERRIDE;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget) Q_DECL_OVERRIDE;
 

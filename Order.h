@@ -8,13 +8,13 @@ class Order : public QObject
 {
     Q_OBJECT
 public:
-    explicit Order(QObject *parent = 0);
+    explicit Order(User *user, QObject *parent = 0);
 
 signals:
 
 public slots:
 private:
-    User m_User;
+    User* m_user;
 };
 
 #endif // ORDER_H

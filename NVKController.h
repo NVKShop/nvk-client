@@ -17,8 +17,7 @@ public slots:
 private:
     HttpHandler m_HttpHandler;
 
-    User m_user;
-
+    User* m_user;
 };
 
 #endif // NVKCONTROLLER_H

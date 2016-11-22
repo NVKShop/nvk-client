@@ -6,14 +6,20 @@
 class UserProperty : public Property
 {
 public:
-    QString m_address;
-    QString m_firstName;
-    QString m_lastName;
-    bool m_banned;
     enum Role {
         ROLE_ADMIN,
         ROLE_USER
     };
+    UserProperty(const QString& firstName, const QString& lastName,
+                 const QString& address,
+                 const bool banned, Role role, const QString& phoneNumber);
+    UserProperty(const UserProperty& other);
+    QString m_firstName;
+    QString m_lastName;
+    QString m_address;
+
+    bool m_banned;
+
     Role m_role;
     QString m_phoneNumber;
 };

@@ -24,22 +24,23 @@ NVKMainWindow::NVKMainWindow(QWidget *parent) :
 
     // test items
 
-        auto p = [](int count) -> QVector<Product*>
-        {
-                QVector<Product*> products;
-                products.reserve(count);
-                products.resize(count);
+    auto p = [](int count) -> QVector<Product*>
+    {
+        QVector<Product*> products;
+        products.reserve(count);
+        products.resize(count);
 
-                for(int i = 0; i < count; ++i)
-                {
-                    Product* prod = new Product(QPixmap(":/noImage.png"));
-                    products[i] = prod;
-                }
+        for(int i = 0; i < count; ++i)
+        {
+            ProductProperty prop("Product " + QString::number(i), "desc", ProductProperty::IDK);
+            Product* prod = new Product(QPixmap(":/noImage.png"), prop);
+            products[i] = prod;
+        }
 
         return  products;
     };
 
-    scene->setItems(p(55));
+    scene->setItems(p(155));
 
     //
     m_ProductsView = new ProductsView(scene, ui->productsView);

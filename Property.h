@@ -5,6 +5,8 @@
 class Property
 {
 public:
+    Property(const QString& name);
+    Property() = default;
     QString m_name;
 };
 

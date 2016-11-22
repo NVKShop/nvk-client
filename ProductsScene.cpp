@@ -13,17 +13,23 @@ void ProductsScene::setItems(const QVector<Product *> &products)
 
     int row = 0;
     int col = 0;
-    for (int i = 0; i < products.size(); ++i)
+    foreach (Product* prod, products)
     {
-        Product* item = products[i];
-
-        item->setPos(row * productRect.width(), col * productRect.height());
-        addItem(item);
-        if (row == productsPerRow)
+        if (row == 0)
         {
-            col++;
-            row = 0;
+            prod->setPos(col * productRect.width(), row * productRect.height()+ 15);
         }
-        row++;
+        else
+        {
+            prod->setPos(col * productRect.width(), row * productRect.height());
+        }
+        addItem(prod);
+        col++;
+
+        if (col == productsPerRow)
+        {
+            row++;
+            col = 0;
+        }
     }
 }
