@@ -19,8 +19,8 @@ NVKMainWindow::NVKMainWindow(QWidget *parent) :
     //Desktop sizes
 #endif
 
-    ui->productsView->resize(423, 801);
-    ProductsScene* scene = new ProductsScene(ui->productsView->rect());
+    //ui->productsView->resize(423, 801);
+    qDebug() << ui->productsView->width();
 
     // test items
 
@@ -32,7 +32,7 @@ NVKMainWindow::NVKMainWindow(QWidget *parent) :
 
         for(int i = 0; i < count; ++i)
         {
-            ProductProperty prop("Product " + QString::number(i), "desc", ProductProperty::IDK);
+            ProductProperty prop("Product " + QString::number(i), "Description", ProductProperty::IDK);
             Product* prod = new Product(QPixmap(":/noImage.png"), prop);
             products[i] = prod;
         }
@@ -40,11 +40,15 @@ NVKMainWindow::NVKMainWindow(QWidget *parent) :
         return  products;
     };
 
-    scene->setItems(p(155));
 
     //
-    m_ProductsView = new ProductsView(scene, ui->productsView);
-    qDebug() << m_ProductsView->rect();
+    m_ProductsView = ui->productsView;
+    ProductsScene* scene = new ProductsScene(m_ProductsView->rect());
+    scene->setItems(p(55));
+
+    m_ProductsView->setScene(scene);
+
+    qDebug() << "productsViewRect " << m_ProductsView->rect();
     connect(m_NetworkHandler, &NetworkHandler::readyRead, this, &NVKMainWindow::setReplyLabel);
 }
 
@@ -55,7 +59,6 @@ NVKMainWindow::~NVKMainWindow()
 
 void NVKMainWindow::setReplyLabel(const QString &label)
 {
-    ui->replyLabel->setText(label);
-    ui->replyLabel->adjustSize();
+
 }
 

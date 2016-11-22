@@ -21,7 +21,7 @@ private Q_SLOTS:
 private:
     Ui::NVKMainWindow *ui;
     NetworkHandler* m_NetworkHandler;
-    NVKController m_Controller;
+    NVKController* m_Controller;
     ProductsView* m_ProductsView;
 
 };

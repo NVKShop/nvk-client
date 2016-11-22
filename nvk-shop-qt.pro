@@ -26,7 +26,11 @@ SOURCES += main.cpp\
     JsonRequest.cpp \
     JsonReply.cpp \
     JsonQuery.cpp \
-    LoginWindow.cpp
+    LoginWindow.cpp \
+    CategoriesView.cpp \
+    UserPanelView.cpp \
+    UserPanelScene.cpp \
+    CategoriesScene.cpp
 
 HEADERS  += NVKMainWindow.h \
     NetworkHandler.h \
@@ -44,7 +48,11 @@ HEADERS  += NVKMainWindow.h \
     JsonRequest.h \
     JsonReply.h \
     JsonQuery.h \
-    LoginWindow.h
+    LoginWindow.h \
+    CategoriesView.h \
+    UserPanelView.h \
+    UserPanelScene.h \
+    CategoriesScene.h
 
 FORMS    += nvkmainwindow.ui \
     loginwindow.ui

@@ -9,20 +9,44 @@ Product::Product(const QPixmap & pixmap, const ProductProperty &property) :
 
 #else
     setPixmap(pixmap.scaled(80, 80, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    setOffset(0, 25);
 #endif
 
+    setFlag(QGraphicsItem::ItemIsSelectable);
+
+    m_productNameItem = new QGraphicsSimpleTextItem(m_properties.m_name);
+    const qreal moveX = this->boundingRect().width()/2;
+
+    m_productNameItem->moveBy(0, 5);
+    m_productNameItem->setParentItem(this);
+
+    m_productDescriptionItem = new QGraphicsSimpleTextItem(m_properties.m_description);
+
+    const qreal moveY = this->boundingRect().height() - 15;
+    m_productDescriptionItem->moveBy(0, moveY);
+    m_productDescriptionItem->setParentItem(this);
 }
 
 Product::~Product()
 {
 }
 
+QVariant Product::itemChange(GraphicsItemChange change,
+                     const QVariant &value)
+{
+    if (change == QGraphicsItem::ItemSelectedHasChanged)
+    {
+        //
+    }
+    return value;
+}
+
 QRectF Product::boundingRect() const
 {
     QRectF rect = pixmap().rect();
 
-    rect.setWidth(rect.width() + 15);
-    rect.setHeight(rect.height() + 25);
+    rect.setWidth(rect.width() + 45);
+    rect.setHeight(rect.height() + 45);
     return rect;
 }
 
@@ -43,10 +67,5 @@ void Product::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 void Product::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    painter->drawText(0, 0, m_properties.m_name);
-
-    const int ypos = this->pixmap().rect().y() + this->pixmap().rect().height();
-    painter->drawText(0, ypos, m_properties.m_description);
-
     QGraphicsPixmapItem::paint(painter, option, widget);
 }
