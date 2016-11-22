@@ -2,8 +2,8 @@
 #define NVKMAINWINDOW_H
 
 #include <QMainWindow>
-#include <NetworkHandler.h>
-
+#include "NVKController.h"
+#include "ProductsView.h"
 namespace Ui {
 class NVKMainWindow;
 }
@@ -18,9 +18,13 @@ public:
 
 private Q_SLOTS:
     void setReplyLabel(const QString& label);
+    void showMap();
 private:
     Ui::NVKMainWindow *ui;
     NetworkHandler* m_NetworkHandler;
+    NVKController m_Controller;
+    ProductsView* m_ProductsView;
+
 };
 
 #endif // NVKMAINWINDOW_H

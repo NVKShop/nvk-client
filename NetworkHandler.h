@@ -17,12 +17,13 @@ public:
 private:
     QNetworkAccessManager* m_NetworkAccessManager;
     QNetworkReply* m_HttpReply;
-    QNetworkRequest* m_HttpRequest;
 
 Q_SIGNALS:
     void readyRead(const QString& data);
-public Q_SLOTS:
-    void sendRequest();
+protected:
+    void sendRequest(const QString &data);
+    QNetworkRequest* m_HttpRequest;
+    QNetworkReply *reply() const;
 
 private Q_SLOTS:
     void replyReadyRead();

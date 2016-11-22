@@ -6,14 +6,13 @@ NetworkHandler::NetworkHandler(QObject *parent) : QObject(parent),
     m_HttpReply(Q_NULLPTR)
 {
     m_NetworkAccessManager = new QNetworkAccessManager(this);
-    m_HttpRequest = new QNetworkRequest;
-    m_HttpRequest->setUrl(QUrl("http://shrek.unideb.hu/~krajsz/"));
 }
 
-void NetworkHandler::sendRequest()
+void NetworkHandler::sendRequest(const QString& data)
 {
-    m_HttpReply = m_NetworkAccessManager->get(*m_HttpRequest);
-    connect(m_HttpReply, &QNetworkReply::finished, this, &NetworkHandler::replyFinished);
+    m_HttpReply = m_NetworkAccessManager->post(*m_HttpRequest,
+                                               QByteArray::fromRawData(data.toStdString().c_str(), data.size()));
+            connect(m_HttpReply, &QNetworkReply::finished, this, &NetworkHandler::replyFinished);
     connect(m_HttpReply,
             static_cast<void(QNetworkReply::*)(QNetworkReply::NetworkError)>(&QNetworkReply::error),
             this, &NetworkHandler::replyError);
@@ -21,6 +20,11 @@ void NetworkHandler::sendRequest()
 #ifndef QT_NO_SSL
     connect(m_HttpReply, &QNetworkReply::sslErrors, this, &NetworkHandler::sslError);
 #endif
+}
+
+QNetworkReply *NetworkHandler::reply() const
+{
+    return m_HttpReply;
 }
 
 NetworkHandler::~NetworkHandler()
