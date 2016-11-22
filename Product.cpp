@@ -9,10 +9,11 @@ Product::Product(const int x, const int y, const QPixmap& pixmap):QGraphicsPixma
 
 Product::Product(const QPixmap & pixmap) : QGraphicsPixmapItem(pixmap)
 {
+#ifdef Q_OS_ANDROID
 
-    setPixmap(pixmap.scaled(50, 50, Qt::KeepAspectRatio));
-    qDebug() << this->pixmap().size();
-
+#else
+    setPixmap(pixmap.scaled(80, 80, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+#endif
 }
 
 Product::~Product()
@@ -22,7 +23,10 @@ Product::~Product()
 
 QRectF Product::boundingRect() const
 {
-    return pixmap().rect();
+    QRectF rect = pixmap().rect();
+    rect.setWidth(rect.width() + 10);
+    rect.setHeight(rect.height() + 10);
+    return rect;
 }
 
 void Product::mousePressEvent(QGraphicsSceneMouseEvent *event)

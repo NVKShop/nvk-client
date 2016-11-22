@@ -1,6 +1,6 @@
 #include "NVKMainWindow.h"
 #include "ui_nvkmainwindow.h"
-
+#include <QDesktopWidget>
 NVKMainWindow::NVKMainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::NVKMainWindow),
@@ -12,35 +12,39 @@ NVKMainWindow::NVKMainWindow(QWidget *parent) :
     //Set sizes for Android
 
 #else
+    QDesktopWidget* dw = QApplication::desktop();
+    dw->availableGeometry(dw->primaryScreen());
+
+    resize( dw->availableGeometry(dw->primaryScreen()).size());
     //Desktop sizes
 #endif
 
-    ui->productsView->resize(500,500);
+    ui->productsView->resize(423, 801);
     ProductsScene* scene = new ProductsScene(ui->productsView->rect());
 
+    // test items
+
+        auto p = [](int count) -> QVector<Product*>
+        {
+                QVector<Product*> products;
+                products.reserve(count);
+                products.resize(count);
+
+                for(int i = 0; i < count; ++i)
+                {
+                    Product* prod = new Product(QPixmap(":/noImage.png"));
+                    products[i] = prod;
+                }
+
+        return  products;
+    };
+
+    scene->setItems(p(55));
+
     //
-
-    auto p = []() -> QVector<Product*> {
-            QVector<Product*> products;
-            products.reserve(5);
-            products.resize(5);
-
-            Product* prod = new Product(QPixmap(":/noImage.png"));
-
-            for(int i = 0; i < 5; ++i)
-    {
-        products[i] = prod;
-    }
-
-    return  products;
-};
-scene->setItems(p());
-
-//
-m_ProductsView = new ProductsView(scene, ui->productsView);
- qDebug() << m_ProductsView->rect();
-// connect(ui->requestThingsButton, &QPushButton::clicked, m_NetworkHandler, &NetworkHandler::sendRequest);
-connect(m_NetworkHandler, &NetworkHandler::readyRead, this, &NVKMainWindow::setReplyLabel);
+    m_ProductsView = new ProductsView(scene, ui->productsView);
+    qDebug() << m_ProductsView->rect();
+    connect(m_NetworkHandler, &NetworkHandler::readyRead, this, &NVKMainWindow::setReplyLabel);
 }
 
 NVKMainWindow::~NVKMainWindow()

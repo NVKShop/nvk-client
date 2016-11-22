@@ -17,6 +17,9 @@ public:
 
 private:
     Ui::LoginWindow *ui;
+public Q_SLOTS:
+
+
 };
 
 #endif // LOGINWINDOW_H

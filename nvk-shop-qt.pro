@@ -9,7 +9,6 @@ QT       += core quick qml widgets network
 TARGET = nvk-shop-qt
 TEMPLATE = app
 
-
 SOURCES += main.cpp\
         NVKMainWindow.cpp \
     NetworkHandler.cpp \

@@ -17,7 +17,8 @@ void ProductsScene::setItems(const QVector<Product *> &products)
     {
         Product* item = products[i];
 
-        item->setPos(row * productRect.width() + 3, col * productRect.height() + 3);
+        item->setPos(row * productRect.width(), col * productRect.height());
+        addItem(item);
         if (row == productsPerRow)
         {
             col++;

@@ -7,6 +7,7 @@ JsonReply::JsonReply(const QJsonDocument &doc)
 
 QVector<Product*> JsonReply::getProducts() const
 {
+    // products from m_document
     return QVector<Product*>();
 }
 
