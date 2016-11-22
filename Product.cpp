@@ -1,4 +1,5 @@
 #include "Product.h"
+#include <QDebug>
 
 Product::Product(const int x, const int y, const QPixmap& pixmap):QGraphicsPixmapItem(pixmap) ,
     m_xPos(x), m_yPos(y)
@@ -8,6 +9,10 @@ Product::Product(const int x, const int y, const QPixmap& pixmap):QGraphicsPixma
 
 Product::Product(const QPixmap & pixmap) : QGraphicsPixmapItem(pixmap)
 {
+
+    setPixmap(pixmap.scaled(50, 50, Qt::KeepAspectRatio));
+    qDebug() << this->pixmap().size();
+
 }
 
 Product::~Product()

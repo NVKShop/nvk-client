@@ -26,7 +26,8 @@ SOURCES += main.cpp\
     NVKController.cpp \
     JsonRequest.cpp \
     JsonReply.cpp \
-    JsonQuery.cpp
+    JsonQuery.cpp \
+    LoginWindow.cpp
 
 HEADERS  += NVKMainWindow.h \
     NetworkHandler.h \
@@ -43,11 +44,14 @@ HEADERS  += NVKMainWindow.h \
     NVKController.h \
     JsonRequest.h \
     JsonReply.h \
-    JsonQuery.h
+    JsonQuery.h \
+    LoginWindow.h
 
-FORMS    += nvkmainwindow.ui
+FORMS    += nvkmainwindow.ui \
+    loginwindow.ui
 
-CONFIG += mobility
+CONFIG += mobility qt
+CONFIG += C++11
 MOBILITY = 
 
 DISTFILES +=

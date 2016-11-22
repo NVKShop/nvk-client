@@ -15,6 +15,7 @@ NVKMainWindow::NVKMainWindow(QWidget *parent) :
     //Desktop sizes
 #endif
 
+    ui->productsView->resize(500,500);
     ProductsScene* scene = new ProductsScene(ui->productsView->rect());
 
     //
@@ -24,7 +25,7 @@ NVKMainWindow::NVKMainWindow(QWidget *parent) :
             products.reserve(5);
             products.resize(5);
 
-            Product* prod = new Product(QPixmap("qrc:/noImage.png"));
+            Product* prod = new Product(QPixmap(":/noImage.png"));
 
             for(int i = 0; i < 5; ++i)
     {
@@ -37,6 +38,7 @@ scene->setItems(p());
 
 //
 m_ProductsView = new ProductsView(scene, ui->productsView);
+ qDebug() << m_ProductsView->rect();
 // connect(ui->requestThingsButton, &QPushButton::clicked, m_NetworkHandler, &NetworkHandler::sendRequest);
 connect(m_NetworkHandler, &NetworkHandler::readyRead, this, &NVKMainWindow::setReplyLabel);
 }

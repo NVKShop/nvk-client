@@ -7,4 +7,6 @@ JsonRequest::JsonRequest(const User& user, const QString& category, const int fr
     Q_UNUSED(category)
     Q_UNUSED(from)
     Q_UNUSED(to)
+
+    //setup document..
 }
