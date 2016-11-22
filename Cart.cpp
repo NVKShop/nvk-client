@@ -1,9 +1,5 @@
 #include "Cart.h"
 
-Cart::Cart(const QVector<Product*> &products) : m_products(products)
-{
-}
-
 void Cart::addProduct(Product* product)
 {
     m_products.push_back(product);
@@ -12,4 +8,11 @@ void Cart::addProduct(Product* product)
 bool Cart::removeProduct(Product* product)
 {
     return m_products.removeOne(product);
+}
+
+void Cart::addProducts(const QVector<Product *> &products)
+{
+    foreach (Product* p, products) {
+        m_products.push_back(p);
+    }
 }

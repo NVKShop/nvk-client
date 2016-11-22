@@ -18,7 +18,6 @@ public:
 
 private Q_SLOTS:
     void setReplyLabel(const QString& label);
-    void showMap();
 private:
     Ui::NVKMainWindow *ui;
     NetworkHandler* m_NetworkHandler;

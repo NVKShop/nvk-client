@@ -8,10 +8,10 @@ class Cart : public QObject
 {
     Q_OBJECT
 public:
-    explicit Cart(const QVector<Product*>& products);
     Cart() = default;
 
     void addProduct(Product *product);
+    void addProducts(const QVector<Product*>& products);
     bool removeProduct(Product *product);
 signals:
 

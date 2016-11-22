@@ -14,9 +14,10 @@ NVKMainWindow::NVKMainWindow(QWidget *parent) :
     //Desktop sizes
 #endif
 
+    ProductsScene* scene = new ProductsScene(ui->productsView->rect());
+    m_ProductsView = new ProductsView(scene, ui->productsView);
    // connect(ui->requestThingsButton, &QPushButton::clicked, m_NetworkHandler, &NetworkHandler::sendRequest);
     connect(m_NetworkHandler, &NetworkHandler::readyRead, this, &NVKMainWindow::setReplyLabel);
-    connect(ui->mapButton, &QPushButton::clicked, this, &NVKMainWindow::showMap);
 }
 
 NVKMainWindow::~NVKMainWindow()
@@ -30,7 +31,3 @@ void NVKMainWindow::setReplyLabel(const QString &label)
     ui->replyLabel->adjustSize();
 }
 
-void NVKMainWindow::showMap()
-{
-
-}
