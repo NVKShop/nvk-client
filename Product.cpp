@@ -6,6 +6,10 @@ Product::Product(const int x, const int y, const QPixmap& pixmap):QGraphicsPixma
 
 }
 
+Product::Product(const QPixmap & pixmap) : QGraphicsPixmapItem(pixmap)
+{
+}
+
 Product::~Product()
 {
 

@@ -6,8 +6,8 @@
 class Product : public QGraphicsPixmapItem
 {
 public:
-    explicit Product(const int x,const int y, const QPixmap& pixmap);
-
+    Product(const int x,const int y, const QPixmap& pixmap);
+    Product(const QPixmap&);
     ~Product();
     enum Category {
         // categories

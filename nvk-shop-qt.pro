@@ -53,5 +53,6 @@ MOBILITY =
 DISTFILES +=
 
 RESOURCES += \
-    qml.qrc
+    images.qrc
+
 
