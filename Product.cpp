@@ -14,7 +14,7 @@ Product::Product(const QPixmap & pixmap, const ProductProperty &property) :
 
     setFlag(QGraphicsItem::ItemIsSelectable);
 
-    m_productNameItem = new QGraphicsSimpleTextItem(m_properties.m_name);
+    m_productNameItem = new QGraphicsSimpleTextItem(m_properties.name());
     const qreal moveX = this->boundingRect().width()/2;
 
     m_productNameItem->moveBy(0, 5);

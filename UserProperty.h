@@ -10,6 +10,14 @@ public:
         ROLE_ADMIN,
         ROLE_USER
     };
+
+    UserProperty() = default;
+    void setFirstName(const QString& name);
+    void setLastName(const QString& name);
+    void setAddress(const QString& address);
+    void setBanned(const bool banned);
+    void setRole(const Role& role);
+    void setPhoneNumber(const QString& pnumber);
     UserProperty(const QString& firstName, const QString& lastName,
                  const QString& address,
                  const bool banned, Role role, const QString& phoneNumber);

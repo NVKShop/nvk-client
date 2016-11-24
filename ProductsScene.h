@@ -9,7 +9,6 @@ class ProductsScene : public QGraphicsScene
     Q_OBJECT
 public:
     ProductsScene(const QRectF& sceneRect);
-    ProductsScene(QWidget* parent);
     void setItems(const QVector<Product*>& products);
 };
 

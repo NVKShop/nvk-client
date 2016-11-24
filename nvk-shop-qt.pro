@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core quick qml widgets network
+QT       += core widgets network
 
 TARGET = nvk-shop-qt
 TEMPLATE = app
@@ -30,7 +30,9 @@ SOURCES += main.cpp\
     CategoriesView.cpp \
     UserPanelView.cpp \
     UserPanelScene.cpp \
-    CategoriesScene.cpp
+    CategoriesScene.cpp \
+    Category.cpp \
+    UserPanelItem.cpp
 
 HEADERS  += NVKMainWindow.h \
     NetworkHandler.h \
@@ -52,7 +54,9 @@ HEADERS  += NVKMainWindow.h \
     CategoriesView.h \
     UserPanelView.h \
     UserPanelScene.h \
-    CategoriesScene.h
+    CategoriesScene.h \
+    Category.h \
+    UserPanelItem.h
 
 FORMS    += nvkmainwindow.ui \
     loginwindow.ui

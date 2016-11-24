@@ -6,7 +6,8 @@
 class UserPanelScene : public QGraphicsScene
 {
 public:
-    UserPanelScene();
+    UserPanelScene(const QRectF& parent);
+
 };
 
 #endif // USERPANELSCENE_H

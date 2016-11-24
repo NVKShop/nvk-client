@@ -8,6 +8,7 @@ JsonReply::JsonReply(const QJsonDocument &doc)
 QVector<Product*> JsonReply::getProducts() const
 {
     // products from m_document
+
     return QVector<Product*>();
 }
 
@@ -18,6 +19,10 @@ User* JsonReply::getUser() const
         return nullptr;
     }
 
+    User* user = new User();
 
-    return nullptr;
+    UserProperty properties;
+
+    user->setProperties(properties);
+    return user;
 }

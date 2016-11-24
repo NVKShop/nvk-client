@@ -7,6 +7,8 @@ class Property
 public:
     Property(const QString& name);
     Property() = default;
+    QString name() const;
+private:
     QString m_name;
 };
 
