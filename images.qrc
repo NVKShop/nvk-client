@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>noImage.png</file>
+        <file>catBg.png</file>
     </qresource>
 </RCC>

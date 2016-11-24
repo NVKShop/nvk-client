@@ -31,8 +31,8 @@ QRectF UserPanelItem::boundingRect() const
 {
     QRectF rect = pixmap().rect();
 
-    rect.setWidth(rect.width() + 45);
-    rect.setHeight(rect.height() + 45);
+    rect.setWidth(rect.width());
+    rect.setHeight(rect.height() + 10);
     return rect;
 }
 

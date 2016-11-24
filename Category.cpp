@@ -2,19 +2,22 @@
 
 #include <QDebug>
 #include <QPainter>
-
-Category::Category(const QPixmap & pixmap, const Property &property) :
+#include <QGraphicsScene>
+Category::Category(const QPixmap & pixmap, const Property &property, const int width) :
     QGraphicsPixmapItem(pixmap), m_name(property)
 {
 #ifdef Q_OS_ANDROID
 
 #else
-    setPixmap(pixmap.scaled(80, 80, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    setPixmap(pixmap.scaled(width, 80, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     setOffset(0, 25);
 #endif
 
     setFlag(QGraphicsItem::ItemIsSelectable);
 
+    m_NameItem = new QGraphicsSimpleTextItem(m_name.name());
+    m_NameItem->moveBy(this->boundingRect().width()/2 - m_name.name().length(), this->boundingRect().height()/2);
+    m_NameItem->setParentItem(this);
 }
 
 Category::~Category()
@@ -35,8 +38,8 @@ QRectF Category::boundingRect() const
 {
     QRectF rect = pixmap().rect();
 
-    rect.setWidth(rect.width() + 45);
-    rect.setHeight(rect.height() + 45);
+    rect.setWidth(rect.width() );
+    rect.setHeight(rect.height() + 15);
     return rect;
 }
 

@@ -32,7 +32,8 @@ SOURCES += main.cpp\
     UserPanelScene.cpp \
     CategoriesScene.cpp \
     Category.cpp \
-    UserPanelItem.cpp
+    UserPanelItem.cpp \
+    Address.cpp
 
 HEADERS  += NVKMainWindow.h \
     NetworkHandler.h \
@@ -56,7 +57,8 @@ HEADERS  += NVKMainWindow.h \
     UserPanelScene.h \
     CategoriesScene.h \
     Category.h \
-    UserPanelItem.h
+    UserPanelItem.h \
+    Address.h
 
 FORMS    += nvkmainwindow.ui \
     loginwindow.ui

@@ -5,7 +5,7 @@
 class Category : public QGraphicsPixmapItem
 {
 public:
-    Category(const QPixmap&, const Property& property);
+    Category(const QPixmap&, const Property& property, const int width);
     ~Category();
 
     QRectF boundingRect() const Q_DECL_OVERRIDE;
@@ -19,6 +19,8 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
 
     Property m_name;
+private:
+    QGraphicsSimpleTextItem* m_NameItem;
 };
 
 #endif // CATEGORY_H

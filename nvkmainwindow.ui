@@ -36,10 +36,10 @@
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QGraphicsView" name="categoriesView"/>
+       <widget class="CategoriesView" name="categoriesView"/>
       </item>
       <item row="0" column="0" colspan="3">
-       <widget class="QGraphicsView" name="userPanelView"/>
+       <widget class="UserPanelView" name="userPanelView"/>
       </item>
      </layout>
     </item>
@@ -52,6 +52,16 @@
    <class>ProductsView</class>
    <extends>QGraphicsView</extends>
    <header>ProductsView.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CategoriesView</class>
+   <extends>QGraphicsView</extends>
+   <header>CategoriesView.h</header>
+  </customwidget>
+  <customwidget>
+   <class>UserPanelView</class>
+   <extends>QGraphicsView</extends>
+   <header>UserPanelView.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

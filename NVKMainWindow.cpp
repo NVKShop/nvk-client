@@ -4,7 +4,7 @@
 NVKMainWindow::NVKMainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::NVKMainWindow),
-    m_NetworkHandler(new NetworkHandler)
+    m_networkHandler(new NetworkHandler)
 {
     setWindowTitle("NVK Shop");
     ui->setupUi(this);
@@ -19,9 +19,16 @@ NVKMainWindow::NVKMainWindow(QWidget *parent) :
     //Desktop sizes
 #endif
 
-    //ui->productsView->resize(423, 801);
     qDebug() << ui->productsView->width();
 
+    setupViews();
+
+    qDebug() << "productsViewRect " << m_productsView->rect();
+    connect(m_networkHandler, &NetworkHandler::readyRead, this, &NVKMainWindow::setReplyLabel);
+}
+
+void NVKMainWindow::setupViews()
+{
     // test items
 
     auto p = [](int count) -> QVector<Product*>
@@ -40,16 +47,38 @@ NVKMainWindow::NVKMainWindow(QWidget *parent) :
         return  products;
     };
 
+    auto c = [](int count,const int w) ->QVector<Category*>
+    {
+        QVector<Category*> categories;
+        categories.reserve(count);
+        categories.resize(count);
+
+        for (int i = 0; i < count; ++i)
+        {
+            Property prop("Category " + QString::number(i));
+            Category* cat = new Category(QPixmap(":/catBg.png"), prop, w);
+
+            categories[i] = cat;
+        }
+        return categories;
+    };
+
 
     //
-    m_ProductsView = ui->productsView;
-    ProductsScene* scene = new ProductsScene(m_ProductsView->rect());
-    scene->setItems(p(55));
 
-    m_ProductsView->setScene(scene);
+    m_productsView = ui->productsView;
+    ProductsScene* pScene = new ProductsScene(m_productsView->rect());
+    pScene->setItems(p(55));
+    m_productsView->setScene(pScene);
 
-    qDebug() << "productsViewRect " << m_ProductsView->rect();
-    connect(m_NetworkHandler, &NetworkHandler::readyRead, this, &NVKMainWindow::setReplyLabel);
+    m_categoriesView = ui->categoriesView;
+    CategoriesScene* cScene = new CategoriesScene(m_categoriesView->rect());
+    cScene->setItems(c(10, cScene->width()));
+    m_categoriesView->setScene(cScene);
+
+    m_userPanelView = ui->userPanelView;
+    UserPanelScene* uScene = new UserPanelScene(m_userPanelView->rect());
+    m_userPanelView->setScene(uScene);
 }
 
 NVKMainWindow::~NVKMainWindow()

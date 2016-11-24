@@ -19,6 +19,8 @@ private:
     Ui::LoginWindow *ui;
 public Q_SLOTS:
 
+Q_SIGNALS:
+    void loginClicked();
 
 };
 

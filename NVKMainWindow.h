@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include "NVKController.h"
 #include "ProductsView.h"
+#include "CategoriesView.h"
+#include "UserPanelView.h"
+
 namespace Ui {
 class NVKMainWindow;
 }
@@ -19,10 +22,13 @@ public:
 private Q_SLOTS:
     void setReplyLabel(const QString& label);
 private:
+    void setupViews();
     Ui::NVKMainWindow *ui;
-    NetworkHandler* m_NetworkHandler;
-    NVKController* m_Controller;
-    ProductsView* m_ProductsView;
+    NetworkHandler* m_networkHandler;
+    NVKController* m_controller;
+    ProductsView* m_productsView;
+    CategoriesView* m_categoriesView;
+    UserPanelView* m_userPanelView;
 
 };
 

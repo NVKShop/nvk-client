@@ -2,7 +2,7 @@
 
 UserProperty::UserProperty(const QString &firstName,
                            const QString &lastName,
-                           const QString &address,
+                           const Address &address,
                            const bool banned,
                            UserProperty::Role role,
                            const QString &phoneNumber): Property(firstName),
@@ -16,7 +16,7 @@ UserProperty::UserProperty(const UserProperty &other)
     UserProperty(other.m_firstName, other.m_lastName, other.m_address, other.m_banned, other.m_role, other.m_phoneNumber);
 }
 
-void UserProperty::setAddress(const QString &address)
+void UserProperty::setAddress(const Address &address)
 {
     m_address = address;
 }
