@@ -9,7 +9,7 @@ Product::Product(const QPixmap & pixmap, const ProductProperty &property) :
 
 #else
     setPixmap(pixmap.scaled(80, 80, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    setOffset(0, 25);
+    setOffset(15, 25);
 #endif
 
     setFlag(QGraphicsItem::ItemIsSelectable);

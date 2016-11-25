@@ -6,8 +6,9 @@
 class CategoriesScene : public QGraphicsScene
 {
 public:
-    CategoriesScene(const QRectF& parent);
+    CategoriesScene();
     void setItems(const QVector<Category*>& categories);
+private:
 };
 
 #endif // CATEGORIESSCENE_H

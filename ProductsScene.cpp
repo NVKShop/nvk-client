@@ -1,18 +1,17 @@
 #include "ProductsScene.h"
 #include <QDebug>
-ProductsScene::ProductsScene(const QRectF &sceneRect): QGraphicsScene(sceneRect)
+ProductsScene::ProductsScene(const int viewWidth): QGraphicsScene(), m_viewWidth(viewWidth)
 {
 }
 
 void ProductsScene::setItems(const QVector<Product *> &products)
 {
-    QRectF sceneRect = this->sceneRect();
-    QRectF productRect = products.at(0)->boundingRect();
-    const int productsPerRow = sceneRect.width() / productRect.width();
-
-    qDebug() << "sceneRect: " << sceneRect;
-
-    qDebug() << "productRect: " << productRect;
+    QRectF productRect;
+    if (products.size())
+    {
+        productRect = products.at(0)->boundingRect();
+    }
+    const int productsPerRow = m_viewWidth / productRect.width();
 
     int row = 0;
     int col = 0;
@@ -28,7 +27,6 @@ void ProductsScene::setItems(const QVector<Product *> &products)
         }
         addItem(prod);
         col++;
-
         if (col == productsPerRow)
         {
             row++;

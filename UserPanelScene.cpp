@@ -1,6 +1,6 @@
 #include "UserPanelScene.h"
 
-UserPanelScene::UserPanelScene(const QRectF& rect) : QGraphicsScene(rect)
+UserPanelScene::UserPanelScene() : QGraphicsScene()
 {
     setupScene();
 }

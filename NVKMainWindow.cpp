@@ -1,6 +1,8 @@
 #include "NVKMainWindow.h"
 #include "ui_nvkmainwindow.h"
 #include <QDesktopWidget>
+#include <QKeyEvent>
+
 NVKMainWindow::NVKMainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::NVKMainWindow),
@@ -23,7 +25,8 @@ NVKMainWindow::NVKMainWindow(QWidget *parent) :
 
     setupViews();
 
-    qDebug() << "productsViewRect " << m_productsView->rect();
+    this->hide();
+
     connect(m_networkHandler, &NetworkHandler::readyRead, this, &NVKMainWindow::setReplyLabel);
 }
 
@@ -65,19 +68,21 @@ void NVKMainWindow::setupViews()
 
 
     //
-
     m_productsView = ui->productsView;
-    ProductsScene* pScene = new ProductsScene(m_productsView->rect());
+    m_productsView->resize(800, 600);
+    ProductsScene* pScene = new ProductsScene(m_productsView->width());
     pScene->setItems(p(55));
     m_productsView->setScene(pScene);
 
+    qDebug() << "productsViewRect " << m_productsView->rect();
+
     m_categoriesView = ui->categoriesView;
-    CategoriesScene* cScene = new CategoriesScene(m_categoriesView->rect());
-    cScene->setItems(c(10, cScene->width()));
+    CategoriesScene* cScene = new CategoriesScene();
+    cScene->setItems(c(10, m_categoriesView->width()));
     m_categoriesView->setScene(cScene);
 
     m_userPanelView = ui->userPanelView;
-    UserPanelScene* uScene = new UserPanelScene(m_userPanelView->rect());
+    UserPanelScene* uScene = new UserPanelScene();
     m_userPanelView->setScene(uScene);
 }
 
@@ -91,3 +96,10 @@ void NVKMainWindow::setReplyLabel(const QString &label)
 
 }
 
+void NVKMainWindow::keyPressEvent(QKeyEvent *e)
+{
+    if (e->key() & Qt::Key_Escape)
+    {
+        close();
+    }
+}

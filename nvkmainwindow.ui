@@ -6,13 +6,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>584</width>
-    <height>585</height>
+    <width>610</width>
+    <height>713</height>
    </rect>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QGridLayout" name="gridLayout_2">
-    <item row="0" column="0">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
      <layout class="QGridLayout" name="gridLayout" rowstretch="1,10" columnstretch="1,0,10">
       <property name="horizontalSpacing">
        <number>6</number>

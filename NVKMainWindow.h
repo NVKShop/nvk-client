@@ -29,6 +29,7 @@ private:
     ProductsView* m_productsView;
     CategoriesView* m_categoriesView;
     UserPanelView* m_userPanelView;
+    void keyPressEvent(QKeyEvent* e);
 
 };
 

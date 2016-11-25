@@ -1,18 +1,13 @@
 #include "CategoriesScene.h"
 #include <QDebug>
 
-CategoriesScene::CategoriesScene(const QRectF &sceneRect): QGraphicsScene(sceneRect)
+CategoriesScene::CategoriesScene(): QGraphicsScene()
 {
 }
 
-
 void CategoriesScene::setItems(const QVector<Category *> &categories)
 {
-    QRectF sceneRect = this->sceneRect();
     QRectF catRect = categories.at(0)->boundingRect();
-
-    qDebug() << "cat sceneRect: " << sceneRect;
-    qDebug() << "catrect: " << catRect;
 
     int row = 0;
     foreach (Category* cat, categories)
