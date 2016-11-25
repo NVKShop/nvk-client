@@ -19,8 +19,8 @@ private:
     Ui::LoginWindow *ui;
 public Q_SLOTS:
 
-Q_SIGNALS:
-    void loginClicked();
+private Q_SLOTS:
+    void forgotUserNameClicked(const QString&);
 
 };
 

@@ -4,6 +4,7 @@
 #include "Property.h"
 class Category : public QGraphicsPixmapItem
 {
+
 public:
     Category(const QPixmap&, const Property& property, const int width);
     ~Category();
@@ -20,7 +21,7 @@ protected:
 
     Property m_name;
 private:
-    QGraphicsSimpleTextItem* m_NameItem;
+    QGraphicsSimpleTextItem* m_nameItem;
 };
 
 #endif // CATEGORY_H

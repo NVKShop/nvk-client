@@ -2,6 +2,7 @@
 #include "ui_nvkmainwindow.h"
 #include <QDesktopWidget>
 #include <QKeyEvent>
+#include <QScrollBar>
 
 NVKMainWindow::NVKMainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -10,17 +11,26 @@ NVKMainWindow::NVKMainWindow(QWidget *parent) :
 {
     setWindowTitle("NVK Shop");
     ui->setupUi(this);
+
+    //QString barstyle =  "QScrollBar:horizontal {height: 10px;}" "QScrollBar:vertical {width: 10px;}";
+    //ui->productsView->verticalScrollBar()->setStyleSheet(barstyle);
+
 #ifdef Q_OS_ANDROID
     //Set sizes for Android
+    showFullScreen();
+
+    QString barstyle =  "QScrollBar:horizontal {height: 5px;}" "QScrollBar:vertical {width: 5px;}";
+    ui->productsView->verticalScrollBar()->setStyleSheet(barstyle);
+    ui->categoriesView->verticalScrollBar()->setStyleSheet(barstyle);
 
 #else
+
     QDesktopWidget* dw = QApplication::desktop();
     dw->availableGeometry(dw->primaryScreen());
 
     resize( dw->availableGeometry(dw->primaryScreen()).size());
     //Desktop sizes
 #endif
-
     qDebug() << ui->productsView->width();
 
     setupViews();

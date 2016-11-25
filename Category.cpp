@@ -10,14 +10,28 @@ Category::Category(const QPixmap & pixmap, const Property &property, const int w
 
 #else
     setPixmap(pixmap.scaled(width, 80, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    setOffset(0, 25);
+    setOffset(0, 10);
 #endif
 
     setFlag(QGraphicsItem::ItemIsSelectable);
 
-    m_NameItem = new QGraphicsSimpleTextItem(m_name.name());
-    m_NameItem->moveBy(this->boundingRect().width()/2 - m_name.name().length(), this->boundingRect().height()/2);
-    m_NameItem->setParentItem(this);
+    m_nameItem = new QGraphicsSimpleTextItem(m_name.name());
+    QFont nameItemFont;
+    nameItemFont.setBold(true);
+    nameItemFont.setPointSize(10);
+    nameItemFont.setCapitalization(QFont::Capitalize);
+
+    setAcceptHoverEvents(true);
+    setAcceptedMouseButtons(Qt::AllButtons);
+    m_nameItem->setFont(nameItemFont);
+
+    m_nameItem->setBrush(Qt::green);
+
+    const int moveX = this->boundingRect().width()/ 2 - this->boundingRect().width() / 3;
+    const int moveY = 15 + this->boundingRect().height() / 2;
+    m_nameItem->moveBy(moveX, moveY);
+    m_nameItem->setParentItem(this);
+
 }
 
 Category::~Category()
@@ -29,7 +43,18 @@ QVariant Category::itemChange(GraphicsItemChange change,
 {
     if (change == QGraphicsItem::ItemSelectedHasChanged)
     {
-        //
+        if (isSelected())
+        {
+            QBrush brush = m_nameItem->brush();
+            brush.setColor(Qt::white);
+            m_nameItem->setBrush(brush);
+        }
+        else
+        {
+            QBrush brush = m_nameItem->brush();
+            brush.setColor(Qt::green);
+            m_nameItem->setBrush(brush);
+        }
     }
     return value;
 }
@@ -45,7 +70,14 @@ QRectF Category::boundingRect() const
 
 void Category::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    Q_UNUSED(event)
+    if (!isSelected())
+    {
+        setSelected(true);
+    }
+    else
+    {
+        setSelected(false);
+    }
 }
 
 void Category::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
