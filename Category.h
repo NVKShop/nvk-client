@@ -14,10 +14,13 @@ public:
 
 protected:
     QVariant itemChange(GraphicsItemChange change,
-                         const QVariant &value);
+                         const QVariant &value) Q_DECL_OVERRIDE;
     void mousePressEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
+
+    void hoverEnterEvent(QGraphicsSceneHoverEvent* e) Q_DECL_OVERRIDE;
+    void hoverLeaveEvent(QGraphicsSceneHoverEvent* e) Q_DECL_OVERRIDE;
 
     Property m_name;
 private:

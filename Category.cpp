@@ -3,6 +3,8 @@
 #include <QDebug>
 #include <QPainter>
 #include <QGraphicsScene>
+#include <QGraphicsSceneHoverEvent>
+
 Category::Category(const QPixmap & pixmap, const Property &property, const int width) :
     QGraphicsPixmapItem(pixmap), m_name(property)
 {
@@ -82,15 +84,26 @@ void Category::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void Category::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    Q_UNUSED(event)
+    QGraphicsPixmapItem::mouseReleaseEvent(event);
 }
 
 void Category::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-    Q_UNUSED(event)
+    QGraphicsPixmapItem::mouseMoveEvent(event);
 }
 
 void Category::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     QGraphicsPixmapItem::paint(painter, option, widget);
+}
+
+void Category::hoverEnterEvent(QGraphicsSceneHoverEvent* e)
+{
+
+    QGraphicsPixmapItem::hoverEnterEvent(e);
+}
+
+void Category::hoverLeaveEvent(QGraphicsSceneHoverEvent *e)
+{
+    QGraphicsPixmapItem::hoverLeaveEvent(e);
 }

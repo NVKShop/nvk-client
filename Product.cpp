@@ -13,6 +13,7 @@ Product::Product(const QPixmap & pixmap, const ProductProperty &property) :
 #endif
 
     setFlag(QGraphicsItem::ItemIsSelectable);
+    setAcceptTouchEvents(true);
 
     m_productNameItem = new QGraphicsSimpleTextItem(m_properties.name());
     const qreal moveX = this->boundingRect().width()/2;
@@ -52,17 +53,17 @@ QRectF Product::boundingRect() const
 
 void Product::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    Q_UNUSED(event)
+    QGraphicsPixmapItem::mousePressEvent(event);
 }
 
 void Product::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    Q_UNUSED(event)
+    QGraphicsPixmapItem::mouseReleaseEvent(event);
 }
 
 void Product::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-    Q_UNUSED(event)
+    QGraphicsPixmapItem::mouseMoveEvent(event);
 }
 
 void Product::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)

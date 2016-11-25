@@ -6,4 +6,5 @@ CategoriesView::CategoriesView(CategoriesScene* scene, QWidget *parent) : QGraph
 
 CategoriesView::CategoriesView(QWidget *parent) : QGraphicsView(parent)
 {
+    setInteractive(true);
 }
