@@ -30,7 +30,7 @@ Category::Category(const QPixmap & pixmap, const Property &property, const int w
     m_nameItem->setBrush(Qt::green);
 
     const int moveX = this->boundingRect().width()/ 2 - this->boundingRect().width() / 3;
-    const int moveY = 15 + this->boundingRect().height() / 2;
+    const int moveY = this->boundingRect().height() / 2;
     m_nameItem->moveBy(moveX, moveY);
     m_nameItem->setParentItem(this);
 
@@ -66,7 +66,7 @@ QRectF Category::boundingRect() const
     QRectF rect = pixmap().rect();
 
     rect.setWidth(rect.width() );
-    rect.setHeight(rect.height() + 15);
+    rect.setHeight(rect.height() + 35);
     return rect;
 }
 

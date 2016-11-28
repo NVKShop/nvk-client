@@ -34,7 +34,8 @@ SOURCES += main.cpp\
     Category.cpp \
     UserPanelItem.cpp \
     Address.cpp \
-    ForgotUserDataWindow.cpp
+    ForgotUserDataWindow.cpp \
+    PlaceOrderWindow.cpp
 
 HEADERS  += NVKMainWindow.h \
     NetworkHandler.h \
@@ -60,11 +61,13 @@ HEADERS  += NVKMainWindow.h \
     Category.h \
     UserPanelItem.h \
     Address.h \
-    ForgotUserDataWindow.h
+    ForgotUserDataWindow.h \
+    PlaceOrderWindow.h
 
 FORMS    += nvkmainwindow.ui \
     loginwindow.ui \
-    forgotuserdatawindow.ui
+    forgotuserdatawindow.ui \
+    placeorderwindow.ui
 
 CONFIG += mobility qt
 CONFIG += C++11

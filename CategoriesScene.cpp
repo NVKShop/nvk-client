@@ -12,7 +12,7 @@ void CategoriesScene::setItems(const QVector<Category *> &categories)
     int row = 0;
     foreach (Category* cat, categories)
     {
-        cat->setPos(0, row * catRect.height()+ 15);
+        cat->setPos(0, row * catRect.height()- 15);
 
         addItem(cat);
         row++;

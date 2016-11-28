@@ -3,6 +3,10 @@
 
 #include <QObject>
 #include "HttpHandler.h"
+#include "ForgotUserDataWindow.h"
+#include "LoginWindow.h"
+#include "NVKMainWindow.h"
+#include "PlaceOrderWindow.h"
 
 class NVKController : public QObject
 {
@@ -12,12 +16,22 @@ public:
 
 signals:
 
-public slots:
+public Q_SLOTS:
+
+private Q_SLOTS:
+    void setActiveWindow(QWidget* window);
 
 private:
-    HttpHandler m_HttpHandler;
 
+    HttpHandler m_HttpHandler;
     User* m_user;
+
+    LoginWindow* m_loginWindow;
+    ForgotUserDataWindow* m_forgotUserDataWindow;
+    NVKMainWindow* m_mainWindow;
+    PlaceOrderWindow* m_placeOrderWindow;
+
+    QWidget* m_activeWindow;
 };
 
 #endif // NVKCONTROLLER_H

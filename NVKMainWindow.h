@@ -2,7 +2,6 @@
 #define NVKMAINWINDOW_H
 
 #include <QMainWindow>
-#include "NVKController.h"
 #include "ProductsView.h"
 #include "CategoriesView.h"
 #include "UserPanelView.h"
@@ -20,12 +19,9 @@ public:
     ~NVKMainWindow();
 
 private Q_SLOTS:
-    void setReplyLabel(const QString& label);
 private:
     void setupViews();
     Ui::NVKMainWindow *ui;
-    NetworkHandler* m_networkHandler;
-    NVKController* m_controller;
     ProductsView* m_productsView;
     CategoriesView* m_categoriesView;
     UserPanelView* m_userPanelView;

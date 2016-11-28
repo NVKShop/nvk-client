@@ -3,11 +3,11 @@
 #include <QDesktopWidget>
 #include <QKeyEvent>
 #include <QScrollBar>
+#include <QDebug>
 
 NVKMainWindow::NVKMainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::NVKMainWindow),
-    m_networkHandler(new NetworkHandler)
+    ui(new Ui::NVKMainWindow)
 {
     setWindowTitle("NVK Shop");
     ui->setupUi(this);
@@ -17,11 +17,11 @@ NVKMainWindow::NVKMainWindow(QWidget *parent) :
 
 #ifdef Q_OS_ANDROID
     //Set sizes for Android
-    showFullScreen();
 
     QString barstyle =  "QScrollBar:horizontal {height: 5px;}" "QScrollBar:vertical {width: 5px;}";
     ui->productsView->verticalScrollBar()->setStyleSheet(barstyle);
     ui->categoriesView->verticalScrollBar()->setStyleSheet(barstyle);
+    showFullScreen();
 
 #else
 
@@ -34,10 +34,6 @@ NVKMainWindow::NVKMainWindow(QWidget *parent) :
     qDebug() << ui->productsView->width();
 
     setupViews();
-
-    this->hide();
-
-    connect(m_networkHandler, &NetworkHandler::readyRead, this, &NVKMainWindow::setReplyLabel);
 }
 
 void NVKMainWindow::setupViews()
@@ -52,7 +48,7 @@ void NVKMainWindow::setupViews()
 
         for(int i = 0; i < count; ++i)
         {
-            ProductProperty prop("Product " + QString::number(i), "Description", ProductProperty::IDK);
+            ProductProperty prop("Product " + QString::number(i), "This is a fckin product you dumbass", ProductProperty::IDK);
             Product* prod = new Product(QPixmap(":/noImage.png"), prop);
             products[i] = prod;
         }
@@ -99,11 +95,6 @@ void NVKMainWindow::setupViews()
 NVKMainWindow::~NVKMainWindow()
 {
     delete ui;
-}
-
-void NVKMainWindow::setReplyLabel(const QString &label)
-{
-
 }
 
 void NVKMainWindow::keyPressEvent(QKeyEvent *e)

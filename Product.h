@@ -2,7 +2,8 @@
 #define Product_H
 
 #include <QGraphicsPixmapItem>
-#include <QGraphicsSimpleTextItem>
+#include <QGraphicsTextItem>
+#include <QGraphicsDropShadowEffect>
 
 #include "ProductProperty.h"
 class Product : public QGraphicsPixmapItem
@@ -21,13 +22,14 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
-
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) Q_DECL_OVERRIDE;
 private:
     int m_xPos;
     int m_yPos;
 
-    QGraphicsSimpleTextItem* m_productNameItem;
-    QGraphicsSimpleTextItem* m_productDescriptionItem;
+    QGraphicsTextItem* m_productNameItem;
+    QGraphicsTextItem* m_productDescriptionItem;
+    QGraphicsDropShadowEffect* m_dropShadowEffect;
 };
 
 #endif // Product_H
