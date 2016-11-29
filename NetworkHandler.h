@@ -14,6 +14,9 @@ class NetworkHandler : public QObject
 public:
     explicit NetworkHandler(QObject *parent = 0);
     ~NetworkHandler();
+
+    static bool isOnline();
+    static bool isConnectedToTheInternet();
 private:
     QNetworkAccessManager* m_NetworkAccessManager;
     QNetworkReply* m_HttpReply;

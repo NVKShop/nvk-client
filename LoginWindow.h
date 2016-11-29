@@ -20,8 +20,8 @@ private:
 public Q_SLOTS:
 
 private Q_SLOTS:
-    void forgotUserNameClicked(const QString&);
-
+    void forgotUserNameClicked();
+    void login();
 };
 
 #endif // LOGINWINDOW_H

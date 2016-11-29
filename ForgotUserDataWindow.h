@@ -17,6 +17,9 @@ public:
 
 private:
     Ui::ForgotUserDataWindow *ui;
+
+private Q_SLOTS:
+    void forgotUserData();
 };
 
 #endif // FORGOTUSERDATAWINDOW_H

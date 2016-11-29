@@ -1,6 +1,9 @@
 #include "NetworkHandler.h"
 #include <QByteArray>
 #include <QDebug>
+#include <QNetworkInterface>
+#include <QList>
+#include <QEventLoop>
 
 NetworkHandler::NetworkHandler(QObject *parent) : QObject(parent),
     m_HttpReply(Q_NULLPTR)
@@ -12,7 +15,7 @@ void NetworkHandler::sendRequest(const QString& data)
 {
     m_HttpReply = m_NetworkAccessManager->post(*m_HttpRequest,
                                                QByteArray::fromRawData(data.toStdString().c_str(), data.size()));
-            connect(m_HttpReply, &QNetworkReply::finished, this, &NetworkHandler::replyFinished);
+    connect(m_HttpReply, &QNetworkReply::finished, this, &NetworkHandler::replyFinished);
     connect(m_HttpReply,
             static_cast<void(QNetworkReply::*)(QNetworkReply::NetworkError)>(&QNetworkReply::error),
             this, &NetworkHandler::replyError);
@@ -20,6 +23,35 @@ void NetworkHandler::sendRequest(const QString& data)
 #ifndef QT_NO_SSL
     connect(m_HttpReply, &QNetworkReply::sslErrors, this, &NetworkHandler::sslError);
 #endif
+}
+
+bool NetworkHandler::isOnline()
+{
+    QList<QNetworkInterface> networkInterfaces = QNetworkInterface::allInterfaces();
+    foreach (QNetworkInterface interface, networkInterfaces) {
+        if (interface.flags().testFlag(QNetworkInterface::IsUp) &&
+                !interface.flags().testFlag(QNetworkInterface::IsLoopBack)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool NetworkHandler::isConnectedToTheInternet()
+{
+    QNetworkAccessManager nam;
+    QNetworkRequest req(QUrl("http://www.google.com"));
+    QNetworkReply *reply = nam.get(req);
+    QEventLoop loop;
+    connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+    loop.exec();
+    if(reply->bytesAvailable()) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
 QNetworkReply *NetworkHandler::reply() const
