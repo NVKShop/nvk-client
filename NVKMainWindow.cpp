@@ -1,5 +1,6 @@
 #include "NVKMainWindow.h"
 #include "ui_nvkmainwindow.h"
+
 #include <QDesktopWidget>
 #include <QKeyEvent>
 #include <QScrollBar>
@@ -14,18 +15,17 @@ NVKMainWindow::NVKMainWindow(QWidget *parent) :
 
 #ifdef Q_OS_ANDROID
     //Set sizes for Android
-    QString barstyle =  "QScrollBar:horizontal {height: 5px;}" "QScrollBar:vertical {width: 5px;}";
+    QString barstyle =  "QScrollBar:horizontal {height: 7px;}" "QScrollBar:vertical {width: 7px;}";
     ui->productsView->verticalScrollBar()->setStyleSheet(barstyle);
     ui->categoriesView->verticalScrollBar()->setStyleSheet(barstyle);
 
 #else
     QDesktopWidget* dw = QApplication::desktop();
     dw->availableGeometry(dw->primaryScreen());
-
     resize( dw->availableGeometry(dw->primaryScreen()).size());
 #endif
     qDebug() << ui->productsView->width();
-
+    setAttribute(Qt::WA_DeleteOnClose);
     setupViews();
 }
 
@@ -76,12 +76,17 @@ void NVKMainWindow::setupViews()
     qDebug() << "productsViewRect " << m_productsView->rect();
 
     m_categoriesView = ui->categoriesView;
+    qDebug() << "catViewRect " << m_categoriesView->rect();
+
     CategoriesScene* cScene = new CategoriesScene();
     cScene->setItems(c(10, m_categoriesView->width()));
     m_categoriesView->setScene(cScene);
 
     m_userPanelView = ui->userPanelView;
     UserPanelScene* uScene = new UserPanelScene();
+    uScene->setSceneRect(0,0, 800, 100);
+    uScene->setUserName("Retarded Bitch");
+
     m_userPanelView->setScene(uScene);
 }
 
@@ -111,4 +116,10 @@ void NVKMainWindow::showEvent(QShowEvent *event)
     show();
 #endif
     QMainWindow::showEvent(event);
+}
+
+void NVKMainWindow::closeEvent(QCloseEvent *event)
+{
+    emit closing();
+    QMainWindow::closeEvent(event);
 }

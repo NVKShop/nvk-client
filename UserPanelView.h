@@ -6,8 +6,10 @@
 
 class UserPanelView : public QGraphicsView
 {
+
 public:
     explicit UserPanelView(UserPanelScene* scene, QWidget* parent);
-    UserPanelView(QWidget* parent);};
-
+    UserPanelView(QWidget* parent);
+private:
+};
 #endif // USERPANELVIEW_H

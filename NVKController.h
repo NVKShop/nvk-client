@@ -24,6 +24,7 @@ private Q_SLOTS:
     void placeOrder(Order* order);
     void forgotUserData(const QString& email);
     void loginCancelled();
+    void mainClosing();
 private:
 
     HttpHandler m_HttpHandler;

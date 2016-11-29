@@ -2,6 +2,7 @@
 #define NVKMAINWINDOW_H
 
 #include <QMainWindow>
+
 #include "ProductsView.h"
 #include "CategoriesView.h"
 #include "UserPanelView.h"
@@ -19,10 +20,15 @@ public:
     explicit NVKMainWindow(QWidget *parent = 0);
     ~NVKMainWindow();
     Order* order() const;
+Q_SIGNALS:
+    void closing();
 private Q_SLOTS:
 
 protected:
     void showEvent(QShowEvent *event);
+    void closeEvent(QCloseEvent *event);
+    void keyPressEvent(QKeyEvent* e);
+
 private:
     void setupViews();
     Ui::NVKMainWindow *ui;
@@ -32,7 +38,6 @@ private:
 
     Order* m_order;
 
-    void keyPressEvent(QKeyEvent* e);
 
 };
 

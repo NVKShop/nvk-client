@@ -6,7 +6,7 @@
 #include <QEventLoop>
 
 NetworkHandler::NetworkHandler(QObject *parent) : QObject(parent),
-    m_HttpReply(Q_NULLPTR)
+    m_HttpReply(Q_NULLPTR), m_HttpRequest(Q_NULLPTR)
 {
     m_NetworkAccessManager = new QNetworkAccessManager(this);
 }

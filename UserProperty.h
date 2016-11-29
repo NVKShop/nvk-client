@@ -23,6 +23,14 @@ public:
                  const Address &address,
                  const bool banned, Role role, const QString& phoneNumber);
     UserProperty(const UserProperty& other);
+
+    QString firstName() const;
+    QString lastName() const;
+    Address address() const;
+    bool isBanned() const;
+    Role role() const;
+    QString phoneNumber() const;
+private:
     QString m_firstName;
     QString m_lastName;
     Address m_address;

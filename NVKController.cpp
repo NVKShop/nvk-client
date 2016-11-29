@@ -13,6 +13,7 @@ NVKController::NVKController(QObject *parent) : QObject(parent), m_loginWindow(n
     connect(m_forgotUserDataWindow, &ForgotUserDataWindow::forgotUserDataSent, this, &NVKController::forgotUserData);
 
     connect(m_loginWindow, &LoginWindow::rejected, this, &NVKController::loginCancelled);
+    connect(m_mainWindow, &NVKMainWindow::closing, this, &NVKController::mainClosing);
     m_loginWindow->show();
     m_activeWindow = m_loginWindow;
 }
@@ -81,4 +82,11 @@ void NVKController::forgotUserData(const QString &email)
     {
         QMessageBox::warning(0, "Enter an email address", "Error, email address is empty!");
     }
+}
+
+void NVKController::mainClosing()
+{
+    delete m_forgotUserDataWindow;
+    delete m_loginWindow;
+    delete m_placeOrderWindow;
 }
