@@ -16,12 +16,17 @@ public:
     explicit LoginWindow(QWidget *parent = 0);
     ~LoginWindow();
 
+    QString userName() const;
+    QString userPassword() const;
 private:
     Ui::LoginWindow *ui;
 
+protected:
+    void showEvent(QShowEvent *e);
 Q_SIGNALS:
     void showForgotUserWindow();
-    void loginUser(User* user);
+    void loginUser();
+    void cancelLogin();
 public Q_SLOTS:
 
 private Q_SLOTS:

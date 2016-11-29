@@ -14,12 +14,16 @@ class ForgotUserDataWindow : public QDialog
 public:
     explicit ForgotUserDataWindow(QWidget *parent = 0);
     ~ForgotUserDataWindow();
-
+Q_SIGNALS:
+    void forgotUserDataSent(const QString& email);
 private:
     Ui::ForgotUserDataWindow *ui;
 
 private Q_SLOTS:
-    void forgotUserData();
+    void forgotUserDataClicked();
+
+protected:
+    void showEvent(QShowEvent* e);
 };
 
 #endif // FORGOTUSERDATAWINDOW_H

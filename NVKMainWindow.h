@@ -20,6 +20,9 @@ public:
     ~NVKMainWindow();
     Order* order() const;
 private Q_SLOTS:
+
+protected:
+    void showEvent(QShowEvent *event);
 private:
     void setupViews();
     Ui::NVKMainWindow *ui;

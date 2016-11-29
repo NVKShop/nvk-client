@@ -20,7 +20,10 @@ public Q_SLOTS:
 
 private Q_SLOTS:
     void changeActiveWindow(QWidget* window);
-    void loginUser(User* user);
+    void loginUser();
+    void placeOrder(Order* order);
+    void forgotUserData(const QString& email);
+    void loginCancelled();
 private:
 
     HttpHandler m_HttpHandler;

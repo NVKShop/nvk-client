@@ -14,19 +14,15 @@ NVKMainWindow::NVKMainWindow(QWidget *parent) :
 
 #ifdef Q_OS_ANDROID
     //Set sizes for Android
-
     QString barstyle =  "QScrollBar:horizontal {height: 5px;}" "QScrollBar:vertical {width: 5px;}";
     ui->productsView->verticalScrollBar()->setStyleSheet(barstyle);
     ui->categoriesView->verticalScrollBar()->setStyleSheet(barstyle);
-    showFullScreen();
 
 #else
-
     QDesktopWidget* dw = QApplication::desktop();
     dw->availableGeometry(dw->primaryScreen());
 
     resize( dw->availableGeometry(dw->primaryScreen()).size());
-    //Desktop sizes
 #endif
     qDebug() << ui->productsView->width();
 
@@ -105,4 +101,14 @@ void NVKMainWindow::keyPressEvent(QKeyEvent *e)
 Order* NVKMainWindow::order() const
 {
     return m_order;
+}
+
+void NVKMainWindow::showEvent(QShowEvent *event)
+{
+#ifdef Q_OS_ANDROID
+    showFullScreen();
+#else
+    show();
+#endif
+    QMainWindow::showEvent(event);
 }
