@@ -7,13 +7,10 @@
 
 NVKMainWindow::NVKMainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::NVKMainWindow)
+    ui(new Ui::NVKMainWindow), m_order(new Order())
 {
     setWindowTitle("NVK Shop");
     ui->setupUi(this);
-
-    //QString barstyle =  "QScrollBar:horizontal {height: 10px;}" "QScrollBar:vertical {width: 10px;}";
-    //ui->productsView->verticalScrollBar()->setStyleSheet(barstyle);
 
 #ifdef Q_OS_ANDROID
     //Set sizes for Android
@@ -103,4 +100,9 @@ void NVKMainWindow::keyPressEvent(QKeyEvent *e)
     {
         close();
     }
+}
+
+Order* NVKMainWindow::order() const
+{
+    return m_order;
 }

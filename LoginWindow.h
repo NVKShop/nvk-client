@@ -2,6 +2,7 @@
 #define LOGINWINDOW_H
 
 #include <QDialog>
+#include "User.h"
 
 namespace Ui {
 class LoginWindow;
@@ -17,6 +18,10 @@ public:
 
 private:
     Ui::LoginWindow *ui;
+
+Q_SIGNALS:
+    void showForgotUserWindow();
+    void loginUser(User* user);
 public Q_SLOTS:
 
 private Q_SLOTS:

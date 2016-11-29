@@ -8,6 +8,8 @@ public:
     Property(const QString& name);
     Property() = default;
     QString name() const;
+    void setName(const QString& name);
+
 private:
     QString m_name;
 };

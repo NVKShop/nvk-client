@@ -8,3 +8,8 @@ QString Property::name() const
 {
     return m_name;
 }
+
+void Property::setName(const QString &name)
+{
+    m_name = name;
+}

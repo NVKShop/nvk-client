@@ -22,7 +22,7 @@ LoginWindow::~LoginWindow()
 
 void LoginWindow::forgotUserNameClicked()
 {
-    //show forgot username dialog
+    emit forgotUserNameClicked();
 }
 
 void LoginWindow::login()
@@ -30,6 +30,11 @@ void LoginWindow::login()
     if (NetworkHandler::isConnectedToTheInternet())
     {
         // check user.., controller -> showmain
+        User* user = new User();
+        UserProperty uprop;
+        uprop.setName(ui->userNameEdit->text());
+
+        emit loginUser(user);
     }
     else
     {

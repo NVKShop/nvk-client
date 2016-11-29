@@ -9,7 +9,8 @@ class Order : public QObject
     Q_OBJECT
 public:
     explicit Order(User *user, QObject *parent = 0);
-
+    Order() = default;
+    void setUser(User* user);
 signals:
 
 public slots:

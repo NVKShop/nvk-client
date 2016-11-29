@@ -19,8 +19,8 @@ signals:
 public Q_SLOTS:
 
 private Q_SLOTS:
-    void setActiveWindow(QWidget* window);
-
+    void changeActiveWindow(QWidget* window);
+    void loginUser(User* user);
 private:
 
     HttpHandler m_HttpHandler;

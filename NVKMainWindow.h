@@ -5,6 +5,7 @@
 #include "ProductsView.h"
 #include "CategoriesView.h"
 #include "UserPanelView.h"
+#include "Order.h"
 
 namespace Ui {
 class NVKMainWindow;
@@ -17,7 +18,7 @@ class NVKMainWindow : public QMainWindow
 public:
     explicit NVKMainWindow(QWidget *parent = 0);
     ~NVKMainWindow();
-
+    Order* order() const;
 private Q_SLOTS:
 private:
     void setupViews();
@@ -25,6 +26,9 @@ private:
     ProductsView* m_productsView;
     CategoriesView* m_categoriesView;
     UserPanelView* m_userPanelView;
+
+    Order* m_order;
+
     void keyPressEvent(QKeyEvent* e);
 
 };
