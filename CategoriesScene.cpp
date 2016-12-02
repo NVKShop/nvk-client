@@ -3,7 +3,10 @@
 
 CategoriesScene::CategoriesScene(): QGraphicsScene()
 {
+    connect(this, &CategoriesScene::selectionChanged, this, &CategoriesScene::newCategory);
 }
+
+
 
 void CategoriesScene::setItems(const QVector<Category *> &categories)
 {
@@ -17,4 +20,16 @@ void CategoriesScene::setItems(const QVector<Category *> &categories)
         addItem(cat);
         row++;
     }
+}
+
+void CategoriesScene::newCategory()
+{
+    if (!selectedItems().isEmpty()) {
+        emit selectionChangedNew(qgraphicsitem_cast<Category*>(selectedItems().at(0)));
+    }
+}
+
+Category* CategoriesScene::selectedCategory() const
+{
+    return (selectedItems().isEmpty() ? nullptr : qgraphicsitem_cast<Category*>(selectedItems().at(0)));
 }

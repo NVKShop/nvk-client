@@ -1,6 +1,13 @@
 #include "ProductsView.h"
 #include <QMouseEvent>
 #include <QTouchEvent>
+#include <QGestureEvent>
+#include <QSwipeGesture>
+#include <QPanGesture>
+#include <QTapAndHoldGesture>
+#include <QScrollBar>
+
+#include <QDebug>
 
 ProductsView::ProductsView(ProductsScene* scene, QWidget *parent) : QGraphicsView(scene,parent)
 {
@@ -9,8 +16,12 @@ ProductsView::ProductsView(ProductsScene* scene, QWidget *parent) : QGraphicsVie
 ProductsView::ProductsView(QWidget *parent) : QGraphicsView(parent)
 {
     setInteractive(true);
-    setAttribute(Qt::WA_AcceptTouchEvents);
-    viewport()->setAttribute(Qt::WA_AcceptTouchEvents);
+
+    grabGesture(Qt::SwipeGesture);
+    grabGesture(Qt::PanGesture);
+    viewport()->grabGesture(Qt::SwipeGesture);
+    viewport()->grabGesture(Qt::PanGesture);
+
 }
 
 void ProductsView::mouseMoveEvent(QMouseEvent *e)
@@ -36,28 +47,68 @@ void ProductsView::mouseReleaseEvent(QMouseEvent *e)
 
 bool ProductsView::viewportEvent(QEvent *event)
 {
-    if (event->type() == QEvent::TouchBegin)
+    if (event->type() == QEvent::Gesture)
     {
-        QTouchEvent* event = static_cast<QTouchEvent*>(event);
-        if (!event->touchPoints().isEmpty())
+        QGestureEvent* e = static_cast<QGestureEvent*>(event);
+
+        if (QGesture* swipe = e->gesture(Qt::SwipeGesture))
         {
-            const QTouchEvent::TouchPoint point = event->touchPoints().front();
-            m_mouseDownPosY = point.pos().y();
+            return handleSwipe(static_cast<QSwipeGesture*>(swipe));
         }
-    }
-    else if (event->type() == QEvent::TouchUpdate)
-    {
-        QTouchEvent* event = static_cast<QTouchEvent*>(event);
-        if (!event->touchPoints().isEmpty())
+        if (QGesture* pan = e->gesture(Qt::PanGesture))
         {
-            const QTouchEvent::TouchPoint point = event->touchPoints().back();
-            scrollContentsBy(0, point.pos().y() - m_mouseDownPosY);
+            return handlePan(static_cast<QPanGesture*>(pan));
         }
-    }
-    else if (event->type() == QEvent::TouchEnd)
-    {
-        QTouchEvent* event = static_cast<QTouchEvent*>(event);
-        m_mouseDownPosY = 0;
+        if (QGesture* taphold = e->gesture(Qt::TapAndHoldGesture))
+        {
+            return handleTapAndHold(static_cast<QTapAndHoldGesture*>(taphold));
+
+        }
     }
     return QGraphicsView::viewportEvent(event);
 }
+
+bool ProductsView::event(QEvent *event)
+{
+
+
+    return QGraphicsView::event(event);
+}
+
+bool ProductsView::handleSwipe(QSwipeGesture *gesture)
+{
+    if (gesture->state() == Qt::GestureFinished)
+    {
+        QScrollBar* vbar = verticalScrollBar();
+
+        if (gesture->verticalDirection() == QSwipeGesture::Up)
+        {
+            vbar->setValue(vbar->value() - 10);
+        }
+        else if (gesture->verticalDirection() == QSwipeGesture::Down)
+        {
+            vbar->setValue(vbar->value() + 10);
+        }
+        qDebug() << "swipe";
+    }
+
+    return true;
+}
+
+bool ProductsView::handlePan(QPanGesture *gesture)
+{
+    QScrollBar* vbar = verticalScrollBar();
+
+    vbar->setValue(vbar->value() + gesture->delta().y());
+    qDebug() << "pan";
+
+    return true;
+}
+
+bool ProductsView::handleTapAndHold(QTapAndHoldGesture *gesture)
+{
+    qDebug() << "taphold";
+    return true;
+}
+
+

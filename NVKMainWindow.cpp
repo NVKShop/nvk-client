@@ -15,7 +15,7 @@ NVKMainWindow::NVKMainWindow(QWidget *parent) :
 
 #ifdef Q_OS_ANDROID
     //Set sizes for Android
-    QString barstyle =  "QScrollBar:horizontal {height: 7px;}" "QScrollBar:vertical {width: 7px;}";
+    QString barstyle =  "QScrollBar:horizontal {height: 7px;}" "QScrollBar:vertical {width: 9px;}";
     ui->productsView->verticalScrollBar()->setStyleSheet(barstyle);
     ui->categoriesView->verticalScrollBar()->setStyleSheet(barstyle);
 
@@ -27,6 +27,9 @@ NVKMainWindow::NVKMainWindow(QWidget *parent) :
     qDebug() << ui->productsView->width();
     setAttribute(Qt::WA_DeleteOnClose);
     setupViews();
+
+    CategoriesScene* scene = static_cast<CategoriesScene*>(m_categoriesView->scene());
+    connect(scene, &CategoriesScene::selectionChangedNew, this, &NVKMainWindow::categoryChanged);
 }
 
 void NVKMainWindow::setupViews()
@@ -122,4 +125,14 @@ void NVKMainWindow::closeEvent(QCloseEvent *event)
 {
     emit closing();
     QMainWindow::closeEvent(event);
+}
+
+void NVKMainWindow::categoryChanged(Category *newCategory)
+{
+    if (m_categoriesView->currentCategory() != newCategory) {
+        m_categoriesView->setCurrentCategory(newCategory);
+        qDebug() << "new category selected";
+        //fill productsview
+
+    }
 }

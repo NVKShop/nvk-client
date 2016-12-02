@@ -2,9 +2,9 @@
 #define CATEGORY_H
 #include <QGraphicsPixmapItem>
 #include "Property.h"
+
 class Category : public QGraphicsPixmapItem
 {
-
 public:
     Category(const QPixmap&, const Property& property, const int width);
     ~Category();

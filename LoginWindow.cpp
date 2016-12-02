@@ -21,7 +21,8 @@ LoginWindow::LoginWindow(QWidget *parent) :
     int w = screen->size().width();
     int h = screen->size().height();
 
-    ui->gridLayout->setContentsMargins(w/4, h/3, w/4, h/3);
+    ui->gridLayout->setContentsMargins(w/4 - ui->forgotUserNameLabel->width(), h/3,
+                                       w/4- ui->forgotUserNameLabel->width(), h/3);
 #endif
 
     connect(ui->loginButton, &QPushButton::clicked, this, &LoginWindow::login);

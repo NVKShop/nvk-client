@@ -2,7 +2,7 @@
 #define NVKMAINWINDOW_H
 
 #include <QMainWindow>
-
+#include <QMultiMap>
 #include "ProductsView.h"
 #include "CategoriesView.h"
 #include "UserPanelView.h"
@@ -37,7 +37,9 @@ private:
     UserPanelView* m_userPanelView;
 
     Order* m_order;
-
+    QMultiMap<Category*,Product*> m_categoryMapped;
+private Q_SLOTS:
+    void categoryChanged(Category* newCategory);
 
 };
 

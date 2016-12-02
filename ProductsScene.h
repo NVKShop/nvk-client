@@ -12,6 +12,9 @@ public:
     void setItems(const QVector<Product*>& products);
 private:
     int m_viewWidth;
+protected:
+    bool event(QEvent *event);
+
 };
 
 #endif // PRODUCTSSCENE_H

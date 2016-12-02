@@ -1,7 +1,13 @@
 #include "ProductsScene.h"
 #include <QDebug>
+#include <QGesture>
+#include <QSwipeGesture>
+#include <QBrush>
+
 ProductsScene::ProductsScene(const int viewWidth): QGraphicsScene(), m_viewWidth(viewWidth)
 {
+    QBrush brush(Qt::gray);
+    setBackgroundBrush(brush);
 }
 
 void ProductsScene::setItems(const QVector<Product *> &products)
@@ -11,7 +17,11 @@ void ProductsScene::setItems(const QVector<Product *> &products)
     {
         productRect = products.at(0)->boundingRect();
     }
-    const int productsPerRow = m_viewWidth / productRect.width();
+    int productsPerRow = m_viewWidth / productRect.width();
+
+#ifdef Q_OS_ANDROID
+    productsPerRow = 2;
+#endif
 
     int row = 0;
     int col = 0;
@@ -33,4 +43,10 @@ void ProductsScene::setItems(const QVector<Product *> &products)
             col = 0;
         }
     }
+}
+
+bool ProductsScene::event(QEvent *event)
+{
+
+    return QGraphicsScene::event(event);
 }

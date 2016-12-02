@@ -49,7 +49,7 @@ void NVKController::placeOrder(Order *order)
 
 void NVKController::loginCancelled()
 {
-
+    mainClosing();
 }
 
 void NVKController::forgotUserData(const QString &email)

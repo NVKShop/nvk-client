@@ -9,7 +9,7 @@ class JsonQuery : public QObject
     Q_OBJECT
 public:
     explicit JsonQuery(QObject *parent = 0);
-    const QJsonDocument getDocument() const;
+    QJsonDocument getDocument() const;
 signals:
 
 public slots:

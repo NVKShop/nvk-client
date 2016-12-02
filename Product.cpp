@@ -2,13 +2,24 @@
 #include <QDebug>
 #include <QPainter>
 #include <QGraphicsSceneContextMenuEvent>
+#include <QScreen>
+#include <QApplication>
+#include <QGestureEvent>
+#include <QSwipeGesture>
 
+#define PRODUCT_RECT_MARGIN 60
 Product::Product(const QPixmap & pixmap, const ProductProperty &property) :
     QGraphicsPixmapItem(pixmap), m_properties(property)
 {
 
-    setPixmap(pixmap.scaledToWidth(120, Qt::SmoothTransformation));
-    setOffset(15, 25);
+    QScreen *screen = QApplication::screens().at(0);
+    int w = screen->size().width();
+    // int h = screen->size().height();
+
+    w-= w/5;
+
+    setPixmap(pixmap.scaledToWidth(w/2 - PRODUCT_RECT_MARGIN *1.5, Qt::SmoothTransformation));
+    setOffset(35, 35);
 
     setFlag(QGraphicsItem::ItemIsSelectable);
     setAcceptTouchEvents(true);
@@ -44,6 +55,7 @@ Product::Product(const QPixmap & pixmap, const ProductProperty &property) :
 
     m_productNameItem->setParentItem(this);
     m_productDescriptionItem->setParentItem(this);
+
 }
 
 Product::~Product()
@@ -51,7 +63,7 @@ Product::~Product()
 }
 
 QVariant Product::itemChange(GraphicsItemChange change,
-                     const QVariant &value)
+                             const QVariant &value)
 {
     if (change == QGraphicsItem::ItemSelectedHasChanged)
     {
@@ -64,8 +76,8 @@ QRectF Product::boundingRect() const
 {
     QRectF rect = pixmap().rect();
 
-    rect.setWidth(rect.width() + 155);
-    rect.setHeight(rect.height() + 155);
+    rect.setWidth(rect.width() + PRODUCT_RECT_MARGIN);
+    rect.setHeight(rect.height() + PRODUCT_RECT_MARGIN);
     return rect;
 }
 
@@ -93,4 +105,20 @@ void Product::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 {
 
     QGraphicsPixmapItem::contextMenuEvent(event);
+}
+
+bool Product::sceneEvent(QEvent *event)
+{
+    if (event->type() == QEvent::Gesture)
+    {
+        QGestureEvent* e = static_cast<QGestureEvent*>(event);
+
+        if (QGesture* swipe = e->gesture(Qt::SwipeGesture))
+        {
+            qDebug() << "swipe";
+            // return handleSwipe(static_cast<QSwipeGesture*>(swipe));
+        }
+    }
+
+    return QGraphicsPixmapItem::sceneEvent(event);
 }

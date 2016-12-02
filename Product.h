@@ -23,6 +23,7 @@ protected:
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) Q_DECL_OVERRIDE;
+    bool sceneEvent(QEvent *event) Q_DECL_OVERRIDE;
 private:
     int m_xPos;
     int m_yPos;
