@@ -8,6 +8,8 @@
 #include <QSwipeGesture>
 
 #define PRODUCT_RECT_MARGIN 60
+#define PRODUCT_TEXT_LEFT_MARGIN 25
+
 Product::Product(const QPixmap & pixmap, const ProductProperty &property) :
     QGraphicsPixmapItem(pixmap), m_properties(property)
 {
@@ -19,7 +21,7 @@ Product::Product(const QPixmap & pixmap, const ProductProperty &property) :
     w-= w/5;
 
     setPixmap(pixmap.scaledToWidth(w/2 - PRODUCT_RECT_MARGIN *1.5, Qt::SmoothTransformation));
-    setOffset(35, 35);
+    setOffset(25,  15);
 
     setFlag(QGraphicsItem::ItemIsSelectable);
     setAcceptTouchEvents(true);
@@ -32,10 +34,10 @@ Product::Product(const QPixmap & pixmap, const ProductProperty &property) :
     m_dropShadowEffect->setOffset(2.0);
 
     m_productNameItem->setGraphicsEffect(m_dropShadowEffect);
-    m_productNameItem->moveBy(15, 5);
+    m_productNameItem->moveBy(PRODUCT_TEXT_LEFT_MARGIN, -25);
     QFont nameFont;
     QFont descriptionFont;
-    m_productDescriptionItem = new QGraphicsTextItem(m_properties.m_description);
+    m_productDescriptionItem = new QGraphicsTextItem(m_properties.description());
 
 #ifdef Q_OS_ANDROID
     nameFont.setPointSize(10);
@@ -50,12 +52,13 @@ Product::Product(const QPixmap & pixmap, const ProductProperty &property) :
 #endif
 
     m_productDescriptionItem->setTextWidth(this->boundingRect().width() - 5);
-    const qreal moveY = this->boundingRect().height() - 80;
-    m_productDescriptionItem->moveBy(0, moveY);
+    const qreal moveY = this->boundingRect().height() - PRODUCT_RECT_MARGIN*1.5;
+    m_productDescriptionItem->moveBy(PRODUCT_TEXT_LEFT_MARGIN, moveY);
 
     m_productNameItem->setParentItem(this);
     m_productDescriptionItem->setParentItem(this);
 
+    setCacheMode(QGraphicsItem::NoCache);
 }
 
 Product::~Product()
@@ -67,7 +70,14 @@ QVariant Product::itemChange(GraphicsItemChange change,
 {
     if (change == QGraphicsItem::ItemSelectedHasChanged)
     {
-        //
+        if(isSelected())
+        {
+
+        }
+        else
+        {
+
+        }
     }
     return value;
 }
@@ -76,9 +86,17 @@ QRectF Product::boundingRect() const
 {
     QRectF rect = pixmap().rect();
 
-    rect.setWidth(rect.width() + PRODUCT_RECT_MARGIN);
-    rect.setHeight(rect.height() + PRODUCT_RECT_MARGIN);
-    return rect;
+    return rect.adjusted(15, -PRODUCT_RECT_MARGIN, PRODUCT_RECT_MARGIN, PRODUCT_RECT_MARGIN);
+}
+
+void Product::setProperties(const ProductProperty &properties)
+{
+    m_properties = properties;
+}
+
+ProductProperty Product::properties() const
+{
+    return m_properties;
 }
 
 void Product::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -103,22 +121,22 @@ void Product::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
 
 void Product::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 {
-
     QGraphicsPixmapItem::contextMenuEvent(event);
+}
+
+void Product::reset()
+{
+    m_productNameItem->setParentItem(this);
+    m_productDescriptionItem->setParentItem(this);
+
+    m_productNameItem->show();
+    m_productDescriptionItem->show();
+    update();
 }
 
 bool Product::sceneEvent(QEvent *event)
 {
-    if (event->type() == QEvent::Gesture)
-    {
-        QGestureEvent* e = static_cast<QGestureEvent*>(event);
-
-        if (QGesture* swipe = e->gesture(Qt::SwipeGesture))
-        {
-            qDebug() << "swipe";
-            // return handleSwipe(static_cast<QSwipeGesture*>(swipe));
-        }
-    }
-
     return QGraphicsPixmapItem::sceneEvent(event);
 }
+
+

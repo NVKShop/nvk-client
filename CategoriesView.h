@@ -12,6 +12,10 @@ public:
     void setCurrentCategory(Category* cat);
 private:
     Category* m_currentCategory;
+
+protected:
+    void mousePressEvent(QMouseEvent* event);
+    void contextMenuEvent(QContextMenuEvent* event);
 };
 
 #endif // CATEGORIESVIEW_H

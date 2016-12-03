@@ -1,9 +1,12 @@
 #include "CategoriesScene.h"
 #include <QDebug>
+#include <QBrush>
 
 CategoriesScene::CategoriesScene(): QGraphicsScene()
 {
     connect(this, &CategoriesScene::selectionChanged, this, &CategoriesScene::newCategory);
+    QBrush brush(Qt::black);
+    setBackgroundBrush(brush);
 }
 
 

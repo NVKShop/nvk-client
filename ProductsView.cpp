@@ -21,7 +21,7 @@ ProductsView::ProductsView(QWidget *parent) : QGraphicsView(parent)
     grabGesture(Qt::PanGesture);
     viewport()->grabGesture(Qt::SwipeGesture);
     viewport()->grabGesture(Qt::PanGesture);
-
+    QGraphicsView::setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
 }
 
 void ProductsView::mouseMoveEvent(QMouseEvent *e)
@@ -70,8 +70,6 @@ bool ProductsView::viewportEvent(QEvent *event)
 
 bool ProductsView::event(QEvent *event)
 {
-
-
     return QGraphicsView::event(event);
 }
 

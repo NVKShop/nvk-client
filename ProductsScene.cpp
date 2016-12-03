@@ -12,6 +12,11 @@ ProductsScene::ProductsScene(const int viewWidth): QGraphicsScene(), m_viewWidth
 
 void ProductsScene::setItems(const QVector<Product *> &products)
 {
+
+    foreach (QGraphicsItem *p, items()) {
+        removeItem(p);
+    }
+
     QRectF productRect;
     if (products.size())
     {
@@ -35,7 +40,9 @@ void ProductsScene::setItems(const QVector<Product *> &products)
         {
             prod->setPos(col * productRect.width(), row * productRect.height());
         }
+        prod->reset();
         addItem(prod);
+
         col++;
         if (col == productsPerRow)
         {
@@ -47,6 +54,5 @@ void ProductsScene::setItems(const QVector<Product *> &products)
 
 bool ProductsScene::event(QEvent *event)
 {
-
     return QGraphicsScene::event(event);
 }

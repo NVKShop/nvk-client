@@ -36,22 +36,6 @@ void NVKMainWindow::setupViews()
 {
     // test items
 
-    auto p = [](int count) -> QVector<Product*>
-    {
-        QVector<Product*> products;
-        products.reserve(count);
-        products.resize(count);
-
-        for(int i = 0; i < count; ++i)
-        {
-            ProductProperty prop("Product " + QString::number(i), "This is a fckin product you dumbass", ProductProperty::IDK);
-            Product* prod = new Product(QPixmap(":/noImage.png"), prop);
-            products[i] = prod;
-        }
-
-        return  products;
-    };
-
     auto c = [](int count,const int w) ->QVector<Category*>
     {
         QVector<Category*> categories;
@@ -68,12 +52,55 @@ void NVKMainWindow::setupViews()
         return categories;
     };
 
+    auto p = [](int count) -> QVector<Product*>
+    {
+        QVector<Product*> products;
+        products.reserve(count);
+        products.resize(count);
+
+        for(int i = 0; i < count; ++i)
+        {
+            ProductProperty prop("Product " + QString::number(i), "This is a fckin product you dumbass", ProductProperty::IDK);
+            Product* prod = new Product(QPixmap(":/noImage.png"), prop);
+            products[i] = prod;
+        }
+
+        return  products;
+    };
+
+    auto p1 = [](int count) -> QVector<Product*>
+    {
+        QVector<Product*> products;
+        products.reserve(count);
+        products.resize(count);
+
+        for(int i = 0; i < count; ++i)
+        {
+            ProductProperty prop("ProductCat1 " + QString::number(i), "This is a fckin product you dumbass", ProductProperty::IDK);
+            Product* prod = new Product(QPixmap(":/noImage.png"), prop);
+            products[i] = prod;
+        }
+
+        return  products;
+    };
+
+    QVector<Category*> categories = c(3, 800 ); //
+    QVector<Product*> c1p = p(10);
+    QVector<Product*> c2p = p1(5);
+
+    foreach (Product* prod, c1p) {
+        m_categoryMapped.insert(categories.at(0), prod);
+    }
+
+    foreach (Product* prod, c2p) {
+        m_categoryMapped.insert(categories.at(1), prod);
+    }
 
     //
     m_productsView = ui->productsView;
     m_productsView->resize(800, 600);
     ProductsScene* pScene = new ProductsScene(m_productsView->width());
-    pScene->setItems(p(55));
+    pScene->setItems(m_categoryMapped.values(m_categoryMapped.firstKey()).toVector());
     m_productsView->setScene(pScene);
 
     qDebug() << "productsViewRect " << m_productsView->rect();
@@ -82,7 +109,7 @@ void NVKMainWindow::setupViews()
     qDebug() << "catViewRect " << m_categoriesView->rect();
 
     CategoriesScene* cScene = new CategoriesScene();
-    cScene->setItems(c(10, m_categoriesView->width()));
+    cScene->setItems(categories);
     m_categoriesView->setScene(cScene);
 
     m_userPanelView = ui->userPanelView;
@@ -133,6 +160,7 @@ void NVKMainWindow::categoryChanged(Category *newCategory)
         m_categoriesView->setCurrentCategory(newCategory);
         qDebug() << "new category selected";
         //fill productsview
-
+        ProductsScene* scene = static_cast<ProductsScene*>(m_productsView->scene());
+        scene->setItems(m_categoryMapped.values(m_categoriesView->currentCategory()).toVector());
     }
 }

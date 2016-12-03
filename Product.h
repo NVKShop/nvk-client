@@ -12,10 +12,11 @@ public:
     Product(const QPixmap&, const ProductProperty& property);
     ~Product();
 
-    ProductProperty m_properties;
+    void setProperties(const ProductProperty& properties);
+    ProductProperty properties() const;
     QRectF boundingRect() const Q_DECL_OVERRIDE;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget) Q_DECL_OVERRIDE;
-
+    void reset();
 protected:
     QVariant itemChange(GraphicsItemChange change,
                          const QVariant &value) Q_DECL_OVERRIDE;
@@ -24,9 +25,11 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) Q_DECL_OVERRIDE;
     bool sceneEvent(QEvent *event) Q_DECL_OVERRIDE;
+
 private:
     int m_xPos;
     int m_yPos;
+    ProductProperty m_properties;
 
     QGraphicsTextItem* m_productNameItem;
     QGraphicsTextItem* m_productDescriptionItem;

@@ -12,6 +12,9 @@ public:
     };
     ProductProperty(const QString& name, const QString& desc, const Category& cat);
 
+    QString description() const;
+    Category category() const;
+private:
     QString m_description;
     Category m_category;
 };
