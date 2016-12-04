@@ -4,6 +4,7 @@
 
 #include <QMessageBox>
 #include <QScreen>
+#include <QDesktopServices>
 
 LoginWindow::LoginWindow(QWidget *parent) :
     QDialog(parent),
@@ -14,6 +15,10 @@ LoginWindow::LoginWindow(QWidget *parent) :
 
     ui->forgotUserNameLabel->setText("<a href=\"stuff\">Forgot username or password?</a>");
     ui->forgotUserNameLabel->setOpenExternalLinks(false);
+    ui->forgotUserNameLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
+
+    ui->registerUserLabel->setText(tr("New user? <a href=\"http://google.com\">Register!<a/>"));
+    ui->registerUserLabel->setOpenExternalLinks(true);
     ui->forgotUserNameLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
 
 #ifdef Q_OS_ANDROID
@@ -28,7 +33,6 @@ LoginWindow::LoginWindow(QWidget *parent) :
     connect(ui->loginButton, &QPushButton::clicked, this, &LoginWindow::login);
     connect(ui->forgotUserNameLabel, &QLabel::linkActivated, this, &LoginWindow::forgotUserNameClicked);
     connect(ui->cancelButton, &QPushButton::clicked, this, &LoginWindow::reject);
-
 }
 
 LoginWindow::~LoginWindow()
