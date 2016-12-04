@@ -50,6 +50,8 @@ void ProductsScene::setItems(const QVector<Product *> &products)
             col = 0;
         }
     }
+
+    setSceneRect(itemsBoundingRect());
 }
 
 bool ProductsScene::event(QEvent *event)
