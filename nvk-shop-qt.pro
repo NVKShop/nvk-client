@@ -79,8 +79,7 @@ FORMS+= frontend/ui/forgotuserdatawindow.ui \
 
 CONFIG += mobility qt
 CONFIG += C++11
-RESOURCES += \
-    images.qrc
+RESOURCES += resources/images.qrc
 
  INCLUDEPATH += frontend \
     backend
