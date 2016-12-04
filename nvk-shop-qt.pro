@@ -40,7 +40,14 @@ SOURCES += main.cpp\
     frontend/widgets/ProductPreviewDialog.cpp \
     frontend/widgets/UserSettingsWindow.cpp \
     backend/ProductSearch.cpp \
-    frontend/widgets/ProductSearchWindow.cpp
+    frontend/widgets/ProductSearchWindow.cpp \
+    backend/controllers/ForgotUserDataController.cpp \
+    backend/controllers/LoginController.cpp \
+    backend/controllers/PlaceOrderController.cpp \
+    backend/controllers/ManageOrderController.cpp \
+    backend/controllers/ProductPreviewController.cpp \
+    backend/controllers/ProductSearchController.cpp \
+    backend/controllers/UserSettingsController.cpp
 
 HEADERS  += backend/graphics_items/Category.h \
     backend/graphics_items/Product.h \
@@ -72,7 +79,14 @@ HEADERS  += backend/graphics_items/Category.h \
     frontend/widgets/ProductPreviewDialog.h \
     frontend/widgets/UserSettingsWindow.h \
     backend/ProductSearch.h \
-    frontend/widgets/ProductSearchWindow.h
+    frontend/widgets/ProductSearchWindow.h \
+    backend/controllers/ForgotUserDataController.h \
+    backend/controllers/LoginController.h \
+    backend/controllers/PlaceOrderController.h \
+    backend/controllers/ManageOrderController.h \
+    backend/controllers/ProductPreviewController.h \
+    backend/controllers/ProductSearchController.h \
+    backend/controllers/UserSettingsController.h
 FORMS+= frontend/ui/forgotuserdatawindow.ui \
     frontend/ui/loginwindow.ui \
     frontend/ui/manageorderwindow.ui \
