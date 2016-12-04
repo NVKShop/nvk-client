@@ -13,6 +13,8 @@ class ProductsView : public QGraphicsView
 public:
     explicit ProductsView(ProductsScene* scene, QWidget* parent);
     ProductsView(QWidget* parent);
+    void scrollToTop();
+
 protected:
     void mouseMoveEvent(QMouseEvent* e) Q_DECL_OVERRIDE;
     void mousePressEvent(QMouseEvent* e) Q_DECL_OVERRIDE;
@@ -27,6 +29,7 @@ private:
     bool handleSwipe(QSwipeGesture* gesture);
     bool handlePan(QPanGesture* gesture);
     bool handleTapAndHold(QTapAndHoldGesture* gesture);
+
 };
 
 #endif // PRODUCTSVIEW_H

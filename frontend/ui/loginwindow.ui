@@ -16,7 +16,7 @@
   <property name="windowTitle">
    <string>Log in</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout" rowstretch="0,0">
+  <layout class="QGridLayout" name="gridLayout" rowstretch="3,1,2">
    <item row="0" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
@@ -61,30 +61,30 @@
      <item>
       <widget class="QLabel" name="registerUserLabel">
        <property name="text">
-        <string>New user? Register!</string>
+        <string>New at our shop? Register!</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="2,2">
+     <property name="spacing">
+      <number>56</number>
+     </property>
+     <item>
+      <widget class="QPushButton" name="loginButton">
+       <property name="text">
+        <string>Login</string>
        </property>
       </widget>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="2,2">
-       <property name="spacing">
-        <number>56</number>
+      <widget class="QPushButton" name="cancelButton">
+       <property name="text">
+        <string>Cancel</string>
        </property>
-       <item>
-        <widget class="QPushButton" name="loginButton">
-         <property name="text">
-          <string>Login</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="cancelButton">
-         <property name="text">
-          <string>Cancel</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      </widget>
      </item>
     </layout>
    </item>

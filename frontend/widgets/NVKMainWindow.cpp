@@ -45,7 +45,7 @@ void NVKMainWindow::setupViews()
         for (int i = 0; i < count; ++i)
         {
             Property prop("Category " + QString::number(i));
-            Category* cat = new Category(QPixmap(":/resources/images/catBg.png"), prop, w);
+            Category* cat = new Category(QPixmap(":/images/catBg.png"), prop, w);
 
             categories[i] = cat;
         }
@@ -61,7 +61,7 @@ void NVKMainWindow::setupViews()
         for(int i = 0; i < count; ++i)
         {
             ProductProperty prop("Product " + QString::number(i), "This is a fckin product you dumbass", ProductProperty::IDK);
-            Product* prod = new Product(QPixmap(":/images/catBg.png"), prop);
+            Product* prod = new Product(QPixmap(":/images/noImage.png"), prop);
             products[i] = prod;
         }
 
@@ -162,5 +162,6 @@ void NVKMainWindow::categoryChanged(Category *newCategory)
         //fill productsview
         ProductsScene* scene = static_cast<ProductsScene*>(m_productsView->scene());
         scene->setItems(m_categoryMapped.values(m_categoriesView->currentCategory()).toVector());
+        m_productsView->scrollToTop();
     }
 }

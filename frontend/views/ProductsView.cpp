@@ -109,4 +109,9 @@ bool ProductsView::handleTapAndHold(QTapAndHoldGesture *gesture)
     return true;
 }
 
+void ProductsView::scrollToTop()
+{
+    this->verticalScrollBar()->setValue(verticalScrollBar()->minimum());
+}
+
 
