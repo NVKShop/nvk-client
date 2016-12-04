@@ -38,7 +38,9 @@ SOURCES += main.cpp\
     frontend/widgets/NVKMainWindow.cpp \
     frontend/widgets/PlaceOrderWindow.cpp \
     frontend/widgets/ProductPreviewDialog.cpp \
-    frontend/widgets/UserSettingsWindow.cpp
+    frontend/widgets/UserSettingsWindow.cpp \
+    backend/ProductSearch.cpp \
+    frontend/widgets/ProductSearchWindow.cpp
 
 HEADERS  += backend/graphics_items/Category.h \
     backend/graphics_items/Product.h \
@@ -68,14 +70,17 @@ HEADERS  += backend/graphics_items/Category.h \
     frontend/widgets/NVKMainWindow.h \
     frontend/widgets/PlaceOrderWindow.h \
     frontend/widgets/ProductPreviewDialog.h \
-    frontend/widgets/UserSettingsWindow.h
+    frontend/widgets/UserSettingsWindow.h \
+    backend/ProductSearch.h \
+    frontend/widgets/ProductSearchWindow.h
 FORMS+= frontend/ui/forgotuserdatawindow.ui \
     frontend/ui/loginwindow.ui \
     frontend/ui/manageorderwindow.ui \
     frontend/ui/nvkmainwindow.ui \
     frontend/ui/placeorderwindow.ui \
     frontend/ui/productpreviewdialog.ui \
-    frontend/ui/usersettingswindow.ui
+    frontend/ui/usersettingswindow.ui \
+    frontend/ui/productsearchwindow.ui
 
 CONFIG += mobility qt
 CONFIG += C++11

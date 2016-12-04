@@ -10,13 +10,15 @@ public:
         IDK,
         SOMETHING
     };
-    ProductProperty(const QString& name, const QString& desc, const Category& cat);
+    ProductProperty(const QString& name, const QString& desc, const Category& cat, const double& price);
 
     QString description() const;
     Category category() const;
+    double price() const;
 private:
     QString m_description;
     Category m_category;
+    double m_price;
 };
 
 #endif // PRODUCTPROPERTY_H

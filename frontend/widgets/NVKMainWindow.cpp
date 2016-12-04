@@ -60,7 +60,7 @@ void NVKMainWindow::setupViews()
 
         for(int i = 0; i < count; ++i)
         {
-            ProductProperty prop("Product " + QString::number(i), "This is a fckin product you dumbass", ProductProperty::IDK);
+            ProductProperty prop("Product " + QString::number(i), "This is a fckin product you dumbass", ProductProperty::IDK, 1);
             Product* prod = new Product(QPixmap(":/images/noImage.png"), prop);
             products[i] = prod;
         }
@@ -76,7 +76,7 @@ void NVKMainWindow::setupViews()
 
         for(int i = 0; i < count; ++i)
         {
-            ProductProperty prop("ProductCat1 " + QString::number(i), "This is a fckin product you dumbass", ProductProperty::IDK);
+            ProductProperty prop("ProductCat1 " + QString::number(i), "This is a fckin product you dumbass", ProductProperty::IDK, 1);
             Product* prod = new Product(QPixmap(":/images/noImage.png"), prop);
             products[i] = prod;
         }
