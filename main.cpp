@@ -1,5 +1,4 @@
-#include "NVKMainWindow.h"
-#include "NVKController.h"
+#include "backend/NVKController.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])

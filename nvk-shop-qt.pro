@@ -10,81 +10,77 @@ TARGET = nvk-shop-qt
 TEMPLATE = app
 
 SOURCES += main.cpp\
-        NVKMainWindow.cpp \
-    NetworkHandler.cpp \
-    HttpHandler.cpp \
-    User.cpp \
-    Cart.cpp \
-    Order.cpp \
-    ProductsScene.cpp \
-    ProductsView.cpp \
-    Product.cpp \
-    Property.cpp \
-    UserProperty.cpp \
-    ProductProperty.cpp \
-    NVKController.cpp \
-    JsonRequest.cpp \
-    JsonReply.cpp \
-    JsonQuery.cpp \
-    LoginWindow.cpp \
-    CategoriesView.cpp \
-    UserPanelView.cpp \
-    UserPanelScene.cpp \
-    CategoriesScene.cpp \
-    Category.cpp \
-    UserPanelItem.cpp \
-    Address.cpp \
-    ForgotUserDataWindow.cpp \
-    PlaceOrderWindow.cpp \
-    ProductPreviewDialog.cpp \
-    ManageOrderWindow.cpp \
-    UserSettingsWindow.cpp
+    backend/graphics_items/Category.cpp \
+    backend/graphics_items/Product.cpp \
+    backend/graphics_items/UserPanelItem.cpp \
+    backend/network/HttpHandler.cpp \
+    backend/network/JsonQuery.cpp \
+    backend/network/JsonReply.cpp \
+    backend/network/JsonRequest.cpp \
+    backend/network/NetworkHandler.cpp \
+    backend/scenes/CategoriesScene.cpp \
+    backend/scenes/ProductsScene.cpp \
+    backend/scenes/UserPanelScene.cpp \
+    backend/Address.cpp \
+    backend/Cart.cpp \
+    backend/NVKController.cpp \
+    backend/Order.cpp \
+    backend/ProductProperty.cpp \
+    backend/Property.cpp \
+    backend/User.cpp \
+    backend/UserProperty.cpp \
+    frontend/views/CategoriesView.cpp \
+    frontend/views/ProductsView.cpp \
+    frontend/views/UserPanelView.cpp \
+    frontend/widgets/ForgotUserDataWindow.cpp \
+    frontend/widgets/LoginWindow.cpp \
+    frontend/widgets/ManageOrderWindow.cpp \
+    frontend/widgets/NVKMainWindow.cpp \
+    frontend/widgets/PlaceOrderWindow.cpp \
+    frontend/widgets/ProductPreviewDialog.cpp \
+    frontend/widgets/UserSettingsWindow.cpp
 
-HEADERS  += NVKMainWindow.h \
-    NetworkHandler.h \
-    HttpHandler.h \
-    User.h \
-    Cart.h \
-    Order.h \
-    ProductsScene.h \
-    ProductsView.h \
-    Product.h \
-    Property.h \
-    UserProperty.h \
-    ProductProperty.h \
-    NVKController.h \
-    JsonRequest.h \
-    JsonReply.h \
-    JsonQuery.h \
-    LoginWindow.h \
-    CategoriesView.h \
-    UserPanelView.h \
-    UserPanelScene.h \
-    CategoriesScene.h \
-    Category.h \
-    UserPanelItem.h \
-    Address.h \
-    ForgotUserDataWindow.h \
-    PlaceOrderWindow.h \
-    ProductPreviewDialog.h \
-    ManageOrderWindow.h \
-    UserSettingsWindow.h
-
-FORMS    += nvkmainwindow.ui \
-    loginwindow.ui \
-    forgotuserdatawindow.ui \
-    placeorderwindow.ui \
-    productpreviewdialog.ui \
-    manageorderwindow.ui \
-    usersettingswindow.ui
+HEADERS  += backend/graphics_items/Category.h \
+    backend/graphics_items/Product.h \
+    backend/graphics_items/UserPanelItem.h \
+    backend/network/HttpHandler.h \
+    backend/network/JsonQuery.h \
+    backend/network/JsonReply.h \
+    backend/network/JsonRequest.h \
+    backend/network/NetworkHandler.h \
+    backend/scenes/CategoriesScene.h \
+    backend/scenes/ProductsScene.h \
+    backend/scenes/UserPanelScene.h \
+    backend/Address.h \
+    backend/Cart.h \
+    backend/NVKController.h \
+    backend/Order.h \
+    backend/ProductProperty.h \
+    backend/Property.h \
+    backend/User.h \
+    backend/UserProperty.h \
+    frontend/views/CategoriesView.h \
+    frontend/views/ProductsView.h \
+    frontend/views/UserPanelView.h \
+    frontend/widgets/ForgotUserDataWindow.h \
+    frontend/widgets/LoginWindow.h \
+    frontend/widgets/ManageOrderWindow.h \
+    frontend/widgets/NVKMainWindow.h \
+    frontend/widgets/PlaceOrderWindow.h \
+    frontend/widgets/ProductPreviewDialog.h \
+    frontend/widgets/UserSettingsWindow.h
+FORMS+= frontend/ui/forgotuserdatawindow.ui \
+    frontend/ui/loginwindow.ui \
+    frontend/ui/manageorderwindow.ui \
+    frontend/ui/nvkmainwindow.ui \
+    frontend/ui/placeorderwindow.ui \
+    frontend/ui/productpreviewdialog.ui \
+    frontend/ui/usersettingswindow.ui
 
 CONFIG += mobility qt
 CONFIG += C++11
-MOBILITY = 
-
-DISTFILES +=
-
 RESOURCES += \
     images.qrc
 
-
+ INCLUDEPATH += frontend \
+    backend

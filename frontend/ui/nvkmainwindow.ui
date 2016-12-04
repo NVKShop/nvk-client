@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>NVKMainWindow</class>
+ <widget class="QMainWindow" name="NVKMainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>610</width>
+    <height>713</height>
+   </rect>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <layout class="QGridLayout" name="gridLayout" rowstretch="1,10" columnstretch="2,0,10">
+      <item row="1" column="0">
+       <widget class="CategoriesView" name="categoriesView"/>
+      </item>
+      <item row="1" column="2">
+       <widget class="ProductsView" name="productsView">
+        <property name="sceneRect">
+         <rectf>
+          <x>0.000000000000000</x>
+          <y>0.000000000000000</y>
+          <width>0.000000000000000</width>
+          <height>0.000000000000000</height>
+         </rectf>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" colspan="3">
+       <widget class="UserPanelView" name="userPanelView"/>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>ProductsView</class>
+   <extends>QGraphicsView</extends>
+   <header>frontend/views/ProductsView.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CategoriesView</class>
+   <extends>QGraphicsView</extends>
+   <header>frontend/views/CategoriesView.h</header>
+  </customwidget>
+  <customwidget>
+   <class>UserPanelView</class>
+   <extends>QGraphicsView</extends>
+   <header>frontend/views/UserPanelView.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
