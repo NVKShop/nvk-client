@@ -20,6 +20,7 @@ Product::Product(const QPixmap & pixmap, const ProductProperty &property) : QObj
 
     w-= w/5;
 
+    m_originalPixmap = pixmap.scaledToWidth(screen->size().width() - screen->size().width() / 3);
     setPixmap(pixmap.scaledToWidth(w/2 - PRODUCT_RECT_MARGIN *1.5, Qt::SmoothTransformation));
     setOffset(25,  15);
 
@@ -143,6 +144,11 @@ void Product::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
     Q_UNUSED(event)
     emit doubleClicked(this);
+}
+
+QPixmap Product::originalPixmap() const
+{
+    return m_originalPixmap;
 }
 
 

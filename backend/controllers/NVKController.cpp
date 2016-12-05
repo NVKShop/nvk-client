@@ -23,7 +23,6 @@ NVKController::NVKController(QObject *parent) : QObject(parent), m_loginControll
     connect(m_mainWindow, &NVKMainWindow::searchProductClicked, this, &NVKController::showProductSearchWindow);
     connect(m_mainWindow, &NVKMainWindow::productDoubleClicked, this, &NVKController::showProductPreview);
 
-
 }
 
 void NVKController::changeActiveWindow(QWidget *window)

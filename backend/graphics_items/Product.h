@@ -18,6 +18,7 @@ public:
     QRectF boundingRect() const Q_DECL_OVERRIDE;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget) Q_DECL_OVERRIDE;
     void reset();
+    QPixmap originalPixmap() const;
 protected:
     QVariant itemChange(GraphicsItemChange change,
                          const QVariant &value) Q_DECL_OVERRIDE;
@@ -34,7 +35,7 @@ private:
     int m_xPos;
     int m_yPos;
     ProductProperty m_properties;
-
+    QPixmap m_originalPixmap;
     QGraphicsTextItem* m_productNameItem;
     QGraphicsTextItem* m_productDescriptionItem;
     QGraphicsDropShadowEffect* m_dropShadowEffect;

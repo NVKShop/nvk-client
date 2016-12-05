@@ -20,6 +20,11 @@ QLabel* ProductPreviewDialog::descriptionLabel() const
     return ui->productDescriptionLabel;
 }
 
+QLabel* ProductPreviewDialog::previewLabel() const
+{
+    return ui->productPreviewImageLabel;
+}
+
 void ProductPreviewDialog::showEvent(QShowEvent *e)
 {
 #ifdef Q_OS_ANDROID

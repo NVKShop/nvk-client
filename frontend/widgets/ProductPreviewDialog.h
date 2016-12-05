@@ -16,6 +16,7 @@ public:
     explicit ProductPreviewDialog(QWidget *parent = 0);
     ~ProductPreviewDialog();
     QLabel* descriptionLabel() const;
+    QLabel* previewLabel() const;
 Q_SIGNALS:
     void addToCart();
 private:

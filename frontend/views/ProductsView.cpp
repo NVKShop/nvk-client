@@ -6,7 +6,7 @@
 #include <QPanGesture>
 #include <QTapAndHoldGesture>
 #include <QScrollBar>
-
+#include <QScroller>
 #include <QDebug>
 
 ProductsView::ProductsView(ProductsScene* scene, QWidget *parent) : QGraphicsView(scene,parent)
@@ -22,6 +22,7 @@ ProductsView::ProductsView(QWidget *parent) : QGraphicsView(parent)
     viewport()->grabGesture(Qt::SwipeGesture);
     viewport()->grabGesture(Qt::PanGesture);
     QGraphicsView::setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
+    QScroller::grabGesture(viewport(), QScroller::TouchGesture);
 }
 
 void ProductsView::mouseMoveEvent(QMouseEvent *e)

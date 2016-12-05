@@ -15,6 +15,10 @@ void ProductPreviewController::setProduct(Product* product)
 {
     const ProductProperty& prop = product->properties();
     m_productPreviewDialog->descriptionLabel()->setText(prop.description());
+    m_productPreviewDialog->descriptionLabel()->adjustSize();
+
+    m_productPreviewDialog->previewLabel()->setPixmap(product->originalPixmap());
+    m_productPreviewDialog->previewLabel()->adjustSize();
     m_product = product;
 }
 
