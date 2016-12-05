@@ -1,6 +1,8 @@
 #ifndef PLACEORDERCONTROLLER_H
 #define PLACEORDERCONTROLLER_H
 
+#include "frontend/widgets/PlaceOrderWindow.h"
+#include "backend/Order.h"
 #include <QObject>
 
 class PlaceOrderController : public QObject
@@ -8,10 +10,14 @@ class PlaceOrderController : public QObject
     Q_OBJECT
 public:
     explicit PlaceOrderController(QObject *parent = 0);
+    PlaceOrderWindow* view() const;
+    void setOrder(Order* order);
+Q_SIGNALS:
 
-signals:
+public Q_SLOTS:
 
-public slots:
+private:
+    PlaceOrderWindow* m_placeOrderWindow;
 };
 
 #endif // PLACEORDERCONTROLLER_H

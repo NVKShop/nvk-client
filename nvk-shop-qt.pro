@@ -10,6 +10,14 @@ TARGET = nvk-shop-qt
 TEMPLATE = app
 
 SOURCES += main.cpp\
+    backend/controllers/ForgotUserDataController.cpp \
+    backend/controllers/LoginController.cpp \
+    backend/controllers/PlaceOrderController.cpp \
+    backend/controllers/ManageOrderController.cpp \
+    backend/controllers/ProductPreviewController.cpp \
+    backend/controllers/ProductSearchController.cpp \
+    backend/controllers/UserSettingsController.cpp \
+    backend/controllers/NVKController.cpp \
     backend/graphics_items/Category.cpp \
     backend/graphics_items/Product.cpp \
     backend/graphics_items/UserPanelItem.cpp \
@@ -23,8 +31,8 @@ SOURCES += main.cpp\
     backend/scenes/UserPanelScene.cpp \
     backend/Address.cpp \
     backend/Cart.cpp \
-    backend/NVKController.cpp \
     backend/Order.cpp \
+    backend/ProductSearch.cpp \
     backend/ProductProperty.cpp \
     backend/Property.cpp \
     backend/User.cpp \
@@ -39,17 +47,17 @@ SOURCES += main.cpp\
     frontend/widgets/PlaceOrderWindow.cpp \
     frontend/widgets/ProductPreviewDialog.cpp \
     frontend/widgets/UserSettingsWindow.cpp \
-    backend/ProductSearch.cpp \
-    frontend/widgets/ProductSearchWindow.cpp \
-    backend/controllers/ForgotUserDataController.cpp \
-    backend/controllers/LoginController.cpp \
-    backend/controllers/PlaceOrderController.cpp \
-    backend/controllers/ManageOrderController.cpp \
-    backend/controllers/ProductPreviewController.cpp \
-    backend/controllers/ProductSearchController.cpp \
-    backend/controllers/UserSettingsController.cpp
+    frontend/widgets/ProductSearchWindow.cpp
 
-HEADERS  += backend/graphics_items/Category.h \
+HEADERS  += backend/controllers/ForgotUserDataController.h \
+    backend/controllers/LoginController.h \
+    backend/controllers/PlaceOrderController.h \
+    backend/controllers/ManageOrderController.h \
+    backend/controllers/ProductPreviewController.h \
+    backend/controllers/ProductSearchController.h \
+    backend/controllers/UserSettingsController.h \
+    backend/controllers/NVKController.h \
+    backend/graphics_items/Category.h \
     backend/graphics_items/Product.h \
     backend/graphics_items/UserPanelItem.h \
     backend/network/HttpHandler.h \
@@ -62,8 +70,8 @@ HEADERS  += backend/graphics_items/Category.h \
     backend/scenes/UserPanelScene.h \
     backend/Address.h \
     backend/Cart.h \
-    backend/NVKController.h \
     backend/Order.h \
+    backend/ProductSearch.h \
     backend/ProductProperty.h \
     backend/Property.h \
     backend/User.h \
@@ -78,15 +86,8 @@ HEADERS  += backend/graphics_items/Category.h \
     frontend/widgets/PlaceOrderWindow.h \
     frontend/widgets/ProductPreviewDialog.h \
     frontend/widgets/UserSettingsWindow.h \
-    backend/ProductSearch.h \
-    frontend/widgets/ProductSearchWindow.h \
-    backend/controllers/ForgotUserDataController.h \
-    backend/controllers/LoginController.h \
-    backend/controllers/PlaceOrderController.h \
-    backend/controllers/ManageOrderController.h \
-    backend/controllers/ProductPreviewController.h \
-    backend/controllers/ProductSearchController.h \
-    backend/controllers/UserSettingsController.h
+    frontend/widgets/ProductSearchWindow.h
+
 FORMS+= frontend/ui/forgotuserdatawindow.ui \
     frontend/ui/loginwindow.ui \
     frontend/ui/manageorderwindow.ui \

@@ -45,6 +45,11 @@ void LoginWindow::forgotUserNameClicked()
     emit showForgotUserWindow();
 }
 
+void LoginWindow::loginError(const QString &message)
+{
+    QMessageBox::warning(0, "Login error", "Error, " + message);
+}
+
 void LoginWindow::login()
 {
     if (NetworkHandler::isConnectedToTheInternet())

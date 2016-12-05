@@ -28,7 +28,7 @@ Q_SIGNALS:
     void loginUser();
     void cancelLogin();
 public Q_SLOTS:
-
+    void loginError(const QString& message);
 private Q_SLOTS:
     void forgotUserNameClicked();
     void login();

@@ -1,6 +1,12 @@
 #include "ManageOrderController.h"
 
-ManageOrderController::ManageOrderController(QObject *parent) : QObject(parent)
+ManageOrderController::ManageOrderController(QObject *parent) : QObject(parent),
+    m_manageOrderWindow(new ManageOrderWindow)
 {
 
+}
+
+ManageOrderWindow* ManageOrderController::view() const
+{
+    return m_manageOrderWindow;
 }
