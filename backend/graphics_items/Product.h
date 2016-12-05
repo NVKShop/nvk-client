@@ -6,8 +6,9 @@
 #include <QGraphicsDropShadowEffect>
 
 #include "backend/ProductProperty.h"
-class Product : public QGraphicsPixmapItem
+class Product : public QObject, public QGraphicsPixmapItem
 {
+    Q_OBJECT
 public:
     Product(const QPixmap&, const ProductProperty& property);
     ~Product();
@@ -25,7 +26,10 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) Q_DECL_OVERRIDE;
     bool sceneEvent(QEvent *event) Q_DECL_OVERRIDE;
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event) Q_DECL_OVERRIDE;
 
+Q_SIGNALS:
+    void doubleClicked(Product* product);
 private:
     int m_xPos;
     int m_yPos;

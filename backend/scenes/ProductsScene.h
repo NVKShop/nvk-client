@@ -15,6 +15,9 @@ private:
 protected:
     bool event(QEvent *event);
 
+Q_SIGNALS:
+    void productDoubleClicked(Product* product);
+
 };
 
 #endif // PRODUCTSSCENE_H

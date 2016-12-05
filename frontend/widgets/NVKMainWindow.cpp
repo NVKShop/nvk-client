@@ -30,6 +30,10 @@ NVKMainWindow::NVKMainWindow(QWidget *parent) :
 
     CategoriesScene* scene = static_cast<CategoriesScene*>(m_categoriesView->scene());
     connect(scene, &CategoriesScene::selectionChangedNew, this, &NVKMainWindow::categoryChanged);
+    connect(ui->searchButton, &QPushButton::clicked, this, &NVKMainWindow::searchProductClicked);
+
+    ProductsScene* pscene = static_cast<ProductsScene*>(m_productsView->scene());
+    connect(pscene, &ProductsScene::productDoubleClicked, this, &NVKMainWindow::productDoubleClicked);
 }
 
 void NVKMainWindow::setupViews()

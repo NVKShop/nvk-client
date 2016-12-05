@@ -17,6 +17,9 @@ NVKController::NVKController(QObject *parent) : QObject(parent), m_loginControll
     connect(m_mainWindow, &NVKMainWindow::closing, this, &NVKController::mainClosing);
 
     connect(m_forgotUserDataController->view(), &ForgotUserDataWindow::rejected, this, &NVKController::forgotUserWindowRejected);
+
+    connect(m_mainWindow, &NVKMainWindow::searchProductClicked, this, &NVKController::showProductSearchWindow);
+    connect(m_mainWindow, &NVKMainWindow::productDoubleClicked, this, &NVKController::showProductPreview);
 }
 
 void NVKController::changeActiveWindow(QWidget *window)
@@ -35,11 +38,15 @@ void NVKController::placeOrder(Order *order)
     changeActiveWindow(m_placeOrderController->view());
 }
 
+void NVKController::popUpWindow(QWidget *window)
+{
+    window->show();
+}
+
 void NVKController::loginCancelled()
 {
     mainClosing();
 }
-
 
 void NVKController::mainClosing()
 {
@@ -77,5 +84,16 @@ void NVKController::loginWindow()
 {
     m_loginController->view()->show();;
     m_activeWindow = m_loginController->view();
+}
+
+void NVKController::showProductSearchWindow()
+{
+    popUpWindow(m_productSearchController->view());
+}
+
+void NVKController::showProductPreview(Product *product)
+{
+    m_productPreviewController->setProduct(product);
+    popUpWindow(m_productPreviewController->view());
 }
 

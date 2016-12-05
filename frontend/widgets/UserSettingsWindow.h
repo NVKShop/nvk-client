@@ -17,6 +17,8 @@ public:
 
 private:
     Ui::UserSettingsWindow *ui;
+protected:
+    void showEvent(QShowEvent* event) Q_DECL_OVERRIDE;
 };
 
 #endif // USERSETTINGSWINDOW_H

@@ -22,7 +22,7 @@ private:
     Ui::LoginWindow *ui;
 
 protected:
-    void showEvent(QShowEvent *e);
+    void showEvent(QShowEvent *e) Q_DECL_OVERRIDE;
 Q_SIGNALS:
     void showForgotUserWindow();
     void loginUser();

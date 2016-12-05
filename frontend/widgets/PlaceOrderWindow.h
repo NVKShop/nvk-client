@@ -20,7 +20,7 @@ private:
     Ui::PlaceOrderWindow *ui;
     Order* m_order;
 protected:
-    void showEvent(QShowEvent* e);
+    void showEvent(QShowEvent* e) Q_DECL_OVERRIDE;
 };
 
 #endif // PLACEORDERWINDOW_H

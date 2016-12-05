@@ -12,8 +12,11 @@ ProductsScene::ProductsScene(const int viewWidth): QGraphicsScene(), m_viewWidth
 
 void ProductsScene::setItems(const QVector<Product *> &products)
 {
+    for (int i = 0; i < items().size(); ++i)
+    {
+        Product* p = static_cast<Product*>(items()[i]);
 
-    foreach (QGraphicsItem *p, items()) {
+        disconnect(p, &Product::doubleClicked, this, &ProductsScene::productDoubleClicked);
         removeItem(p);
     }
 
@@ -49,6 +52,8 @@ void ProductsScene::setItems(const QVector<Product *> &products)
             row++;
             col = 0;
         }
+        connect(prod, &Product::doubleClicked, this, &ProductsScene::productDoubleClicked);
+
     }
 
     setSceneRect(itemsBoundingRect());

@@ -17,6 +17,8 @@ public:
 
 private:
     Ui::ManageOrderWindow *ui;
+protected:
+    void showEvent(QShowEvent* event) Q_DECL_OVERRIDE;
 };
 
 #endif // MANAGEORDERWINDOW_H

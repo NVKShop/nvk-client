@@ -26,12 +26,16 @@ public Q_SLOTS:
 
 private Q_SLOTS:
     void changeActiveWindow(QWidget* window);
+    void popUpWindow(QWidget* window);
     void placeOrder(Order* order);
     void loginCancelled();
     void mainClosing();
     void showForgotUserWindow();
     void userLogged(User *user);
     void forgotUserWindowRejected();
+    void showProductSearchWindow();
+    void showProductPreview(Product* product);
+
 private:
 
     HttpHandler m_HttpHandler;

@@ -23,6 +23,9 @@ public:
     Order* order() const;
 Q_SIGNALS:
     void closing();
+    void searchProductClicked();
+    void productDoubleClicked(Product* product);
+
 private Q_SLOTS:
 
 protected:

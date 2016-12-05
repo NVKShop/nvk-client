@@ -10,7 +10,7 @@
 #define PRODUCT_RECT_MARGIN 60
 #define PRODUCT_TEXT_LEFT_MARGIN 25
 
-Product::Product(const QPixmap & pixmap, const ProductProperty &property) :
+Product::Product(const QPixmap & pixmap, const ProductProperty &property) : QObject(),
     QGraphicsPixmapItem(pixmap), m_properties(property)
 {
 
@@ -137,6 +137,12 @@ void Product::reset()
 bool Product::sceneEvent(QEvent *event)
 {
     return QGraphicsPixmapItem::sceneEvent(event);
+}
+
+void Product::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
+{
+    Q_UNUSED(event)
+    emit doubleClicked(this);
 }
 
 

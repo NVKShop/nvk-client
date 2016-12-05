@@ -23,7 +23,7 @@ private Q_SLOTS:
     void forgotUserDataClicked();
 
 protected:
-    void showEvent(QShowEvent* e);
+    void showEvent(QShowEvent* e) Q_DECL_OVERRIDE;
 };
 
 #endif // FORGOTUSERDATAWINDOW_H
