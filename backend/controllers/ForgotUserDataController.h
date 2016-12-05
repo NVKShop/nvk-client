@@ -12,7 +12,7 @@ public:
     explicit ForgotUserDataController(QObject *parent = 0);
     ForgotUserDataWindow* view() const;
 Q_SIGNALS:
-
+    void successfulReminder();
 private Q_SLOTS:
     void forgotUserData(const QString &email);
 

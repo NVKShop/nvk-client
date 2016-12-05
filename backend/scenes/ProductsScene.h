@@ -9,7 +9,7 @@ class ProductsScene : public QGraphicsScene
     Q_OBJECT
 public:
     ProductsScene(const int viewWidth);
-    void setItems(const QVector<Product*>& products);
+    void setItems(const QList<Product *> &products);
 private:
     int m_viewWidth;
 protected:

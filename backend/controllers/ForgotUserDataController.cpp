@@ -37,7 +37,9 @@ void ForgotUserDataController::forgotUserData(const QString &email)
         }
         else
         {
-            // ok, network..
+            // ok, send..
+
+            emit successfulReminder();
         }
     }
     else

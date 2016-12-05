@@ -104,7 +104,7 @@ void NVKMainWindow::setupViews()
     m_productsView = ui->productsView;
     m_productsView->resize(800, 600);
     ProductsScene* pScene = new ProductsScene(m_productsView->width());
-    pScene->setItems(m_categoryMapped.values(m_categoryMapped.firstKey()).toVector());
+    pScene->setItems(m_categoryMapped.values(m_categoryMapped.firstKey()));
     m_productsView->setScene(pScene);
 
     qDebug() << "productsViewRect " << m_productsView->rect();
@@ -165,7 +165,7 @@ void NVKMainWindow::categoryChanged(Category *newCategory)
         qDebug() << "new category selected";
         //fill productsview
         ProductsScene* scene = static_cast<ProductsScene*>(m_productsView->scene());
-        scene->setItems(m_categoryMapped.values(m_categoriesView->currentCategory()).toVector());
+        scene->setItems(m_categoryMapped.values(m_categoriesView->currentCategory()));
         m_productsView->scrollToTop();
     }
 }
