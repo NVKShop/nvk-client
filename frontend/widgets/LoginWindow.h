@@ -20,7 +20,7 @@ public:
     QString userPassword() const;
 private:
     Ui::LoginWindow *ui;
-
+    bool m_connected;
 protected:
     void showEvent(QShowEvent *e) Q_DECL_OVERRIDE;
 Q_SIGNALS:

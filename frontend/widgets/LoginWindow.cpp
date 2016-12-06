@@ -9,7 +9,8 @@
 
 LoginWindow::LoginWindow(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::LoginWindow)
+    ui(new Ui::LoginWindow),
+    m_connected(false)
 {
     ui->setupUi(this);
     ui->passwordEdit->setEchoMode(QLineEdit::Password);
@@ -45,17 +46,17 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui->cancelButton->resize(ui->cancelButton->size() + ui->cancelButton->size()/3);
 #endif
     ui->loginButton->setStyleSheet(QString::fromUtf8("QPushButton{background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,"
-      "stop: 0 white, stop: 1 grey);"
-      "border-style: solid;"
-      "border-width: 2px;"
-      "border-color: black;"
-      "border-radius: 15px;}"));
+                                                     "stop: 0 white, stop: 1 grey);"
+                                                     "border-style: solid;"
+                                                     "border-width: 2px;"
+                                                     "border-color: black;"
+                                                     "border-radius: 15px;}"));
     ui->cancelButton->setStyleSheet(QString::fromUtf8("QPushButton{background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,"
-      "stop: 0 white, stop: 1 grey);"
-      "border-style: solid;"
-      "border-width: 2px;"
-      "border-color: black;"
-      "border-radius: 15px;}"));
+                                                      "stop: 0 white, stop: 1 grey);"
+                                                      "border-style: solid;"
+                                                      "border-width: 2px;"
+                                                      "border-color: black;"
+                                                      "border-radius: 15px;}"));
 
     QFont nvkFont;
 
@@ -89,15 +90,23 @@ void LoginWindow::loginError(const QString &message)
 
 void LoginWindow::login()
 {
-    if (NetworkHandler::isConnectedToTheInternet())
+
+    NetworkHandler networkHandler;
+
+    if (networkHandler.isConnectedToTheInternet())
     {
-        qDebug() << "Connected to internet..";
-        emit loginUser();
+        if (!m_connected)
+        {
+            m_connected = true;
+
+            emit loginUser();
+        }
     }
     else
     {
         QMessageBox::warning(0, "Connection error", "Error, no internet connection");
     }
+
 }
 
 void LoginWindow::showEvent(QShowEvent *e)

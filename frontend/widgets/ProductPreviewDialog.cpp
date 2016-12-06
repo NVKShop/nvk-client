@@ -20,12 +20,21 @@ ProductPreviewDialog::ProductPreviewDialog(QWidget *parent) :
     QPalette pt(ui->productDescriptionLabel->palette());
     pt.setColor(QPalette::WindowText, QColor::fromRgb(0xFF, 0xCE,0x2B));
     ui->productDescriptionLabel->setPalette(pt);
-    ui->productNameLabel->setPalette(pt);
-    ui->productPriceLabel->setPalette(pt);
+
+    QPalette pn(ui->productNameLabel->palette());
+    pn.setColor(QPalette::WindowText, QColor::fromRgb(0xF1, 0xED, 0xEA));
+    ui->productNameLabel->setPalette(pn);
+
+    QPalette pp(ui->productPriceLabel->palette());
+    pp.setColor(QPalette::WindowText, QColor::fromRgb(0xEE, 0x75, 0x00));
+    ui->productPriceLabel->setPalette(pp);
 
     QFont productNameFont;
     QFont productPriceFont;
     productPriceFont.setBold(true);
+    productNameFont.setCapitalization(QFont::Capitalize);
+    productNameFont.setBold(true);
+
 #ifdef Q_OS_ANDROID
     productNameFont.setPointSize(20);
     productPriceFont.setPointSize(15);

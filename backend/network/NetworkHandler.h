@@ -16,7 +16,7 @@ public:
     ~NetworkHandler();
 
     static bool isOnline();
-    static bool isConnectedToTheInternet();
+    bool isConnectedToTheInternet();
 private:
     QNetworkAccessManager* m_NetworkAccessManager;
     QNetworkReply* m_HttpReply;

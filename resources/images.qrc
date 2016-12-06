@@ -4,5 +4,6 @@
         <file>images/noImage.png</file>
         <file>images/settings.png</file>
         <file>images/cart.png</file>
+        <file>images/addToCart.png</file>
     </qresource>
 </RCC>
