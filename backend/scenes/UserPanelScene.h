@@ -15,6 +15,7 @@ public:
 private:
     void setupScene();
     QGraphicsSimpleTextItem* m_welcomeUserText;
+
 };
 
 #endif // USERPANELSCENE_H

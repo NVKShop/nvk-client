@@ -1,6 +1,7 @@
 #include "ProductSearchController.h"
 #include <QMessageBox>
 #include <QStandardItem>
+#include <QStandardItemModel>
 
 ProductSearchController::ProductSearchController(QObject *parent) : QObject(parent),
     m_productSearchWindow(new ProductSearchWindow)
@@ -40,12 +41,12 @@ void ProductSearchController::search()
 void ProductSearchController::setCategories(const QStringList &categories)
 {
     QStandardItemModel* categoriesModel = new QStandardItemModel(categories.size(),1);
-    QStandardItem* cat;
+
     for (int i = 0; i < categories.size(); ++i)
     {
-        cat = new QStandardItem(categories.at(i));
-        cat->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-        cat->setData(Qt::Unchecked, Qt::CheckStateRole);
+        QStandardItem* cat = new QStandardItem(categories.at(i));
+        cat->setCheckable(true);
+        cat->setCheckState(Qt::Unchecked);
 
         categoriesModel->setItem(i, 0, cat);
     }

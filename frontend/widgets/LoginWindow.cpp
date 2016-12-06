@@ -58,9 +58,9 @@ LoginWindow::LoginWindow(QWidget *parent) :
     QFont nvkFont;
 
 #ifdef Q_OS_ANDROID
-    nvkFont.setPointSize(20);
+    nvkFont.setPointSize(25);
 #else
-    nvkFont.setPointSize(24);
+    nvkFont.setPointSize(30);
 #endif
     ui->nvkShopLabel->setFont(nvkFont);
     ui->nvkShopLabel->adjustSize();
