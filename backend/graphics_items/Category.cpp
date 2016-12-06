@@ -106,3 +106,8 @@ void Category::hoverLeaveEvent(QGraphicsSceneHoverEvent *e)
 {
     QGraphicsPixmapItem::hoverLeaveEvent(e);
 }
+
+QString Category::name()
+{
+    return m_name.name();
+}

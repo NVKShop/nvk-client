@@ -9,15 +9,36 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>351</width>
-    <height>202</height>
+    <width>373</width>
+    <height>287</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Log in</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout" rowstretch="3,1,2">
-   <item row="0" column="0">
+  <layout class="QGridLayout" name="gridLayout" rowstretch="4,3,2,4">
+   <property name="verticalSpacing">
+    <number>45</number>
+   </property>
+   <item row="2" column="0">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLabel" name="forgotUserNameLabel">
+       <property name="text">
+        <string>Forgot username or password?</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="registerUserLabel">
+       <property name="text">
+        <string>New at our shop? Register!</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="1" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -49,25 +70,7 @@
      </item>
     </layout>
    </item>
-   <item row="1" column="0">
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QLabel" name="forgotUserNameLabel">
-       <property name="text">
-        <string>Forgot username or password?</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="registerUserLabel">
-       <property name="text">
-        <string>New at our shop? Register!</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="2" column="0">
+   <item row="3" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="2,2">
      <property name="spacing">
       <number>56</number>
@@ -87,6 +90,53 @@
       </widget>
      </item>
     </layout>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="nvkShopLabel">
+     <property name="palette">
+      <palette>
+       <active>
+        <colorrole role="WindowText">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>149</red>
+           <green>148</green>
+           <blue>133</blue>
+          </color>
+         </brush>
+        </colorrole>
+       </active>
+       <inactive>
+        <colorrole role="WindowText">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>149</red>
+           <green>148</green>
+           <blue>133</blue>
+          </color>
+         </brush>
+        </colorrole>
+       </inactive>
+       <disabled>
+        <colorrole role="WindowText">
+         <brush brushstyle="SolidPattern">
+          <color alpha="127">
+           <red>255</red>
+           <green>255</green>
+           <blue>255</blue>
+          </color>
+         </brush>
+        </colorrole>
+       </disabled>
+      </palette>
+     </property>
+     <property name="text">
+      <string>NVK Shop</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

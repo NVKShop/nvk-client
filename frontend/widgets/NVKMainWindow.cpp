@@ -93,8 +93,8 @@ void NVKMainWindow::setupViews()
         return  products;
     };
 
-    QVector<Category*> categories = c(3, 800 ); //
-    QVector<Product*> c1p = p(10);
+    QVector<Category*> categories = c(6, 800 ); //
+    QVector<Product*> c1p = p(40);
     QVector<Product*> c2p = p1(5);
 
     foreach (Product* prod, c1p) {
@@ -120,6 +120,7 @@ void NVKMainWindow::setupViews()
     CategoriesScene* cScene = new CategoriesScene();
     cScene->setItems(categories);
     m_categoriesView->setScene(cScene);
+    m_categoriesView->setCurrentCategory(categories.at(0));
 
     m_userPanelView = ui->userPanelView;
     UserPanelScene* uScene = new UserPanelScene();
@@ -127,6 +128,9 @@ void NVKMainWindow::setupViews()
     uScene->setUserName("Retarded Bitch");
 
     m_userPanelView->setScene(uScene);
+    ui->productsInCategoryLabel->setText(QString::number(
+                                             m_categoryMapped.values(m_categoriesView->currentCategory()).size())+ " products in this category");
+    ui->productsInCategoryLabel->adjustSize();
 }
 
 NVKMainWindow::~NVKMainWindow()
@@ -172,5 +176,14 @@ void NVKMainWindow::categoryChanged(Category *newCategory)
         ProductsScene* scene = static_cast<ProductsScene*>(m_productsView->scene());
         scene->setItems(m_categoryMapped.values(m_categoriesView->currentCategory()));
         m_productsView->scrollToTop();
+
+        ui->productsInCategoryLabel->setText( QString::number(
+                    m_categoryMapped.values(m_categoriesView->currentCategory()).size()) + " products in this category");
+        ui->productsInCategoryLabel->adjustSize();
     }
+}
+
+QList<Category*> NVKMainWindow::categories() const
+{
+    return m_categoryMapped.uniqueKeys();
 }

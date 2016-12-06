@@ -3,16 +3,26 @@
 #include <QGesture>
 #include <QSwipeGesture>
 #include <QBrush>
+#include <QGraphicsTextItem>
+#include <QFont>
+#include <QGraphicsSceneMouseEvent>
 
 ProductsScene::ProductsScene(const int viewWidth): QGraphicsScene(), m_viewWidth(viewWidth)
 {
     QBrush brush(Qt::gray);
     setBackgroundBrush(brush);
+    QFont totalProductsFont;
+#ifdef Q_OS_ANDROID
+    totalProductsFont.setPointSize(10);
+#else
+    totalProductsFont.setPointSize(13);
+#endif
 }
 
 void ProductsScene::setItems(const QList<Product *> &products)
 {
     foreach (QGraphicsItem* p, items()) {
+
         disconnect(static_cast<Product*>(p), &Product::doubleClicked, this, &ProductsScene::productDoubleClicked);
         removeItem(p);
     }
@@ -34,7 +44,7 @@ void ProductsScene::setItems(const QList<Product *> &products)
     {
         if (row == 0)
         {
-            prod->setPos(col * productRect.width(), row * productRect.height()+ 15);
+            prod->setPos(col * productRect.width(), row * productRect.height()+ 50);
         }
         else
         {
@@ -58,4 +68,20 @@ void ProductsScene::setItems(const QList<Product *> &products)
 bool ProductsScene::event(QEvent *event)
 {
     return QGraphicsScene::event(event);
+}
+
+
+void ProductsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    QTransform t;
+    QGraphicsItem* itemUnderMouse = itemAt(event->scenePos().x(), event->scenePos().y(),t);
+
+    if (!reinterpret_cast<Product*>(itemUnderMouse))
+    {
+        return;
+    }
+    else
+    {
+        itemUnderMouse->setSelected(!itemUnderMouse->isSelected());
+    }
 }

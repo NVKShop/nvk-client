@@ -18,6 +18,10 @@ void CategoriesScene::setItems(const QVector<Category *> &categories)
     int row = 0;
     foreach (Category* cat, categories)
     {
+        if (row == 0)
+        {
+            cat->setSelected(true);
+        }
         cat->setPos(0, row * catRect.height()- 15);
 
         addItem(cat);

@@ -8,8 +8,8 @@
 #include <QSwipeGesture>
 #include <QFontMetrics>
 
-#define PRODUCT_RECT_MARGIN 60
-#define PRODUCT_TEXT_LEFT_MARGIN 25
+#define PRODUCT_RECT_MARGIN 100
+#define PRODUCT_TEXT_LEFT_MARGIN 100
 
 Product::Product(const QPixmap & pixmap, const ProductProperty &property) : QObject(),
     QGraphicsPixmapItem(pixmap), m_properties(property)
@@ -23,8 +23,6 @@ Product::Product(const QPixmap & pixmap, const ProductProperty &property) : QObj
 
     int originalScaled;
 
-
-
 #ifdef Q_OS_ANDROID
     originalScaled = screen->size().width() - screen->size().width() / 4;
 #else
@@ -32,15 +30,14 @@ Product::Product(const QPixmap & pixmap, const ProductProperty &property) : QObj
 #endif
     m_originalPixmap = pixmap.scaledToWidth(originalScaled);
 
-    setPixmap(pixmap.scaledToWidth(w/2 - PRODUCT_RECT_MARGIN *1.5, Qt::SmoothTransformation));
-    setOffset(25,  15);
+    setPixmap(pixmap.scaledToWidth(w/2 - PRODUCT_RECT_MARGIN *1.8, Qt::SmoothTransformation));
+    setOffset(100,  15);
 
 
     setFlag(QGraphicsItem::ItemIsSelectable);
     setAcceptTouchEvents(true);
 
     m_productNameItem = new QGraphicsTextItem(m_properties.name());
-    const qreal moveX = this->boundingRect().width()/2;
 
     m_dropShadowEffect = new QGraphicsDropShadowEffect;
     m_dropShadowEffect->setBlurRadius(4.0);
@@ -69,7 +66,7 @@ Product::Product(const QPixmap & pixmap, const ProductProperty &property) : QObj
     m_productDescriptionItem->setPlainText(m_properties.shortDescription());
 
     m_productDescriptionItem->setTextWidth(this->boundingRect().width() - 5);
-    const qreal moveY = this->boundingRect().height() - PRODUCT_RECT_MARGIN*1.5;
+    const qreal moveY = this->boundingRect().height() - PRODUCT_RECT_MARGIN;
     m_productDescriptionItem->moveBy(PRODUCT_TEXT_LEFT_MARGIN, moveY);
 
     m_productNameItem->setParentItem(this);
@@ -87,14 +84,6 @@ QVariant Product::itemChange(GraphicsItemChange change,
 {
     if (change == QGraphicsItem::ItemSelectedHasChanged)
     {
-        if(isSelected())
-        {
-
-        }
-        else
-        {
-
-        }
     }
     return value;
 }
@@ -118,12 +107,12 @@ ProductProperty Product::properties() const
 
 void Product::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    QGraphicsPixmapItem::mousePressEvent(event);
-}
+    if (event->button() & Qt::LeftButton)
+    {
+   //     setSelected(!isSelected());
+    }
 
-void Product::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
-{
-    QGraphicsPixmapItem::mouseReleaseEvent(event);
+    QGraphicsPixmapItem::mousePressEvent(event);
 }
 
 void Product::mouseMoveEvent(QGraphicsSceneMouseEvent *event)

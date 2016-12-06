@@ -21,6 +21,7 @@ public:
     explicit NVKMainWindow(QWidget *parent = 0);
     ~NVKMainWindow();
     Order* order() const;
+    QList<Category*> categories() const;
 Q_SIGNALS:
     void closing();
     void searchProductClicked();

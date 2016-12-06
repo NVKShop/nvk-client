@@ -16,6 +16,7 @@ ProductSearchWindow::ProductSearchWindow(QWidget *parent) :
     this->setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter,
                                           size(), qApp->desktop()->availableGeometry()));
 #endif
+    ui->categoriesComboBox->setSizeAdjustPolicy(QComboBox::AdjustToContentsOnFirstShow);
 }
 
 ProductSearchWindow::~ProductSearchWindow()

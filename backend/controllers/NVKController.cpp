@@ -91,6 +91,13 @@ void NVKController::loginWindow()
 
 void NVKController::showProductSearchWindow()
 {
+    QStringList categories;
+
+    foreach (Category* cat, view()->categories()) {
+        categories << cat->name();
+    }
+
+    m_productSearchController->setCategories(categories);
     popUpWindow(m_productSearchController->view());
 }
 

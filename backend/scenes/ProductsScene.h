@@ -13,8 +13,8 @@ public:
 private:
     int m_viewWidth;
 protected:
-    bool event(QEvent *event);
-
+    bool event(QEvent *event) Q_DECL_OVERRIDE;
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
 Q_SIGNALS:
     void productDoubleClicked(Product* product);
 

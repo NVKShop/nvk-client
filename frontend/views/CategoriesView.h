@@ -3,6 +3,9 @@
 
 #include <QGraphicsView>
 #include "backend/scenes/CategoriesScene.h"
+
+class QSwipeGesture;
+
 class CategoriesView : public QGraphicsView
 {
 public:
@@ -16,6 +19,9 @@ private:
 protected:
     void mousePressEvent(QMouseEvent* event);
     void contextMenuEvent(QContextMenuEvent* event);
+    bool handleSwipe(QSwipeGesture *gesture);
+    bool viewportEvent(QEvent *event);
+
 };
 
 #endif // CATEGORIESVIEW_H

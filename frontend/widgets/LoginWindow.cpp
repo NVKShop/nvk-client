@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <QScreen>
 #include <QDesktopServices>
+#include <QPalette>
 
 LoginWindow::LoginWindow(QWidget *parent) :
     QDialog(parent),
@@ -21,6 +22,18 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui->registerUserLabel->setOpenExternalLinks(true);
     ui->forgotUserNameLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
 
+    QPalette p(palette());
+    setAutoFillBackground(true);
+    p.setColor(QPalette::Background, QColor::fromRgb(0x42, 0x41, 0x3D));
+    setPalette(p);
+
+    QPalette pt(ui->label->palette());
+    pt.setColor(QPalette::WindowText, QColor::fromRgb(0xFF, 0xCE,0x2B));
+    ui->label->setPalette(pt);
+    ui->label_2->setPalette(pt);
+    ui->forgotUserNameLabel->setPalette(pt);
+    ui->registerUserLabel->setPalette(pt);
+
 #ifdef Q_OS_ANDROID
     QScreen *screen = QApplication::screens().at(0);
     int w = screen->size().width();
@@ -29,6 +42,28 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui->gridLayout->setContentsMargins(w/4 - ui->forgotUserNameLabel->width(), h/3,
                                        w/4- ui->forgotUserNameLabel->width(), h/3);
 #endif
+    ui->loginButton->setStyleSheet(QString::fromUtf8("QPushButton{background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,"
+      "stop: 0 white, stop: 1 grey);"
+      "border-style: solid;"
+      "border-width: 2px;"
+      "border-color: black;"
+      "border-radius: 15px;}"));
+    ui->cancelButton->setStyleSheet(QString::fromUtf8("QPushButton{background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,"
+      "stop: 0 white, stop: 1 grey);"
+      "border-style: solid;"
+      "border-width: 2px;"
+      "border-color: black;"
+      "border-radius: 15px;}"));
+
+    QFont nvkFont;
+
+#ifdef Q_OS_ANDROID
+    nvkFont.setPointSize(20);
+#else
+    nvkFont.setPointSize(24);
+#endif
+    ui->nvkShopLabel->setFont(nvkFont);
+    ui->nvkShopLabel->adjustSize();
 
     connect(ui->loginButton, &QPushButton::clicked, this, &LoginWindow::login);
     connect(ui->forgotUserNameLabel, &QLabel::linkActivated, this, &LoginWindow::forgotUserNameClicked);

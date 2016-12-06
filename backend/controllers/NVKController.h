@@ -52,7 +52,6 @@ private:
     ProductSearchController* m_productSearchController;
     UserSettingsController* m_userSettingsController;
 
-
     QWidget* m_activeWindow;
 };
 
