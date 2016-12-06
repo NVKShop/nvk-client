@@ -24,10 +24,8 @@ protected:
     bool event(QEvent *event) Q_DECL_OVERRIDE;
 private:
     bool m_mouseDown = false;
-    qreal m_mouseDownPosY;
 
     bool handleSwipe(QSwipeGesture* gesture);
-    bool handlePan(QPanGesture* gesture);
     bool handleTapAndHold(QTapAndHoldGesture* gesture);
 
 };

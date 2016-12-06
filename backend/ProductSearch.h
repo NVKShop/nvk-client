@@ -12,22 +12,22 @@ public:
 
     enum Direction
     {
-        ASC,
+        ASC = 0,
         DESC
     };
-    ProductSearch(const QString& term, const QList<Category*>& categories, const QPair<double, double>& priceInterval,
+    ProductSearch(const QString& term, const QStringList& categories, const QPair<double, double>& priceInterval,
                   const QString& sortBy, const Direction& direction);
 
     ProductSearch() = default;
 
     void setSearchTerm(const QString& term);
-    void setSearchCategories(const QList<Category*>& categories);
+    void setSearchCategories(const QStringList &categories);
     void setPriceInterval(const QPair<double, double>& priceInterval);
     void setSortBy(const QString& sortby);
     void setDirection(const Direction& direction);
 
     QString searchTerm() const;
-    QList<Category*> searchCategories() const;
+    QStringList searchCategories() const;
     QPair<double, double> priceInterval() const;
     QString sortBy() const;
     Direction direction() const;
@@ -36,7 +36,7 @@ public:
 private:
 
     QString m_searchTerm;
-    QList<Category*> m_searchCategories;
+    QStringList m_searchCategories;
     QPair<double, double> m_priceInterval;
     QString m_sortBy;
     Direction m_sortDirection;

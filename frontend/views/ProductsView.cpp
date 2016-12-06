@@ -20,9 +20,8 @@ ProductsView::ProductsView(QWidget *parent) : QGraphicsView(parent)
     grabGesture(Qt::SwipeGesture);
     grabGesture(Qt::PanGesture);
     viewport()->grabGesture(Qt::SwipeGesture);
-    viewport()->grabGesture(Qt::PanGesture);
     QGraphicsView::setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
-    QScroller::grabGesture(viewport(), QScroller::TouchGesture);
+    QScroller::grabGesture(viewport(), QScroller::LeftMouseButtonGesture);
 }
 
 void ProductsView::mouseMoveEvent(QMouseEvent *e)
@@ -56,10 +55,7 @@ bool ProductsView::viewportEvent(QEvent *event)
         {
             return handleSwipe(static_cast<QSwipeGesture*>(swipe));
         }
-        if (QGesture* pan = e->gesture(Qt::PanGesture))
-        {
-            return handlePan(static_cast<QPanGesture*>(pan));
-        }
+
         if (QGesture* taphold = e->gesture(Qt::TapAndHoldGesture))
         {
             return handleTapAndHold(static_cast<QTapAndHoldGesture*>(taphold));
@@ -88,18 +84,7 @@ bool ProductsView::handleSwipe(QSwipeGesture *gesture)
         {
             vbar->setValue(vbar->value() + 10);
         }
-        qDebug() << "swipe";
     }
-
-    return true;
-}
-
-bool ProductsView::handlePan(QPanGesture *gesture)
-{
-    QScrollBar* vbar = verticalScrollBar();
-
-    vbar->setValue(vbar->value() + gesture->delta().y());
-    qDebug() << "pan";
 
     return true;
 }
@@ -107,6 +92,7 @@ bool ProductsView::handlePan(QPanGesture *gesture)
 bool ProductsView::handleTapAndHold(QTapAndHoldGesture *gesture)
 {
     qDebug() << "taphold";
+    Q_UNUSED(gesture)
     return true;
 }
 

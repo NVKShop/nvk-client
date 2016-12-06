@@ -6,6 +6,7 @@
 #include <QApplication>
 #include <QGestureEvent>
 #include <QSwipeGesture>
+#include <QFontMetrics>
 
 #define PRODUCT_RECT_MARGIN 60
 #define PRODUCT_TEXT_LEFT_MARGIN 25
@@ -20,9 +21,20 @@ Product::Product(const QPixmap & pixmap, const ProductProperty &property) : QObj
 
     w-= w/5;
 
-    m_originalPixmap = pixmap.scaledToWidth(screen->size().width() - screen->size().width() / 3);
+    int originalScaled;
+
+
+
+#ifdef Q_OS_ANDROID
+    originalScaled = screen->size().width() - screen->size().width() / 4;
+#else
+    originalScaled = pixmap.size().width();
+#endif
+    m_originalPixmap = pixmap.scaledToWidth(originalScaled);
+
     setPixmap(pixmap.scaledToWidth(w/2 - PRODUCT_RECT_MARGIN *1.5, Qt::SmoothTransformation));
     setOffset(25,  15);
+
 
     setFlag(QGraphicsItem::ItemIsSelectable);
     setAcceptTouchEvents(true);
@@ -38,7 +50,7 @@ Product::Product(const QPixmap & pixmap, const ProductProperty &property) : QObj
     m_productNameItem->moveBy(PRODUCT_TEXT_LEFT_MARGIN, -25);
     QFont nameFont;
     QFont descriptionFont;
-    m_productDescriptionItem = new QGraphicsTextItem(m_properties.description());
+    m_productDescriptionItem = new QGraphicsTextItem;
 
 #ifdef Q_OS_ANDROID
     nameFont.setPointSize(10);
@@ -51,6 +63,10 @@ Product::Product(const QPixmap & pixmap, const ProductProperty &property) : QObj
     m_productNameItem->setFont(nameFont);
     m_productDescriptionItem->setFont(descriptionFont);
 #endif
+
+    m_properties.setShortDescription(m_properties.description().left(this->boundingRect().width()/ descriptionFont.pointSize() - 5)+"...");
+
+    m_productDescriptionItem->setPlainText(m_properties.shortDescription());
 
     m_productDescriptionItem->setTextWidth(this->boundingRect().width() - 5);
     const qreal moveY = this->boundingRect().height() - PRODUCT_RECT_MARGIN*1.5;

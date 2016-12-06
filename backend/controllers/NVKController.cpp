@@ -1,12 +1,12 @@
 #include "backend/controllers/NVKController.h"
 
-NVKController::NVKController(QObject *parent) : QObject(parent), m_loginController(new LoginController),
+NVKController::NVKController(QObject *parent) : QObject(parent), m_mainWindow(new NVKMainWindow),
+    m_loginController(new LoginController),
     m_forgotUserDataController(new ForgotUserDataController),
-    m_mainWindow(new NVKMainWindow),
+    m_manageOrderController(new ManageOrderController),
     m_placeOrderController(new PlaceOrderController),
     m_productPreviewController(new ProductPreviewController),
     m_productSearchController(new ProductSearchController),
-    m_manageOrderController(new ManageOrderController),
     m_userSettingsController(new UserSettingsController)
 {
 

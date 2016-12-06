@@ -1,6 +1,6 @@
 #include "ProductSearch.h"
 
-ProductSearch::ProductSearch(const QString &term, const QList<Category *> &categories,
+ProductSearch::ProductSearch(const QString &term, const QStringList &categories,
                              const QPair<double, double> &priceInterval,
                              const QString &sortBy, const ProductSearch::Direction &direction)
     : m_searchTerm(term), m_searchCategories(categories),
@@ -13,7 +13,7 @@ QString ProductSearch::searchTerm() const
     return m_searchTerm;
 }
 
-QList<Category*> ProductSearch::searchCategories() const
+QStringList ProductSearch::searchCategories() const
 {
     return m_searchCategories;
 }
@@ -48,7 +48,7 @@ void ProductSearch::setSortBy(const QString &sortby)
     m_sortBy = sortby;
 }
 
-void ProductSearch::setSearchCategories(const QList<Category *> &categories)
+void ProductSearch::setSearchCategories(const QStringList &categories)
 {
     m_searchCategories = categories;
 }

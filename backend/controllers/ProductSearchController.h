@@ -2,6 +2,7 @@
 #define PRODUCTSEARCHCONTROLLER_H
 
 #include "frontend/widgets/ProductSearchWindow.h"
+#include "backend/ProductSearch.h"
 
 #include <QObject>
 
@@ -12,9 +13,10 @@ public:
     explicit ProductSearchController(QObject *parent = 0);
     ProductSearchWindow* view() const;
 Q_SIGNALS:
-
+    void searchProduct(ProductSearch* search);
+    void searchDataOk();
 public Q_SLOTS:
-
+    void search();
 private:
     ProductSearchWindow* m_productSearchWindow;
 };

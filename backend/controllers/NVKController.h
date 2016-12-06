@@ -42,6 +42,8 @@ private:
     HttpHandler m_HttpHandler;
     User* m_user;
 
+    NVKMainWindow* m_mainWindow;
+
     LoginController* m_loginController;
     ForgotUserDataController* m_forgotUserDataController;
     ManageOrderController* m_manageOrderController;
@@ -50,7 +52,6 @@ private:
     ProductSearchController* m_productSearchController;
     UserSettingsController* m_userSettingsController;
 
-    NVKMainWindow* m_mainWindow;
 
     QWidget* m_activeWindow;
 };

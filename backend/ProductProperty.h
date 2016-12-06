@@ -6,18 +6,18 @@
 class ProductProperty : public Property
 {
 public:
-    enum Category {
-        IDK,
-        SOMETHING
-    };
-    ProductProperty(const QString& name, const QString& desc, const Category& cat, const double& price);
 
+    ProductProperty(const QString& name, const QString& desc, const QString& cat, const double& price);
+
+    void setShortDescription(const QString& desc);
     QString description() const;
-    Category category() const;
+    QString shortDescription() const;
+    QString category() const;
     double price() const;
 private:
     QString m_description;
-    Category m_category;
+    QString m_shortDescription;
+    QString m_category;
     double m_price;
 };
 
