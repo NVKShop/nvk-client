@@ -41,6 +41,8 @@ LoginWindow::LoginWindow(QWidget *parent) :
 
     ui->gridLayout->setContentsMargins(w/4 - ui->forgotUserNameLabel->width(), h/3,
                                        w/4- ui->forgotUserNameLabel->width(), h/3);
+    ui->loginButton->resize(ui->loginButton->size()+ui->loginButton->size()/3);
+    ui->cancelButton->resize(ui->cancelButton->size() + ui->cancelButton->size()/3);
 #endif
     ui->loginButton->setStyleSheet(QString::fromUtf8("QPushButton{background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,"
       "stop: 0 white, stop: 1 grey);"

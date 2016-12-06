@@ -17,9 +17,6 @@
    <string>Log in</string>
   </property>
   <layout class="QGridLayout" name="gridLayout" rowstretch="4,3,2,4">
-   <property name="verticalSpacing">
-    <number>85</number>
-   </property>
    <item row="2" column="0">
     <layout class="QVBoxLayout" name="verticalLayout">
      <property name="spacing">

@@ -17,6 +17,8 @@ public:
     ~ProductPreviewDialog();
     QLabel* descriptionLabel() const;
     QLabel* previewLabel() const;
+    QLabel* productPriceLabel() const;
+    QLabel* productNameLabel() const;
 Q_SIGNALS:
     void addToCart();
 private:

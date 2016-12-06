@@ -2,7 +2,7 @@
 
 ProductPreviewController::ProductPreviewController(QObject *parent) : QObject(parent),
     m_productPreviewDialog(new ProductPreviewDialog)
-{
+{  
     connect(m_productPreviewDialog, &ProductPreviewDialog::addToCart, this, &ProductPreviewController::emitAddToCart);
 }
 
@@ -20,6 +20,9 @@ void ProductPreviewController::setProduct(Product* product)
     m_productPreviewDialog->previewLabel()->setPixmap(product->originalPixmap());
     m_productPreviewDialog->previewLabel()->adjustSize();
     m_product = product;
+
+    m_productPreviewDialog->productNameLabel()->setText(prop.name());
+    m_productPreviewDialog->productPriceLabel()->setText("Price: " + QString::number(prop.price())+ " HUF");
 }
 
 Product* ProductPreviewController::product() const

@@ -34,6 +34,22 @@ NVKMainWindow::NVKMainWindow(QWidget *parent) :
 
     ProductsScene* pscene = static_cast<ProductsScene*>(m_productsView->scene());
     connect(pscene, &ProductsScene::productDoubleClicked, this, &NVKMainWindow::productDoubleClicked);
+
+    QPalette p(palette());
+    setAutoFillBackground(true);
+    p.setColor(QPalette::Background, QColor::fromRgb(0x42, 0x41, 0x3D));
+    setPalette(p);
+
+    QPalette pt(ui->productsInCategoryLabel->palette());
+    pt.setColor(QPalette::WindowText, QColor::fromRgb(0xFF, 0xCE,0x2B));
+    ui->productsInCategoryLabel->setPalette(pt);
+
+    ui->searchButton->setStyleSheet(QString::fromUtf8("QPushButton{background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,"
+      "stop: 0 white, stop: 1 grey);"
+      "border-style: solid;"
+      "border-width: 2px;"
+      "border-color: black;"
+      "border-radius: 15px;}"));
 }
 
 void NVKMainWindow::setupViews()

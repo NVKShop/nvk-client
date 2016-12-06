@@ -16,6 +16,9 @@
   <layout class="QGridLayout" name="gridLayout_3">
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
+     <property name="verticalSpacing">
+      <number>65</number>
+     </property>
      <item row="0" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,4">
        <property name="spacing">
