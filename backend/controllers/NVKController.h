@@ -38,7 +38,7 @@ private Q_SLOTS:
     void successfulReminderSent();
     void showCartWindow();
     void showSettingsWindow();
-
+    void addToCart(Product* product);
 private:
 
     HttpHandler m_HttpHandler;

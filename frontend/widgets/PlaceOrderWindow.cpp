@@ -1,4 +1,5 @@
 #include "frontend/widgets/PlaceOrderWindow.h"
+#include "backend/Cart.h"
 #include "ui_placeorderwindow.h"
 #include <QShowEvent>
 #include <QPalette>
@@ -40,6 +41,16 @@ PlaceOrderWindow::~PlaceOrderWindow()
 void PlaceOrderWindow::setOrder(Order *order)
 {
     m_order = order;
+    int row = 0;
+    ui->cartTableWidget->setRowCount(m_order->user()->cart()->products().size());
+
+    foreach (Product* prod, m_order->user()->cart()->products()) {
+        QTableWidgetItem* item = new QTableWidgetItem;
+        item->setText(prod->properties().name());
+
+        ui->cartTableWidget->setItem(row, 0, item);
+        row++;
+    }
 }
 
 void PlaceOrderWindow::showEvent(QShowEvent *e)

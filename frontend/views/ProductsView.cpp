@@ -43,6 +43,12 @@ void ProductsView::mouseMoveEvent(QMouseEvent *e)
     QGraphicsView::mouseMoveEvent(e);
 }
 
+ProductsView::~ProductsView()
+{
+    delete m_addToCartAction;
+    delete m_addToCartMenu;
+}
+
 void ProductsView::mousePressEvent(QMouseEvent *e)
 {
 #ifndef Q_OS_ANDROID

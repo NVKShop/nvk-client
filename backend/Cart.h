@@ -13,6 +13,8 @@ public:
     void addProduct(Product *product);
     void addProducts(const QVector<Product*>& products);
     bool removeProduct(Product *product);
+    QVector<Product*> products() const;
+
 signals:
 
 public slots:

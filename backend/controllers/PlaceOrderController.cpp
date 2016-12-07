@@ -24,6 +24,6 @@ PlaceOrderController::~PlaceOrderController()
 void PlaceOrderController::placeOrder()
 {
 
-    // stuff here
+    // stuff here + check connection
     m_placeOrderWindow->accept();
 }

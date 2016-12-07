@@ -24,6 +24,9 @@ NVKController::NVKController(QObject *parent) : QObject(parent), m_mainWindow(ne
     connect(m_mainWindow, &NVKMainWindow::productDoubleClicked, this, &NVKController::showProductPreview);
     connect(m_mainWindow, &NVKMainWindow::showCart, this, &NVKController::showCartWindow);
     connect(m_mainWindow, &NVKMainWindow::showSettings, this, &NVKController::showSettingsWindow);
+
+    connect(m_productPreviewController, &ProductPreviewController::addToCart, this, &NVKController::addToCart);
+
 }
 
 void NVKController::changeActiveWindow(QWidget *window)
@@ -135,5 +138,11 @@ void NVKController::showSettingsWindow()
 {
     m_userSettingsController->setUser(m_mainWindow->order()->user());
     popUpWindow(m_userSettingsController->view());
+}
+
+void NVKController::addToCart(Product *product)
+{
+    m_mainWindow->order()->user()->cart()->addProduct(product);
+
 }
 

@@ -21,7 +21,29 @@ void UserSettingsController::saveSettings()
 {
     if (m_userSettingsWindow->emailSet())
     {
-        //just do it/ check if sent
+        if (m_userSettingsWindow->hasChanges())
+        {
+            if (m_userSettingsWindow->emailChanged())
+            {
+
+            }
+            if (m_userSettingsWindow->firstNameChanged())
+            {
+
+            }
+            if (m_userSettingsWindow->lastNameChanged())
+            {
+
+            }
+            if (m_userSettingsWindow->addressChanged())
+            {
+
+            }
+            if (m_userSettingsWindow->phoneNumberChanged())
+            {
+
+            }
+        }
     }
     else
     {
@@ -31,5 +53,6 @@ void UserSettingsController::saveSettings()
 
 void UserSettingsController::setUser(User* user)
 {
+    m_user = user;
     m_userSettingsWindow->setUser(user);
 }

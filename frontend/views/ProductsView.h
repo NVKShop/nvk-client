@@ -13,7 +13,7 @@ class ProductsView : public QGraphicsView
 public:
     ProductsView(QWidget* parent = 0);
     void scrollToTop();
-
+    ~ProductsView();
 protected:
     void mouseMoveEvent(QMouseEvent* e) Q_DECL_OVERRIDE;
     void mousePressEvent(QMouseEvent* e) Q_DECL_OVERRIDE;

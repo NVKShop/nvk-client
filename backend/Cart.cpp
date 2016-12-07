@@ -16,3 +16,8 @@ void Cart::addProducts(const QVector<Product *> &products)
         m_products.push_back(p);
     }
 }
+
+QVector<Product*> Cart::products() const
+{
+    return m_products;
+}

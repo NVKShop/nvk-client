@@ -13,13 +13,14 @@ public:
     explicit UserSettingsController(QObject *parent = 0);
     ~UserSettingsController();
     void setUser(User* user);
-
+    User* user();
     UserSettingsWindow* view() const;
 Q_SIGNALS:
 
 public Q_SLOTS:
     void saveSettings();
 private:
+    User* m_user;
     UserSettingsWindow* m_userSettingsWindow;
 
 };
