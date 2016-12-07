@@ -11,7 +11,6 @@ class PlaceOrderWindow;
 class PlaceOrderWindow : public QDialog
 {
     Q_OBJECT
-
 public:
     explicit PlaceOrderWindow(QWidget *parent = 0);
     ~PlaceOrderWindow();
@@ -21,6 +20,8 @@ private:
     Order* m_order;
 protected:
     void showEvent(QShowEvent* e) Q_DECL_OVERRIDE;
+Q_SIGNALS:
+    void placeOrderButtonClicked();
 };
 
 #endif // PLACEORDERWINDOW_H

@@ -11,16 +11,13 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Settings</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_4" stretch="3,0">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_3">
-       <property name="spacing">
-        <number>30</number>
-       </property>
        <item>
         <widget class="QLabel" name="label">
          <property name="text">
@@ -58,9 +55,6 @@
        </item>
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_2">
-         <property name="spacing">
-          <number>30</number>
-         </property>
          <property name="leftMargin">
           <number>25</number>
          </property>
@@ -112,9 +106,6 @@
      </item>
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">
-       <property name="spacing">
-        <number>30</number>
-       </property>
        <item>
         <widget class="QLineEdit" name="userNameLineEdit"/>
        </item>
@@ -152,7 +143,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <property name="spacing">
-      <number>55</number>
+      <number>50</number>
      </property>
      <property name="leftMargin">
       <number>65</number>

@@ -16,7 +16,7 @@ public:
 Q_SIGNALS:
 
 public Q_SLOTS:
-
+    void placeOrder();
 private:
     PlaceOrderWindow* m_placeOrderWindow;
 };

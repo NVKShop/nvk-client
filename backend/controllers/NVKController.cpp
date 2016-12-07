@@ -22,7 +22,8 @@ NVKController::NVKController(QObject *parent) : QObject(parent), m_mainWindow(ne
 
     connect(m_mainWindow, &NVKMainWindow::searchProductClicked, this, &NVKController::showProductSearchWindow);
     connect(m_mainWindow, &NVKMainWindow::productDoubleClicked, this, &NVKController::showProductPreview);
-
+    connect(m_mainWindow, &NVKMainWindow::showCart, this, &NVKController::showCartWindow);
+    connect(m_mainWindow, &NVKMainWindow::showSettings, this, &NVKController::showSettingsWindow);
 }
 
 void NVKController::changeActiveWindow(QWidget *window)
@@ -43,7 +44,19 @@ void NVKController::placeOrder(Order *order)
 
 void NVKController::popUpWindow(QWidget *window)
 {
-    window->show();
+    if (window->isHidden())
+    {
+        window->show();
+    }
+    else
+    {
+#ifndef Q_OS_ANDROID
+        if (!window->hasFocus())
+        {
+            window->raise();
+        }
+#endif
+    }
 }
 
 void NVKController::loginCancelled()
@@ -110,5 +123,16 @@ void NVKController::showProductPreview(Product *product)
 void NVKController::successfulReminderSent()
 {
     changeActiveWindow(m_loginController->view());
+}
+
+void NVKController::showCartWindow()
+{
+    m_placeOrderController->setOrder(m_mainWindow->order());
+    popUpWindow(m_placeOrderController->view());
+}
+
+void NVKController::showSettingsWindow()
+{
+    popUpWindow(m_userSettingsController->view());
 }
 

@@ -7,6 +7,7 @@ UserPanelItem::UserPanelItem(const QPixmap & pixmap, const int h) :
     setPixmap(pixmap.scaledToHeight(h, Qt::SmoothTransformation));
 
     setFlag(QGraphicsItem::ItemIsSelectable);
+    setEnabled(true);
 }
 
 UserPanelItem::~UserPanelItem()

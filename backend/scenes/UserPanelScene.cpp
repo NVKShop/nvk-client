@@ -1,4 +1,5 @@
 #include "backend/scenes/UserPanelScene.h"
+#include <QGraphicsSceneMouseEvent>
 
 UserPanelScene::UserPanelScene() : QGraphicsScene(),
   m_welcomeUserText(new QGraphicsSimpleTextItem)
@@ -52,4 +53,27 @@ UserPanelScene::~UserPanelScene()
     delete m_welcomeUserText;
     delete m_cartItem;
     delete m_settingsItem;
+}
+
+void UserPanelScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    QTransform t;
+    QGraphicsItem* itemUnderMouse = itemAt(event->scenePos().x(), event->scenePos().y(),t);
+
+    if (!qgraphicsitem_cast<UserPanelItem*>(itemUnderMouse))
+    {
+        return;
+    }
+    else
+    {
+        UserPanelItem* panelItem = qgraphicsitem_cast<UserPanelItem*>(itemUnderMouse);
+        if (panelItem == m_cartItem)
+        {
+            emit cartClicked();
+        }
+        else if (panelItem == m_settingsItem)
+        {
+            emit settingsClicked();
+        }
+    }
 }

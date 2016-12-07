@@ -3,6 +3,7 @@
 PlaceOrderController::PlaceOrderController(QObject *parent) : QObject(parent),
     m_placeOrderWindow(new PlaceOrderWindow)
 {
+    connect(m_placeOrderWindow, &PlaceOrderWindow::placeOrderButtonClicked, this, &PlaceOrderController::placeOrder);
 }
 
 PlaceOrderWindow* PlaceOrderController::view() const
@@ -18,4 +19,11 @@ void PlaceOrderController::setOrder(Order *order)
 PlaceOrderController::~PlaceOrderController()
 {
     delete m_placeOrderWindow;
+}
+
+void PlaceOrderController::placeOrder()
+{
+
+    // stuff here
+    m_placeOrderWindow->accept();
 }

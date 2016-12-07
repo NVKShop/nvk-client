@@ -43,6 +43,8 @@ NVKMainWindow::NVKMainWindow(QWidget *parent) :
       "border-width: 2px;"
       "border-color: black;"
       "border-radius: 15px;}"));
+
+
 }
 
 void NVKMainWindow::setupViews()
@@ -135,6 +137,8 @@ void NVKMainWindow::setupViews()
 
     m_userPanelView = ui->userPanelView;
     UserPanelScene* uScene = new UserPanelScene();
+    connect(uScene, &UserPanelScene::cartClicked, this, &NVKMainWindow::showCart);
+    connect(uScene, &UserPanelScene::settingsClicked, this, &NVKMainWindow::showSettings);
 
     qDebug() << "userpanelviewsize" << m_userPanelView->size();
     uScene->setSceneRect(0,0, m_userPanelView->width(), m_userPanelView->height());

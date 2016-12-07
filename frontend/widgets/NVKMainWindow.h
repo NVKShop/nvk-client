@@ -26,6 +26,8 @@ Q_SIGNALS:
     void closing();
     void searchProductClicked();
     void productDoubleClicked(Product* product);
+    void showCart();
+    void showSettings();
 
 private Q_SLOTS:
 

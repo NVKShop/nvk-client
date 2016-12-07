@@ -19,6 +19,9 @@ private:
     Ui::UserSettingsWindow *ui;
 protected:
     void showEvent(QShowEvent* event) Q_DECL_OVERRIDE;
+
+Q_SIGNALS:
+    void saveSettingsButtonClicked();
 };
 
 #endif // USERSETTINGSWINDOW_H

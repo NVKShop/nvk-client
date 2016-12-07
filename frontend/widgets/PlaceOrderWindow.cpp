@@ -7,6 +7,9 @@ PlaceOrderWindow::PlaceOrderWindow(QWidget *parent) :
     ui(new Ui::PlaceOrderWindow)
 {
     ui->setupUi(this);
+
+    connect(ui->cancelButton, &QPushButton::clicked, this, &PlaceOrderWindow::reject);
+    connect(ui->placeOrderButton, &QPushButton::clicked, this, &PlaceOrderWindow::placeOrderButtonClicked);
 }
 
 PlaceOrderWindow::~PlaceOrderWindow()

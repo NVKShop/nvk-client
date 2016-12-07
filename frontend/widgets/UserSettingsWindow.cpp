@@ -6,6 +6,9 @@ UserSettingsWindow::UserSettingsWindow(QWidget *parent) :
     ui(new Ui::UserSettingsWindow)
 {
     ui->setupUi(this);
+
+    connect(ui->cancelButton, &QPushButton::clicked, this, &UserSettingsWindow::close);
+    connect(ui->saveSettingsButton, &QPushButton::clicked, this, &UserSettingsWindow::saveSettingsButtonClicked);
 }
 
 UserSettingsWindow::~UserSettingsWindow()

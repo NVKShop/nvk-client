@@ -36,6 +36,8 @@ private Q_SLOTS:
     void showProductSearchWindow();
     void showProductPreview(Product* product);
     void successfulReminderSent();
+    void showCartWindow();
+    void showSettingsWindow();
 
 private:
 
