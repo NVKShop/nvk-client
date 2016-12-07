@@ -4,16 +4,14 @@
 #include <QGraphicsScene>
 #include <QGraphicsSceneHoverEvent>
 
+#define CATEGORY_BOUNDING_RECT_HEIGHT_PADDING 50
 Category::Category(const QPixmap & pixmap, const Property &property, const int width) :
     QGraphicsPixmapItem(pixmap), m_name(property)
 {
-#ifdef Q_OS_ANDROID
 
-#else
-    setPixmap(pixmap.scaled(width, 80, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    setOffset(0, 10);
-#endif
+    setPixmap(pixmap.scaledToWidth(width, Qt::SmoothTransformation));
 
+    setOffset(0, CATEGORY_BOUNDING_RECT_HEIGHT_PADDING/2);
     setFlag(QGraphicsItem::ItemIsSelectable);
 
     m_nameItem = new QGraphicsSimpleTextItem(m_name.name());
@@ -32,11 +30,11 @@ Category::Category(const QPixmap & pixmap, const Property &property, const int w
     const int moveY = this->boundingRect().height() / 2;
     m_nameItem->moveBy(moveX, moveY);
     m_nameItem->setParentItem(this);
-
 }
 
 Category::~Category()
 {
+    delete m_nameItem;
 }
 
 QVariant Category::itemChange(GraphicsItemChange change,
@@ -65,7 +63,7 @@ QRectF Category::boundingRect() const
     QRectF rect = pixmap().rect();
 
     rect.setWidth(rect.width() );
-    rect.setHeight(rect.height() + 35);
+    rect.setHeight(rect.height() + CATEGORY_BOUNDING_RECT_HEIGHT_PADDING);
     return rect;
 }
 

@@ -1,14 +1,10 @@
 #include "backend/graphics_items/UserPanelItem.h"
 
-UserPanelItem::UserPanelItem(const QPixmap & pixmap) :
+UserPanelItem::UserPanelItem(const QPixmap & pixmap, const int h) :
     QGraphicsPixmapItem(pixmap)
 {
-#ifdef Q_OS_ANDROID
 
-#else
-    setPixmap(pixmap.scaled(80, 80, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    setOffset(0, 25);
-#endif
+    setPixmap(pixmap.scaledToHeight(h, Qt::SmoothTransformation));
 
     setFlag(QGraphicsItem::ItemIsSelectable);
 }
@@ -29,11 +25,7 @@ QVariant UserPanelItem::itemChange(GraphicsItemChange change,
 
 QRectF UserPanelItem::boundingRect() const
 {
-    QRectF rect = pixmap().rect();
-
-    rect.setWidth(rect.width());
-    rect.setHeight(rect.height() + 10);
-    return rect;
+    return pixmap().rect();
 }
 
 void UserPanelItem::mousePressEvent(QGraphicsSceneMouseEvent *event)

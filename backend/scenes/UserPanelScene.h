@@ -11,11 +11,13 @@ public:
     UserPanelScene();
     ~UserPanelScene();
     void setUserName(const QString& name);
+    void setupScene();
 
 private:
-    void setupScene();
     QGraphicsSimpleTextItem* m_welcomeUserText;
 
+    UserPanelItem* m_settingsItem;
+    UserPanelItem* m_cartItem;
 };
 
 #endif // USERPANELSCENE_H

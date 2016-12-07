@@ -72,7 +72,15 @@ Product::Product(const QPixmap & pixmap, const ProductProperty &property) : QObj
     m_productNameItem->setParentItem(this);
     m_productDescriptionItem->setParentItem(this);
 
-    setCacheMode(QGraphicsItem::NoCache);
+    setCacheMode(QGraphicsItem::ItemCoordinateCache);
+
+    m_addToCartItem = new QGraphicsPixmapItem;
+    QPixmap addToCartImg(":/images/addToCart.png");
+    m_addToCartItem->setPixmap(addToCartImg.scaledToWidth(this->pixmap().width()/4));
+    m_addToCartItem->moveBy(PRODUCT_TEXT_LEFT_MARGIN/4, -25);
+    m_addToCartItem->setParentItem(this);
+    m_addToCartItem->hide();
+
 }
 
 Product::~Product()
@@ -84,6 +92,14 @@ QVariant Product::itemChange(GraphicsItemChange change,
 {
     if (change == QGraphicsItem::ItemSelectedHasChanged)
     {
+        if (isSelected())
+        {
+            m_addToCartItem->show();
+        }
+        else
+        {
+            m_addToCartItem->hide();
+        }
     }
     return value;
 }
@@ -134,6 +150,7 @@ void Product::reset()
 {
     m_productNameItem->setParentItem(this);
     m_productDescriptionItem->setParentItem(this);
+    m_addToCartItem->setParentItem(this);
 
     m_productNameItem->show();
     m_productDescriptionItem->show();
@@ -154,6 +171,11 @@ void Product::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 QPixmap Product::originalPixmap() const
 {
     return m_originalPixmap;
+}
+
+QGraphicsPixmapItem* Product::addToCartItem() const
+{
+    return m_addToCartItem;
 }
 
 

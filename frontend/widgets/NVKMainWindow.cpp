@@ -26,15 +26,8 @@ NVKMainWindow::NVKMainWindow(QWidget *parent) :
 #endif
     qDebug() << ui->productsView->width();
     setAttribute(Qt::WA_DeleteOnClose);
-    setupViews();
 
-    CategoriesScene* scene = static_cast<CategoriesScene*>(m_categoriesView->scene());
-    connect(scene, &CategoriesScene::selectionChangedNew, this, &NVKMainWindow::categoryChanged);
     connect(ui->searchButton, &QPushButton::clicked, this, &NVKMainWindow::searchProductClicked);
-
-    ProductsScene* pscene = static_cast<ProductsScene*>(m_productsView->scene());
-    connect(pscene, &ProductsScene::productDoubleClicked, this, &NVKMainWindow::productDoubleClicked);
-
     QPalette p(palette());
     setAutoFillBackground(true);
     p.setColor(QPalette::Background, QColor::fromRgb(0x42, 0x41, 0x3D));
@@ -109,7 +102,7 @@ void NVKMainWindow::setupViews()
         return  products;
     };
 
-    QVector<Category*> categories = c(6, 800 ); //
+    QVector<Category*> categories = c(6, ui->categoriesView->width() ); //
     QVector<Product*> c1p = p(40);
     QVector<Product*> c2p = p1(5);
 
@@ -123,15 +116,17 @@ void NVKMainWindow::setupViews()
 
     //
     m_productsView = ui->productsView;
-    m_productsView->resize(800, 600);
+    m_productsView->show();
+    //m_productsView->resize(800, 600);
+    qDebug() << "here";
     ProductsScene* pScene = new ProductsScene(m_productsView->width());
     pScene->setItems(m_categoryMapped.values(m_categoryMapped.firstKey()));
     m_productsView->setScene(pScene);
 
-    qDebug() << "productsViewRect " << m_productsView->rect();
+    qDebug() << "productsViewRect " << m_productsView->size();
 
     m_categoriesView = ui->categoriesView;
-    qDebug() << "catViewRect " << m_categoriesView->rect();
+    qDebug() << "catViewRect " << m_categoriesView->frameRect();
 
     CategoriesScene* cScene = new CategoriesScene();
     cScene->setItems(categories);
@@ -140,7 +135,10 @@ void NVKMainWindow::setupViews()
 
     m_userPanelView = ui->userPanelView;
     UserPanelScene* uScene = new UserPanelScene();
-    uScene->setSceneRect(0,0, 800, 100);
+
+    qDebug() << "userpanelviewsize" << m_userPanelView->size();
+    uScene->setSceneRect(0,0, m_userPanelView->width(), m_userPanelView->height());
+    uScene->setupScene();
     uScene->setUserName("Retarded Bitch");
 
     m_userPanelView->setScene(uScene);
@@ -174,6 +172,15 @@ void NVKMainWindow::showEvent(QShowEvent *event)
 #else
     show();
 #endif
+    setupViews();
+
+    CategoriesScene* scene = static_cast<CategoriesScene*>(m_categoriesView->scene());
+    connect(scene, &CategoriesScene::selectionChangedNew, this, &NVKMainWindow::categoryChanged);
+
+    ProductsScene* pscene = static_cast<ProductsScene*>(m_productsView->scene());
+    connect(pscene, &ProductsScene::productDoubleClicked, this, &NVKMainWindow::productDoubleClicked);
+
+
     QMainWindow::showEvent(event);
 }
 

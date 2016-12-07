@@ -19,6 +19,7 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget) Q_DECL_OVERRIDE;
     void reset();
     QPixmap originalPixmap() const;
+    QGraphicsPixmapItem* addToCartItem() const;
 protected:
     QVariant itemChange(GraphicsItemChange change,
                          const QVariant &value) Q_DECL_OVERRIDE;
@@ -38,6 +39,7 @@ private:
     QGraphicsTextItem* m_productNameItem;
     QGraphicsTextItem* m_productDescriptionItem;
     QGraphicsDropShadowEffect* m_dropShadowEffect;
+    QGraphicsPixmapItem* m_addToCartItem;
 };
 
 #endif // Product_H

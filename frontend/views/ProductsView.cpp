@@ -7,11 +7,12 @@
 #include <QTapAndHoldGesture>
 #include <QScrollBar>
 #include <QScroller>
-#include <QDebug>
+#include <QMenu>
+#include <QAction>
+#include <QResizeEvent>
+#include <QSize>
 
-ProductsView::ProductsView(ProductsScene* scene, QWidget *parent) : QGraphicsView(scene,parent)
-{
-}
+#include <QDebug>
 
 ProductsView::ProductsView(QWidget *parent) : QGraphicsView(parent)
 {
@@ -20,6 +21,19 @@ ProductsView::ProductsView(QWidget *parent) : QGraphicsView(parent)
     grabGesture(Qt::SwipeGesture);
     grabGesture(Qt::PanGesture);
     viewport()->grabGesture(Qt::SwipeGesture);
+    grabGesture(Qt::TapAndHoldGesture);
+    viewport()->grabGesture(Qt::TapAndHoldGesture);
+#ifdef Q_OS_ANDROID
+    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+#endif
+
+    m_addToCartMenu = new QMenu;
+
+    m_addToCartAction = new QAction(QIcon(QPixmap(":/images/addToCartAction.png")),"Add to cart");
+    m_addToCartMenu->addAction(m_addToCartAction);
+
+    connect(m_addToCartAction, &QAction::triggered, this, &ProductsView::addToCartActionTriggered);
+
     QGraphicsView::setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
     QScroller::grabGesture(viewport(), QScroller::LeftMouseButtonGesture);
 }
@@ -43,6 +57,17 @@ void ProductsView::mouseReleaseEvent(QMouseEvent *e)
     setDragMode(QGraphicsView::NoDrag);
 #endif
     QGraphicsView::mouseReleaseEvent(e);
+}
+
+void ProductsView::resizeEvent(QResizeEvent *event)
+{
+    if (scene())
+    {
+        qDebug() << event->size();
+       // resize(event->size().width(), event->size().height());
+    }
+
+    QGraphicsView::resizeEvent(event);
 }
 
 bool ProductsView::viewportEvent(QEvent *event)
@@ -91,14 +116,18 @@ bool ProductsView::handleSwipe(QSwipeGesture *gesture)
 
 bool ProductsView::handleTapAndHold(QTapAndHoldGesture *gesture)
 {
-    qDebug() << "taphold";
-    Q_UNUSED(gesture)
+    m_addToCartMenu->exec(gesture->position().toPoint());
     return true;
 }
 
 void ProductsView::scrollToTop()
 {
     this->verticalScrollBar()->setValue(verticalScrollBar()->minimum());
+}
+
+void ProductsView::showEvent(QShowEvent *event)
+{
+    QGraphicsView::showEvent(event);
 }
 
 

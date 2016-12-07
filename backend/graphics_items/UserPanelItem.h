@@ -6,7 +6,7 @@
 class UserPanelItem : public QGraphicsPixmapItem
 {
 public:
-    UserPanelItem(const QPixmap&);
+    UserPanelItem(const QPixmap&, const int h);
     ~UserPanelItem();
 
     QRectF boundingRect() const Q_DECL_OVERRIDE;

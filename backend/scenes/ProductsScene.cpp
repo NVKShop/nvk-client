@@ -23,7 +23,7 @@ void ProductsScene::setItems(const QList<Product *> &products)
 {
     foreach (QGraphicsItem* p, items()) {
 
-        disconnect(static_cast<Product*>(p), &Product::doubleClicked, this, &ProductsScene::productDoubleClicked);
+        disconnect(reinterpret_cast<Product*>(p), &Product::doubleClicked, this, &ProductsScene::productDoubleClicked);
         removeItem(p);
     }
 

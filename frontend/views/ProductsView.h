@@ -11,8 +11,7 @@ class ProductsView : public QGraphicsView
 {
     Q_OBJECT
 public:
-    explicit ProductsView(ProductsScene* scene, QWidget* parent);
-    ProductsView(QWidget* parent);
+    ProductsView(QWidget* parent = 0);
     void scrollToTop();
 
 protected:
@@ -20,13 +19,19 @@ protected:
     void mousePressEvent(QMouseEvent* e) Q_DECL_OVERRIDE;
     void mouseReleaseEvent(QMouseEvent *e) Q_DECL_OVERRIDE;
 
+    void resizeEvent(QResizeEvent* event) Q_DECL_OVERRIDE;
     bool viewportEvent(QEvent *event) Q_DECL_OVERRIDE;
     bool event(QEvent *event) Q_DECL_OVERRIDE;
+    void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
 private:
-    bool m_mouseDown = false;
 
+    QMenu* m_addToCartMenu;
+    QAction* m_addToCartAction;
     bool handleSwipe(QSwipeGesture* gesture);
     bool handleTapAndHold(QTapAndHoldGesture* gesture);
+
+Q_SIGNALS:
+    void addToCartActionTriggered();
 
 };
 
