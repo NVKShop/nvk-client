@@ -1,4 +1,5 @@
 #include "UserSettingsController.h"
+#include <QMessageBox>
 
 UserSettingsController::UserSettingsController(QObject *parent) : QObject(parent),
     m_userSettingsWindow(new UserSettingsWindow)
@@ -18,5 +19,17 @@ UserSettingsWindow* UserSettingsController::view() const
 
 void UserSettingsController::saveSettings()
 {
-    //save shit
+    if (m_userSettingsWindow->emailSet())
+    {
+        //just do it/ check if sent
+    }
+    else
+    {
+        QMessageBox::warning(0, "Error", "E-mail address must be set!");
+    }
+}
+
+void UserSettingsController::setUser(User* user)
+{
+    m_userSettingsWindow->setUser(user);
 }

@@ -40,8 +40,6 @@ void UserPanelScene::setupScene()
     m_cartItem = new UserPanelItem(QPixmap(":/images/cart.png"), this->height() - this->height()/4);
 
     addItem(m_settingsItem);
-
-    qDebug() << this->width() << this-> height();
     m_settingsItem->setPos(this->width() - this->width()/3, this->height() - m_settingsItem->pixmap().height());
 
     addItem(m_cartItem);

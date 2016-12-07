@@ -11,6 +11,7 @@ public:
     explicit Order(User *user, QObject *parent = 0);
     Order() = default;
     void setUser(User* user);
+    User* user() const;
 signals:
 
 public slots:

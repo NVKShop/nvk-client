@@ -42,8 +42,6 @@ private Q_SLOTS:
 private:
 
     HttpHandler m_HttpHandler;
-    User* m_user;
-
     NVKMainWindow* m_mainWindow;
 
     LoginController* m_loginController;

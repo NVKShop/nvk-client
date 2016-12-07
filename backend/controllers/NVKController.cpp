@@ -133,6 +133,7 @@ void NVKController::showCartWindow()
 
 void NVKController::showSettingsWindow()
 {
+    m_userSettingsController->setUser(m_mainWindow->order()->user());
     popUpWindow(m_userSettingsController->view());
 }
 

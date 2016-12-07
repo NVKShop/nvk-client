@@ -27,6 +27,7 @@ public:
     QString firstName() const;
     QString lastName() const;
     Address address() const;
+    QString email() const;
     bool isBanned() const;
     Role role() const;
     QString phoneNumber() const;
@@ -34,7 +35,7 @@ private:
     QString m_firstName;
     QString m_lastName;
     Address m_address;
-
+    QString m_email;
     bool m_banned;
 
     Role m_role;

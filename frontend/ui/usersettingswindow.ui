@@ -6,166 +6,197 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>563</width>
-    <height>553</height>
+    <width>481</width>
+    <height>374</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Settings</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_4" stretch="3,0">
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0" colspan="2">
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,4">
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_3">
-       <item>
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>Username:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>First name:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_6">
-         <property name="text">
-          <string>Last name:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>E-mail:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>Delivery address: </string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
-         <property name="leftMargin">
-          <number>25</number>
-         </property>
-         <item>
-          <widget class="QLabel" name="label_9">
-           <property name="text">
-            <string>Country:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_7">
-           <property name="text">
-            <string>City:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_8">
-           <property name="text">
-            <string>Zip:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_10">
-           <property name="text">
-            <string>Street:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_11">
-           <property name="text">
-            <string>House number:</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_4">
-         <property name="text">
-          <string>Phone number:</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Username:</string>
+       </property>
+      </widget>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout">
+      <widget class="QLineEdit" name="userNameLineEdit">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="1" column="0" colspan="2">
+    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,4">
+     <item>
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>First name:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="firstNameLineEdit"/>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="0" colspan="2">
+    <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,4">
+     <item>
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>Last name:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lastNameLineEdit"/>
+     </item>
+    </layout>
+   </item>
+   <item row="3" column="0" colspan="2">
+    <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,4">
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>E-mail:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="emailLineEdit"/>
+     </item>
+    </layout>
+   </item>
+   <item row="4" column="0" colspan="2">
+    <layout class="QVBoxLayout" name="verticalLayout" stretch="1,4,4,4,4,4">
+     <item>
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Delivery address: </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,4">
+       <property name="leftMargin">
+        <number>15</number>
+       </property>
        <item>
-        <widget class="QLineEdit" name="userNameLineEdit"/>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="firstNameLineEdit"/>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="lastNameLineEdit"/>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="emailLineEdit"/>
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>Country:</string>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="QLineEdit" name="addressCountryLineEdit"/>
        </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="1,4">
+       <property name="leftMargin">
+        <number>15</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>City:</string>
+         </property>
+        </widget>
+       </item>
        <item>
         <widget class="QLineEdit" name="addressCityLineEdit"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="1,4">
+       <property name="leftMargin">
+        <number>15</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="label_8">
+         <property name="text">
+          <string>Zip:</string>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="QLineEdit" name="addressZipLineEdit"/>
        </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="1,4">
+       <property name="leftMargin">
+        <number>15</number>
+       </property>
        <item>
-        <widget class="QLineEdit" name="addsressStreetLineEdit"/>
+        <widget class="QLabel" name="label_10">
+         <property name="text">
+          <string>Street:</string>
+         </property>
+        </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="addsressStreetLineEdit_2"/>
+        <widget class="QLineEdit" name="addressStreetLineEdit"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="1,4">
+       <property name="leftMargin">
+        <number>15</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="label_11">
+         <property name="text">
+          <string>House number:</string>
+         </property>
+        </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit_6"/>
+        <widget class="QLineEdit" name="addressHouseNumberLineEdit"/>
        </item>
       </layout>
      </item>
     </layout>
    </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <property name="spacing">
-      <number>50</number>
-     </property>
-     <property name="leftMargin">
-      <number>65</number>
-     </property>
-     <property name="rightMargin">
-      <number>65</number>
-     </property>
+   <item row="5" column="0" colspan="2">
+    <layout class="QHBoxLayout" name="horizontalLayout_10" stretch="1,4">
      <item>
-      <widget class="QPushButton" name="saveSettingsButton">
+      <widget class="QLabel" name="label_4">
        <property name="text">
-        <string>Save</string>
+        <string>Phone number:</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="cancelButton">
-       <property name="text">
-        <string>Cancel</string>
-       </property>
-      </widget>
+      <widget class="QLineEdit" name="phoneNumberLineEdit"/>
      </item>
     </layout>
+   </item>
+   <item row="6" column="0">
+    <widget class="QPushButton" name="saveSettingsButton">
+     <property name="text">
+      <string>Save</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="1">
+    <widget class="QPushButton" name="cancelButton">
+     <property name="text">
+      <string>Cancel</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

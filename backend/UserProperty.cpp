@@ -61,6 +61,11 @@ QString UserProperty::phoneNumber() const
     return m_phoneNumber;
 }
 
+QString UserProperty::email() const
+{
+    return m_email;
+}
+
 UserProperty::Role UserProperty::role() const
 {
     return m_role;

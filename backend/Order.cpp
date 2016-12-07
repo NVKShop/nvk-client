@@ -8,3 +8,8 @@ void Order::setUser(User *user)
 {
     m_user = user;
 }
+
+User* Order::user() const
+{
+    return m_user;
+}
