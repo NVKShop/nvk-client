@@ -150,6 +150,10 @@ void NVKMainWindow::setupViews()
 NVKMainWindow::~NVKMainWindow()
 {
     delete ui;
+    delete m_categoriesView;
+    delete m_order;
+    delete m_productsView;
+    delete m_userPanelView;
 }
 
 void NVKMainWindow::keyPressEvent(QKeyEvent *e)

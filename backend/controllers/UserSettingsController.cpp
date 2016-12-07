@@ -5,3 +5,8 @@ UserSettingsController::UserSettingsController(QObject *parent) : QObject(parent
 {
 
 }
+
+UserSettingsController::~UserSettingsController()
+{
+    delete m_userSettingsWindow;
+}

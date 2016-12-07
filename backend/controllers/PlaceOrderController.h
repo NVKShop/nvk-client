@@ -11,6 +11,7 @@ class PlaceOrderController : public QObject
 public:
     explicit PlaceOrderController(QObject *parent = 0);
     PlaceOrderWindow* view() const;
+    ~PlaceOrderController();
     void setOrder(Order* order);
 Q_SIGNALS:
 

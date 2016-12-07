@@ -11,17 +11,17 @@ void UserPanelScene::setUserName(const QString &name)
     int w = this->width();
     int h = this->height();
 #ifdef Q_OS_ANDROID
-    m_welcomeUserText->moveBy(w/2, h / 4);
+  //  m_welcomeUserText->setPos(w/6, h / 6);
 
 #else
-    m_welcomeUserText->moveBy(w/2, h / 4);
+   // m_welcomeUserText->setPos(w/6, h / 6);
 #endif
     QFont welcomeUserFont;
 
     welcomeUserFont.setPointSize(13);
     welcomeUserFont.setBold(true);
 
-    m_welcomeUserText->setBrush(Qt::green);
+    m_welcomeUserText->setBrush(QBrush(QColor::fromRgb(0xB9, 0x78,0x26)));
     m_welcomeUserText->setFont(welcomeUserFont);
     m_welcomeUserText->setText("Welcome " + name);
 
@@ -41,10 +41,10 @@ void UserPanelScene::setupScene()
     addItem(m_settingsItem);
 
     qDebug() << this->width() << this-> height();
-    m_settingsItem->moveBy(this->width() - this->width()/12, this->sceneRect().height() - m_settingsItem->pixmap().height());
+    m_settingsItem->setPos(this->width() - this->width()/3, this->height() - m_settingsItem->pixmap().height());
 
     addItem(m_cartItem);
-    m_cartItem->moveBy(this->width() - this->width()/3 , this->sceneRect().height() - m_cartItem->pixmap().height());
+    m_cartItem->setPos(this->width() - (this->width()/3)*2 , this->height() - m_cartItem->pixmap().height());
 }
 
 UserPanelScene::~UserPanelScene()

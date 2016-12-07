@@ -14,3 +14,8 @@ void PlaceOrderController::setOrder(Order *order)
 {
     m_placeOrderWindow->setOrder(order);
 }
+
+PlaceOrderController::~PlaceOrderController()
+{
+    delete m_placeOrderWindow;
+}

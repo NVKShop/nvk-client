@@ -10,7 +10,7 @@ class UserSettingsController : public QObject
     Q_OBJECT
 public:
     explicit UserSettingsController(QObject *parent = 0);
-
+    ~UserSettingsController();
 Q_SIGNALS:
 
 public Q_SLOTS:

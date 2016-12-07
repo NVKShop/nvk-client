@@ -35,4 +35,9 @@ void ProductPreviewController::emitAddToCart()
     emit addToCart(product());
 }
 
+ProductPreviewController::~ProductPreviewController()
+{
+    delete m_productPreviewDialog;
+}
+
 

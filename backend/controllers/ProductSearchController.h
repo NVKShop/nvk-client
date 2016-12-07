@@ -12,6 +12,7 @@ class ProductSearchController : public QObject
 public:
     explicit ProductSearchController(QObject *parent = 0);
     ProductSearchWindow* view() const;
+    ~ProductSearchController();
     void setCategories(const QStringList& categories);
 Q_SIGNALS:
     void searchProduct(ProductSearch* search);

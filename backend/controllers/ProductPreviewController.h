@@ -16,6 +16,7 @@ public:
     void setProduct(Product* product);
 
     Product* product() const;
+    ~ProductPreviewController();
 Q_SIGNALS:
     void addToCart(Product* product);
 public Q_SLOTS:

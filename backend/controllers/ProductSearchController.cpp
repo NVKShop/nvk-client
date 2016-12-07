@@ -53,3 +53,8 @@ void ProductSearchController::setCategories(const QStringList &categories)
     QComboBox* cb = view()->searchCategoriesComboBox();
     cb->setModel(categoriesModel);
 }
+
+ProductSearchController::~ProductSearchController()
+{
+    delete m_productSearchWindow;
+}
