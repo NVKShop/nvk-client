@@ -17,6 +17,7 @@ Q_SIGNALS:
 
 public Q_SLOTS:
     void placeOrder();
+    void resetCart();
 private:
     PlaceOrderWindow* m_placeOrderWindow;
 };

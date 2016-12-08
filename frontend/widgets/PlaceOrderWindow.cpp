@@ -48,7 +48,7 @@ PlaceOrderWindow::PlaceOrderWindow(QWidget *parent) :
     priceFont.setPointSize(18);
     ui->priceLabel->setFont(priceFont);
 
-
+    connect(ui->resetCartButton, &QPushButton::clicked, this, &PlaceOrderWindow::resetCart);
     connect(ui->cancelButton, &QPushButton::clicked, this, &PlaceOrderWindow::reject);
     connect(ui->placeOrderButton, &QPushButton::clicked, this, &PlaceOrderWindow::placeOrderButtonClicked);
 }
@@ -94,4 +94,9 @@ void PlaceOrderWindow::showEvent(QShowEvent *e)
     show();
 #endif
     QDialog::showEvent(e);
+}
+
+Order* PlaceOrderWindow::order() const
+{
+    return m_order;
 }

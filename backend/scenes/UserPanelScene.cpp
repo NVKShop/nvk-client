@@ -8,9 +8,6 @@ UserPanelScene::UserPanelScene() : QGraphicsScene(),
 
 void UserPanelScene::setUserName(const QString &name)
 {
-
-    int w = this->width();
-    int h = this->height();
 #ifdef Q_OS_ANDROID
   //  m_welcomeUserText->setPos(w/6, h / 6);
 

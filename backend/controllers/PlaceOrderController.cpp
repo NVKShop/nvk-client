@@ -3,6 +3,7 @@
 PlaceOrderController::PlaceOrderController(QObject *parent) : QObject(parent),
     m_placeOrderWindow(new PlaceOrderWindow)
 {
+    connect(m_placeOrderWindow, &PlaceOrderWindow::resetCart, this, &PlaceOrderController::resetCart);
     connect(m_placeOrderWindow, &PlaceOrderWindow::placeOrderButtonClicked, this, &PlaceOrderController::placeOrder);
 }
 
@@ -26,4 +27,10 @@ void PlaceOrderController::placeOrder()
 
     // stuff here + check connection
     m_placeOrderWindow->accept();
+}
+
+void PlaceOrderController::resetCart()
+{
+    m_placeOrderWindow->order()->user()->cart()->resetCart();
+    setOrder(m_placeOrderWindow->order());
 }

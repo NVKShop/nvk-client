@@ -34,7 +34,6 @@ Product::Product(const QPixmap & pixmap, const ProductProperty &property) : QObj
     setPixmap(pixmap.scaledToWidth(w/2 - PRODUCT_RECT_MARGIN *1.8, Qt::SmoothTransformation));
     setOffset(PRODUCT_TEXT_LEFT_MARGIN,  55);
 
-
     setFlag(QGraphicsItem::ItemIsSelectable);
     setAcceptTouchEvents(true);
 
@@ -78,7 +77,7 @@ Product::Product(const QPixmap & pixmap, const ProductProperty &property) : QObj
     m_addedToCartItem = new QGraphicsPixmapItem;
     QPixmap addedToCartImg(":/images/inCart.png");
     m_addedToCartItem->setPixmap(addedToCartImg.scaledToWidth(this->pixmap().width()/4));
-    m_addedToCartItem->moveBy(PRODUCT_TEXT_LEFT_MARGIN/4, -25);
+    m_addedToCartItem->moveBy(PRODUCT_TEXT_LEFT_MARGIN - m_addedToCartItem->pixmap().width() - 10, 0);
     m_addedToCartItem->setParentItem(this);
     m_addedToCartItem->hide();
 }

@@ -26,3 +26,9 @@ QVector<Product*> Cart::products() const
 {
     return m_products;
 }
+
+void Cart::resetCart()
+{
+    m_products.clear();
+    m_products.resize(0);
+}
