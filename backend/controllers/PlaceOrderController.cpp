@@ -26,6 +26,10 @@ void PlaceOrderController::placeOrder()
 {
 
     // stuff here + check connection
+
+    //if successful
+    m_placeOrderWindow->order()->user()->cart()->resetCart();
+
     m_placeOrderWindow->accept();
 }
 

@@ -29,6 +29,9 @@ QVector<Product*> Cart::products() const
 
 void Cart::resetCart()
 {
+    foreach (Product* prod, m_products) {
+        prod->removedFromCart();
+    }
     m_products.clear();
     m_products.resize(0);
 }

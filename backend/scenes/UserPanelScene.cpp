@@ -2,7 +2,7 @@
 #include <QGraphicsSceneMouseEvent>
 
 UserPanelScene::UserPanelScene() : QGraphicsScene(),
-  m_welcomeUserText(new QGraphicsSimpleTextItem)
+  m_welcomeUserText(new QGraphicsSimpleTextItem), m_productsInCartCountText(new QGraphicsSimpleTextItem)
 {
 }
 
@@ -41,6 +41,8 @@ void UserPanelScene::setupScene()
 
     addItem(m_cartItem);
     m_cartItem->setPos(this->width() - (this->width()/3)*2 , this->height() - m_cartItem->pixmap().height());
+
+
 }
 
 UserPanelScene::~UserPanelScene()
