@@ -5,6 +5,10 @@ User::User(const UserProperty &properties) : QObject(0),
 {
 }
 
+User::User() : m_cart(new Cart)
+{
+}
+
 
 Cart* User::cart() const
 {

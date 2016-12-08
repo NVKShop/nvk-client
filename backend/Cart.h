@@ -8,7 +8,7 @@ class Cart : public QObject
 {
     Q_OBJECT
 public:
-    Cart() = default;
+    Cart();
 
     void addProduct(Product *product);
     void addProducts(const QVector<Product*>& products);

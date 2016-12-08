@@ -11,7 +11,7 @@ class User : public QObject
     Q_OBJECT
 public:
     explicit User(const UserProperty& properties);
-    User() = default;
+    User() ;
     Cart *cart() const;
     UserProperty properties() const;
     void setCart(Cart *cart);

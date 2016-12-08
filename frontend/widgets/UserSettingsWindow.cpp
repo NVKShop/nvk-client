@@ -19,6 +19,16 @@ UserSettingsWindow::UserSettingsWindow(QWidget *parent) :
 
 */
 
+
+    QPalette pt(ui->label->palette());
+    pt.setColor(QPalette::WindowText, QColor::fromRgb(0xFF, 0xCE,0x2B));
+    foreach (QObject* o, children()) {
+        if (qobject_cast<QLabel*>(o))
+        {
+            qobject_cast<QLabel*>(o)->setPalette(pt);
+        }
+    }
+
     connect(ui->cancelButton, &QPushButton::clicked, this, &UserSettingsWindow::close);
     connect(ui->saveSettingsButton, &QPushButton::clicked, this, &UserSettingsWindow::saveSettingsButtonClicked);
 }

@@ -13,30 +13,76 @@
   <property name="windowTitle">
    <string>Place order</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout" columnstretch="6,1,1">
+  <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
-    <widget class="QTableWidget" name="cartTableWidget"/>
-   </item>
-   <item row="0" column="1" colspan="2">
-    <widget class="QLabel" name="totalPriceLabel">
-     <property name="text">
-      <string>TextLabel</string>
+    <widget class="QTableWidget" name="cartTableWidget">
+     <property name="selectionMode">
+      <enum>QAbstractItemView::ExtendedSelection</enum>
      </property>
+     <property name="selectionBehavior">
+      <enum>QAbstractItemView::SelectRows</enum>
+     </property>
+     <property name="sortingEnabled">
+      <bool>true</bool>
+     </property>
+     <property name="columnCount">
+      <number>3</number>
+     </property>
+     <attribute name="horizontalHeaderVisible">
+      <bool>true</bool>
+     </attribute>
+     <column>
+      <property name="text">
+       <string>Product name</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Price</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Count</string>
+      </property>
+     </column>
     </widget>
    </item>
-   <item row="1" column="1">
-    <widget class="QPushButton" name="placeOrderButton">
-     <property name="text">
-      <string>Place order</string>
-     </property>
-    </widget>
+   <item row="0" column="1">
+    <layout class="QVBoxLayout" name="verticalLayout" stretch="2,0">
+     <item>
+      <widget class="QPushButton" name="resetCartButton">
+       <property name="text">
+        <string>Reset cart</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="totalPriceLabel">
+       <property name="text">
+        <string>Total price</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
-   <item row="1" column="2">
-    <widget class="QPushButton" name="cancelButton">
-     <property name="text">
-      <string>Cancel</string>
-     </property>
-    </widget>
+   <item row="1" column="0" colspan="2">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="placeOrderButton">
+       <property name="text">
+        <string>Place order</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="cancelButton">
+       <property name="text">
+        <string>Cancel</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>

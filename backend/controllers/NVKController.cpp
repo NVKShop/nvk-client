@@ -120,6 +120,7 @@ void NVKController::showProductSearchWindow()
 void NVKController::showProductPreview(Product *product)
 {
     m_productPreviewController->setProduct(product);
+    qDebug() << "prodView" << product->properties().name();
     popUpWindow(m_productPreviewController->view());
 }
 
@@ -142,7 +143,7 @@ void NVKController::showSettingsWindow()
 
 void NVKController::addToCart(Product *product)
 {
+    qDebug() << "nvkC " << product->properties().name();
     m_mainWindow->order()->user()->cart()->addProduct(product);
-
 }
 

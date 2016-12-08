@@ -4,6 +4,7 @@ ProductPreviewController::ProductPreviewController(QObject *parent) : QObject(pa
     m_productPreviewDialog(new ProductPreviewDialog)
 {  
     connect(m_productPreviewDialog, &ProductPreviewDialog::addToCart, this, &ProductPreviewController::emitAddToCart);
+    connect(m_productPreviewDialog, &ProductPreviewDialog::addToCart, m_productPreviewDialog, &ProductPreviewDialog::close);
 }
 
 ProductPreviewDialog* ProductPreviewController::view() const
@@ -29,9 +30,11 @@ Product* ProductPreviewController::product() const
 {
     return m_product;
 }
+#include <QDebug>
 
 void ProductPreviewController::emitAddToCart()
 {
+    qDebug() <<"emitAdd" << product()->properties().name();
     emit addToCart(product());
 }
 
