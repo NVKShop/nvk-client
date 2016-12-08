@@ -7,7 +7,6 @@ Cart::Cart()
 
 void Cart::addProduct(Product* product)
 {
-    qDebug() << "cartAdd" << product->properties().name();
     m_products.push_back(product);
 }
 

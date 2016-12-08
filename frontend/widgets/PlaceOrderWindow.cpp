@@ -38,6 +38,16 @@ PlaceOrderWindow::PlaceOrderWindow(QWidget *parent) :
     QPalette pt(ui->totalPriceLabel->palette());
     pt.setColor(QPalette::WindowText, QColor::fromRgb(0xFF, 0xCE,0x2B));
     ui->totalPriceLabel->setPalette(pt);
+    ui->priceLabel->setPalette(pt);
+
+    QFont priceFont;
+    priceFont.setPointSize(20);
+    ui->totalPriceLabel->setFont(priceFont);
+
+    priceFont.setBold(true);
+    priceFont.setPointSize(18);
+    ui->priceLabel->setFont(priceFont);
+
 
     connect(ui->cancelButton, &QPushButton::clicked, this, &PlaceOrderWindow::reject);
     connect(ui->placeOrderButton, &QPushButton::clicked, this, &PlaceOrderWindow::placeOrderButtonClicked);
@@ -52,7 +62,7 @@ PlaceOrderWindow::~PlaceOrderWindow()
 void PlaceOrderWindow::setOrder(Order *order)
 {
     m_order = order;
-    int row = 1;
+    int row = 0;
     double totalPrice = 0;
     ui->cartTableWidget->setRowCount(m_order->user()->cart()->products().size());
     foreach (Product* prod, m_order->user()->cart()->products()) {
@@ -72,7 +82,7 @@ void PlaceOrderWindow::setOrder(Order *order)
 
         totalPrice+= prod->properties().price();
     }
-    ui->totalPriceLabel->setText("Total price: " + QString::number(totalPrice));
+    ui->priceLabel->setText(QString::number(totalPrice)+ " HUF");
     ui->cartTableWidget->resizeColumnsToContents();
 }
 

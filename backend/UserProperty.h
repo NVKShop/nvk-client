@@ -13,6 +13,7 @@ public:
     };
 
     UserProperty() = default;
+    void setEmail(const QString& email);
     void setFirstName(const QString& name);
     void setLastName(const QString& name);
     void setAddress(const Address& address);
@@ -22,7 +23,6 @@ public:
     UserProperty(const QString& firstName, const QString& lastName,
                  const Address &address,
                  const bool banned, Role role, const QString& phoneNumber);
-    UserProperty(const UserProperty& other);
 
     QString firstName() const;
     QString lastName() const;
@@ -36,7 +36,7 @@ private:
     QString m_lastName;
     Address m_address;
     QString m_email;
-    bool m_banned;
+    bool m_banned = false;
 
     Role m_role;
     QString m_phoneNumber;

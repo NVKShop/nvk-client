@@ -11,11 +11,6 @@ UserProperty::UserProperty(const QString &firstName,
 {
 }
 
-UserProperty::UserProperty(const UserProperty &other) :  Property(other.name())
-{
-    UserProperty(other.firstName(), other.lastName(), other.address(), other.isBanned(), other.role(), other.phoneNumber());
-}
-
 void UserProperty::setAddress(const Address &address)
 {
     m_address = address;
@@ -24,6 +19,11 @@ void UserProperty::setAddress(const Address &address)
 void UserProperty::setBanned(const bool banned)
 {
     m_banned = banned;
+}
+
+void UserProperty::setEmail(const QString &email)
+{
+    m_email = email;
 }
 
 void UserProperty::setFirstName(const QString &name)
@@ -39,6 +39,11 @@ void UserProperty::setLastName(const QString &name)
 void UserProperty::setPhoneNumber(const QString &pnumber)
 {
     m_phoneNumber = pnumber;
+}
+
+void UserProperty::setRole(const UserProperty::Role &role)
+{
+    m_role = role;
 }
 
 QString UserProperty::firstName() const

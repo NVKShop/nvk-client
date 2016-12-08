@@ -6,5 +6,6 @@
         <file>images/cart.png</file>
         <file>images/addToCart.png</file>
         <file>images/addToCartAction.png</file>
+        <file>images/inCart.png</file>
     </qresource>
 </RCC>

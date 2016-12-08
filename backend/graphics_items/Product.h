@@ -19,7 +19,9 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget) Q_DECL_OVERRIDE;
     void reset();
     QPixmap originalPixmap() const;
-    QGraphicsPixmapItem* addToCartItem() const;
+    bool isAddedToCart() const;
+
+    QGraphicsPixmapItem* addedToCartItem() const;
 protected:
     QVariant itemChange(GraphicsItemChange change,
                          const QVariant &value) Q_DECL_OVERRIDE;
@@ -28,18 +30,19 @@ protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) Q_DECL_OVERRIDE;
     bool sceneEvent(QEvent *event) Q_DECL_OVERRIDE;
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event) Q_DECL_OVERRIDE;
-
+public Q_SLOTS:
+    void addedToCart();
+    void removedFromCart();
 Q_SIGNALS:
     void doubleClicked(Product* product);
 private:
-    int m_xPos;
-    int m_yPos;
+    bool m_inCart;
     ProductProperty m_properties;
     QPixmap m_originalPixmap;
     QGraphicsTextItem* m_productNameItem;
     QGraphicsTextItem* m_productDescriptionItem;
     QGraphicsDropShadowEffect* m_dropShadowEffect;
-    QGraphicsPixmapItem* m_addToCartItem;
+    QGraphicsPixmapItem* m_addedToCartItem;
 };
 
 #endif // Product_H

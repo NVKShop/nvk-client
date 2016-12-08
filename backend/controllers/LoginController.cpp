@@ -10,7 +10,7 @@ LoginWindow* LoginController::view() const
 {
     return m_loginWindow;
 }
-
+#include<QDebug>
 void LoginController::loginUser()
 {
     //user authentication..
@@ -20,7 +20,12 @@ void LoginController::loginUser()
     UserProperty properties;
 
     properties.setName(m_loginWindow->userName());
-
+    properties.setFirstName("Lakatos");
+    properties.setLastName("Nintendó");
+    properties.setPhoneNumber("06 372 3292");
+    properties.setEmail("f/kristof@hotmail.com");
+    properties.setRole(UserProperty::ROLE_USER);
+//    properties.setBanned(true);
     Address userAddress;
     userAddress.setCity("Debrecen");
     userAddress.setCountry("Hungary");
@@ -29,8 +34,17 @@ void LoginController::loginUser()
     userAddress.setStreet("Egyetem sgt");
 
     properties.setAddress(userAddress);
+
     user->setProperties(properties);
-    emit loginOk(user);
+
+    if (user->properties().isBanned())
+    {
+        emit loginError("your username is banned!");
+    }
+    else
+    {
+        emit loginOk(user);
+    }
 
     // if error..emit loginError(errorMsg)
 }

@@ -42,14 +42,7 @@ void ProductsScene::setItems(const QList<Product *> &products)
     int col = 0;
     foreach (Product* prod, products)
     {
-        if (row == 0)
-        {
-            prod->setPos(col * productRect.width(), row * productRect.height()+ 50);
-        }
-        else
-        {
-            prod->setPos(col * productRect.width(), row * productRect.height());
-        }
+        prod->setPos(col * productRect.width(), row * productRect.height());
         prod->reset();
         addItem(prod);
 

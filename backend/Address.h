@@ -9,7 +9,7 @@ public:
     Address() = default;
     Address(const QString& country, const QString& zip, const QString& street, const QString& hnum,
             const QString& city);
-    Address& operator= (const Address& other) = default;
+
     QString country() const;
     QString zip() const;
     QString street() const;

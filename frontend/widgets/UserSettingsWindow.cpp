@@ -18,8 +18,18 @@ UserSettingsWindow::UserSettingsWindow(QWidget *parent) :
     connect(ui->firstNameLineEdit, &QLineEdit::textEdited, this, &UserSettingsWindow::firstNameChanged);
 
 */
-
-
+    ui->cancelButton->setStyleSheet(QString::fromUtf8("QPushButton{background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,"
+      "stop: 0 white, stop: 1 grey);"
+      "border-style: solid;"
+      "border-width: 2px;"
+      "border-color: black;"
+      "border-radius: 15px;}"));
+    ui->saveSettingsButton->setStyleSheet(QString::fromUtf8("QPushButton{background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,"
+      "stop: 0 white, stop: 1 grey);"
+      "border-style: solid;"
+      "border-width: 2px;"
+      "border-color: black;"
+      "border-radius: 15px;}"));
     QPalette pt(ui->label->palette());
     pt.setColor(QPalette::WindowText, QColor::fromRgb(0xFF, 0xCE,0x2B));
     foreach (QObject* o, children()) {
@@ -47,7 +57,7 @@ void UserSettingsWindow::showEvent(QShowEvent *e)
 #endif
     QWidget::showEvent(e);
 }
-
+#include <QDebug>
 void UserSettingsWindow::setUser(User *user)
 {
     const UserProperty& prop = user->properties();
@@ -55,7 +65,8 @@ void UserSettingsWindow::setUser(User *user)
     ui->emailLineEdit->setText(prop.email());
     ui->firstNameLineEdit->setText(prop.firstName());
     ui->lastNameLineEdit->setText(prop.lastName());
-    const Address& address = prop.address();
+    ui->phoneNumberLineEdit->setText(prop.phoneNumber());
+    const Address address = prop.address();
     ui->addressCountryLineEdit->setText(address.country());
     ui->addressCityLineEdit->setText(address.city());
     ui->addressHouseNumberLineEdit->setText(address.houseNumber());

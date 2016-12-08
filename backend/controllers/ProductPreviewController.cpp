@@ -34,7 +34,7 @@ Product* ProductPreviewController::product() const
 
 void ProductPreviewController::emitAddToCart()
 {
-    qDebug() <<"emitAdd" << product()->properties().name();
+    product()->addedToCart();
     emit addToCart(product());
 }
 

@@ -7,9 +7,10 @@
 #include <QGestureEvent>
 #include <QSwipeGesture>
 #include <QFontMetrics>
+#include <QPixmap>
 
-#define PRODUCT_RECT_MARGIN 100
-#define PRODUCT_TEXT_LEFT_MARGIN 100
+#define PRODUCT_RECT_MARGIN 80
+#define PRODUCT_TEXT_LEFT_MARGIN 80
 
 Product::Product(const QPixmap & pixmap, const ProductProperty &property) : QObject(),
     QGraphicsPixmapItem(pixmap), m_properties(property)
@@ -31,7 +32,7 @@ Product::Product(const QPixmap & pixmap, const ProductProperty &property) : QObj
     m_originalPixmap = pixmap.scaledToWidth(originalScaled);
 
     setPixmap(pixmap.scaledToWidth(w/2 - PRODUCT_RECT_MARGIN *1.8, Qt::SmoothTransformation));
-    setOffset(100,  15);
+    setOffset(PRODUCT_TEXT_LEFT_MARGIN,  55);
 
 
     setFlag(QGraphicsItem::ItemIsSelectable);
@@ -44,7 +45,7 @@ Product::Product(const QPixmap & pixmap, const ProductProperty &property) : QObj
     m_dropShadowEffect->setOffset(2.0);
 
     m_productNameItem->setGraphicsEffect(m_dropShadowEffect);
-    m_productNameItem->moveBy(PRODUCT_TEXT_LEFT_MARGIN, -25);
+    m_productNameItem->moveBy(PRODUCT_TEXT_LEFT_MARGIN, 0);
     QFont nameFont;
     QFont descriptionFont;
     m_productDescriptionItem = new QGraphicsTextItem;
@@ -66,7 +67,7 @@ Product::Product(const QPixmap & pixmap, const ProductProperty &property) : QObj
     m_productDescriptionItem->setPlainText(m_properties.shortDescription());
 
     m_productDescriptionItem->setTextWidth(this->boundingRect().width() - 5);
-    const qreal moveY = this->boundingRect().height() - PRODUCT_RECT_MARGIN;
+    const qreal moveY = pos().y() + this->pixmap().height() + offset().y() + 10;
     m_productDescriptionItem->moveBy(PRODUCT_TEXT_LEFT_MARGIN, moveY);
 
     m_productNameItem->setParentItem(this);
@@ -74,17 +75,20 @@ Product::Product(const QPixmap & pixmap, const ProductProperty &property) : QObj
 
     setCacheMode(QGraphicsItem::ItemCoordinateCache);
 
-    m_addToCartItem = new QGraphicsPixmapItem;
-    QPixmap addToCartImg(":/images/addToCart.png");
-    m_addToCartItem->setPixmap(addToCartImg.scaledToWidth(this->pixmap().width()/4));
-    m_addToCartItem->moveBy(PRODUCT_TEXT_LEFT_MARGIN/4, -25);
-    m_addToCartItem->setParentItem(this);
-    m_addToCartItem->hide();
-
+    m_addedToCartItem = new QGraphicsPixmapItem;
+    QPixmap addedToCartImg(":/images/inCart.png");
+    m_addedToCartItem->setPixmap(addedToCartImg.scaledToWidth(this->pixmap().width()/4));
+    m_addedToCartItem->moveBy(PRODUCT_TEXT_LEFT_MARGIN/4, -25);
+    m_addedToCartItem->setParentItem(this);
+    m_addedToCartItem->hide();
 }
 
 Product::~Product()
 {
+    delete m_addedToCartItem;
+    delete m_dropShadowEffect;
+    delete m_productDescriptionItem;
+    delete m_productNameItem;
 }
 
 QVariant Product::itemChange(GraphicsItemChange change,
@@ -92,14 +96,7 @@ QVariant Product::itemChange(GraphicsItemChange change,
 {
     if (change == QGraphicsItem::ItemSelectedHasChanged)
     {
-        if (isSelected())
-        {
-            m_addToCartItem->show();
-        }
-        else
-        {
-            m_addToCartItem->hide();
-        }
+
     }
     return value;
 }
@@ -107,8 +104,9 @@ QVariant Product::itemChange(GraphicsItemChange change,
 QRectF Product::boundingRect() const
 {
     QRectF rect = pixmap().rect();
-
-    return rect.adjusted(15, -PRODUCT_RECT_MARGIN, PRODUCT_RECT_MARGIN, PRODUCT_RECT_MARGIN);
+    rect.setHeight(rect.height() + PRODUCT_RECT_MARGIN*2);
+    rect.setWidth(rect.width() + PRODUCT_RECT_MARGIN);
+    return rect;
 }
 
 void Product::setProperties(const ProductProperty &properties)
@@ -150,7 +148,7 @@ void Product::reset()
 {
     m_productNameItem->setParentItem(this);
     m_productDescriptionItem->setParentItem(this);
-    m_addToCartItem->setParentItem(this);
+    m_addedToCartItem->setParentItem(this);
 
     m_productNameItem->show();
     m_productDescriptionItem->show();
@@ -173,9 +171,20 @@ QPixmap Product::originalPixmap() const
     return m_originalPixmap;
 }
 
-QGraphicsPixmapItem* Product::addToCartItem() const
+QGraphicsPixmapItem* Product::addedToCartItem() const
 {
-    return m_addToCartItem;
+    return m_addedToCartItem;
 }
+
+void Product::addedToCart()
+{
+    m_addedToCartItem->show();
+}
+
+void Product::removedFromCart()
+{
+    m_addedToCartItem->hide();
+}
+
 
 

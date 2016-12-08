@@ -16,7 +16,7 @@ public:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
 private:
     QGraphicsSimpleTextItem* m_welcomeUserText;
-
+    QGraphicsSimpleTextItem* m_productsInCartCountText;
     UserPanelItem* m_settingsItem;
     UserPanelItem* m_cartItem;
 Q_SIGNALS:
