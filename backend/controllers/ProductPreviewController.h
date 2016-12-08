@@ -19,6 +19,7 @@ public:
     ~ProductPreviewController();
 Q_SIGNALS:
     void addToCart(Product* product);
+    void addedToCart();
 public Q_SLOTS:
 
 private Q_SLOTS:

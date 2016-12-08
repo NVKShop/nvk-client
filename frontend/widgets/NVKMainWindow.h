@@ -22,13 +22,14 @@ public:
     ~NVKMainWindow();
     Order* order() const;
     QList<Category*> categories() const;
+    void addedToCart();
+
 Q_SIGNALS:
     void closing();
     void searchProductClicked();
     void productDoubleClicked(Product* product);
     void showCart();
     void showSettings();
-
 private Q_SLOTS:
 
 protected:

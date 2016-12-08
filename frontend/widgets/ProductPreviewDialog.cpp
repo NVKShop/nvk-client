@@ -9,7 +9,6 @@ ProductPreviewDialog::ProductPreviewDialog(QWidget *parent) :
     ui->setupUi(this);
     connect(ui->closeButton, &QPushButton::clicked, this, &ProductPreviewDialog::close);
     connect(ui->addToCartButton, &QPushButton::clicked, this, &ProductPreviewDialog::addToCart);
-
     ui->productDescriptionLabel->setWordWrap(true);
     ui->productDescriptionLabel->setAlignment(Qt::AlignJustify);
 

@@ -39,6 +39,7 @@ private Q_SLOTS:
     void showCartWindow();
     void showSettingsWindow();
     void addToCart(Product* product);
+    void addedToCart();
 private:
 
     HttpHandler m_HttpHandler;

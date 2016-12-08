@@ -5,6 +5,7 @@ ProductPreviewController::ProductPreviewController(QObject *parent) : QObject(pa
 {  
     connect(m_productPreviewDialog, &ProductPreviewDialog::addToCart, this, &ProductPreviewController::emitAddToCart);
     connect(m_productPreviewDialog, &ProductPreviewDialog::addToCart, m_productPreviewDialog, &ProductPreviewDialog::close);
+    connect(m_productPreviewDialog, &ProductPreviewDialog::addToCart, this, &ProductPreviewController::addedToCart);
 }
 
 ProductPreviewDialog* ProductPreviewController::view() const

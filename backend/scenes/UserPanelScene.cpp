@@ -2,7 +2,8 @@
 #include <QGraphicsSceneMouseEvent>
 
 UserPanelScene::UserPanelScene() : QGraphicsScene(),
-  m_welcomeUserText(new QGraphicsSimpleTextItem), m_productsInCartCountText(new QGraphicsSimpleTextItem)
+  m_welcomeUserText(new QGraphicsSimpleTextItem), m_productsInCartCountText(new QGraphicsSimpleTextItem),
+  m_productsCount(0)
 {
 }
 
@@ -43,6 +44,16 @@ void UserPanelScene::setupScene()
     m_cartItem->setPos(this->width() - (this->width()/3)*2 , this->height() - m_cartItem->pixmap().height());
 
 
+    m_productsInCartCountText->setText("(0)");
+
+    QFont cartItemsCountFont;
+    cartItemsCountFont.setPointSize(15);
+    cartItemsCountFont.setBold(true);
+
+    m_productsInCartCountText->setPos(m_cartItem->pos().x() + m_cartItem->boundingRect().width() + 10, m_cartItem->pos().y());
+    m_productsInCartCountText->setFont(cartItemsCountFont);
+    addItem(m_productsInCartCountText);
+    m_productsInCartCountText->show();
 }
 
 UserPanelScene::~UserPanelScene()
@@ -50,6 +61,7 @@ UserPanelScene::~UserPanelScene()
     delete m_welcomeUserText;
     delete m_cartItem;
     delete m_settingsItem;
+    delete m_productsInCartCountText;
 }
 
 void UserPanelScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -73,4 +85,28 @@ void UserPanelScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             emit settingsClicked();
         }
     }
+}
+
+void UserPanelScene::itemAdded()
+{
+    ++m_productsCount;
+    m_productsInCartCountText->setText("(" + QString::number(m_productsCount)+")");
+}
+
+void UserPanelScene::itemRemoved()
+{
+    --m_productsCount;
+    m_productsInCartCountText->setText("(" + QString::number(m_productsCount)+")");
+}
+
+void UserPanelScene::itemsRemoved(const int count)
+{
+    m_productsCount-= count;
+    m_productsInCartCountText->setText("(" + QString::number(m_productsCount)+")");
+}
+
+void UserPanelScene::resetCount()
+{
+    m_productsCount = 0;
+    m_productsInCartCountText->setText("(0)");
 }

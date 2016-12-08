@@ -218,3 +218,9 @@ QList<Category*> NVKMainWindow::categories() const
 {
     return m_categoryMapped.uniqueKeys();
 }
+
+void NVKMainWindow::addedToCart()
+{
+    UserPanelScene* us = qobject_cast<UserPanelScene*>(m_userPanelView->scene());
+    us->itemAdded();
+}
