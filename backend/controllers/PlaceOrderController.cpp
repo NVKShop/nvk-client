@@ -29,7 +29,7 @@ void PlaceOrderController::placeOrder()
 
     //if successful
     m_placeOrderWindow->order()->user()->cart()->resetCart();
-
+    emit resetCartQuantityText();
     m_placeOrderWindow->accept();
 }
 
@@ -37,4 +37,5 @@ void PlaceOrderController::resetCart()
 {
     m_placeOrderWindow->order()->user()->cart()->resetCart();
     setOrder(m_placeOrderWindow->order());
+    emit resetCartQuantityText();
 }

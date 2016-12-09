@@ -9,6 +9,7 @@ class ProductsScene : public QGraphicsScene
     Q_OBJECT
 public:
     ProductsScene(const int viewWidth);
+    ~ProductsScene();
     void setItems(const QList<Product *> &products);
 private:
     int m_viewWidth;
@@ -17,6 +18,9 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
 Q_SIGNALS:
     void productDoubleClicked(Product* product);
+    void scrollToTop();
+private:
+    QGraphicsPixmapItem* m_scrollToTopItem;
 
 };
 

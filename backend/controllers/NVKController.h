@@ -20,8 +20,6 @@ public:
     explicit NVKController(QObject *parent = 0);
     NVKMainWindow* view() const;
     void loginWindow();
-Q_SIGNALS:
-
 public Q_SLOTS:
 
 private Q_SLOTS:
@@ -39,7 +37,7 @@ private Q_SLOTS:
     void showCartWindow();
     void showSettingsWindow();
     void addToCart(Product* product);
-    void addedToCart();
+    void connectToScenes();
 private:
 
     HttpHandler m_HttpHandler;

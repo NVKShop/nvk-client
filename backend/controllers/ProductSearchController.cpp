@@ -33,7 +33,7 @@ void ProductSearchController::search()
         productSearch->setSearchCategories(m_productSearchWindow->categories());
 
         emit searchDataOk();
-        emit searchProduct(productSearch);
+        emit searchProduct(productSearch); // TODO in main controller do the stuff
     }
 }
 

@@ -14,7 +14,7 @@ public:
     ~PlaceOrderController();
     void setOrder(Order* order);
 Q_SIGNALS:
-
+    void resetCartQuantityText();
 public Q_SLOTS:
     void placeOrder();
     void resetCart();

@@ -22,7 +22,12 @@ public:
     ~NVKMainWindow();
     Order* order() const;
     QList<Category*> categories() const;
-    void addedToCart();
+
+    UserPanelScene* userPanelScene() const;
+    ProductsScene* productsScene() const;
+    CategoriesScene* categoriesScene() const;
+
+    ProductsView* productsView() const;
 
 Q_SIGNALS:
     void closing();
@@ -30,6 +35,7 @@ Q_SIGNALS:
     void productDoubleClicked(Product* product);
     void showCart();
     void showSettings();
+    void shown();
 private Q_SLOTS:
 
 protected:
@@ -46,7 +52,7 @@ private:
 
     Order* m_order;
     QMultiMap<Category*,Product*> m_categoryMapped;
-private Q_SLOTS:
+public Q_SLOTS:
     void categoryChanged(Category* newCategory);
 
 };

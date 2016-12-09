@@ -13,7 +13,7 @@
 #define PRODUCT_TEXT_LEFT_MARGIN 80
 
 Product::Product(const QPixmap & pixmap, const ProductProperty &property) : QObject(),
-    QGraphicsPixmapItem(pixmap), m_properties(property)
+    QGraphicsPixmapItem(pixmap), m_properties(property), m_quantityInCart(0)
 {
 
     QScreen *screen = QApplication::screens().at(0);
@@ -177,12 +177,24 @@ QGraphicsPixmapItem* Product::addedToCartItem() const
 
 void Product::addedToCart()
 {
+    m_quantityInCart++;
     m_addedToCartItem->show();
 }
 
 void Product::removedFromCart()
 {
     m_addedToCartItem->hide();
+    m_quantityInCart = 0;
+}
+
+int Product::quantityInCart() const
+{
+    return m_quantityInCart;
+}
+
+void Product::setQuantity(const int& quantity)
+{
+    m_quantityInCart = quantity;
 }
 
 

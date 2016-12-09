@@ -180,15 +180,8 @@ void NVKMainWindow::showEvent(QShowEvent *event)
 #else
     show();
 #endif
-    setupViews();
-
-    CategoriesScene* scene = static_cast<CategoriesScene*>(m_categoriesView->scene());
-    connect(scene, &CategoriesScene::selectionChangedNew, this, &NVKMainWindow::categoryChanged);
-
-    ProductsScene* pscene = static_cast<ProductsScene*>(m_productsView->scene());
-    connect(pscene, &ProductsScene::productDoubleClicked, this, &NVKMainWindow::productDoubleClicked);
-
-
+    setupViews(); 
+    emit shown();
     QMainWindow::showEvent(event);
 }
 
@@ -219,8 +212,22 @@ QList<Category*> NVKMainWindow::categories() const
     return m_categoryMapped.uniqueKeys();
 }
 
-void NVKMainWindow::addedToCart()
+UserPanelScene* NVKMainWindow::userPanelScene() const
 {
-    UserPanelScene* us = qobject_cast<UserPanelScene*>(m_userPanelView->scene());
-    us->itemAdded();
+    return reinterpret_cast<UserPanelScene*>(m_userPanelView->scene());
+}
+
+ProductsScene* NVKMainWindow::productsScene() const
+{
+    return reinterpret_cast<ProductsScene*>(m_productsView->scene());
+}
+
+CategoriesScene* NVKMainWindow::categoriesScene() const
+{
+    return reinterpret_cast<CategoriesScene*>(m_categoriesView->scene());
+}
+
+ProductsView* NVKMainWindow::productsView() const
+{
+    return m_productsView;
 }

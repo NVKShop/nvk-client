@@ -7,7 +7,10 @@ Cart::Cart()
 
 void Cart::addProduct(Product* product)
 {
-    m_products.push_back(product);
+    if (!m_products.contains(product))
+    {
+        m_products.push_back(product);
+    }
 }
 
 bool Cart::removeProduct(Product* product)

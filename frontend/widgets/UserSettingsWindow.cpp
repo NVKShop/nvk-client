@@ -13,11 +13,12 @@ UserSettingsWindow::UserSettingsWindow(QWidget *parent) :
     setAutoFillBackground(true);
     p.setColor(QPalette::Background, QColor::fromRgb(0x42, 0x41, 0x3D));
     setPalette(p);
-    /*connect(ui->addressCityLineEdit, &QLineEdit::textEdited, this, &UserSettingsWindow::addressCityChanged);
-    connect(ui->emailLineEdit, &QLineEdit::textEdited, this, &UserSettingsWindow::emailChanged);
-    connect(ui->firstNameLineEdit, &QLineEdit::textEdited, this, &UserSettingsWindow::firstNameChanged);
+    connect(ui->addressCityLineEdit, &QLineEdit::textEdited, this, &UserSettingsWindow::addressChangedSomewhere);
+    connect(ui->emailLineEdit, &QLineEdit::textEdited, this, &UserSettingsWindow::emailTextChanged);
+    connect(ui->firstNameLineEdit, &QLineEdit::textEdited, this, &UserSettingsWindow::firstNameTextChanged);
+    connect(ui->lastNameLineEdit, &QLineEdit::textEdited, this, &UserSettingsWindow::lastNameTextChanged);
+    connect(ui->phoneNumberLineEdit, &QLineEdit::textEdited, this, &UserSettingsWindow::phoneNumberTextChanged);
 
-*/
     ui->cancelButton->setStyleSheet(QString::fromUtf8("QPushButton{background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,"
       "stop: 0 white, stop: 1 grey);"
       "border-style: solid;"
@@ -32,7 +33,8 @@ UserSettingsWindow::UserSettingsWindow(QWidget *parent) :
       "border-radius: 15px;}"));
     QPalette pt(ui->label->palette());
     pt.setColor(QPalette::WindowText, QColor::fromRgb(0xFF, 0xCE,0x2B));
-    foreach (QObject* o, children()) {
+    foreach (QObject* o, children())
+    {
         if (qobject_cast<QLabel*>(o))
         {
             qobject_cast<QLabel*>(o)->setPalette(pt);
@@ -76,7 +78,7 @@ void UserSettingsWindow::setUser(User *user)
 
 bool UserSettingsWindow::emailSet() const
 {
-    return ui->emailLineEdit->text().isEmpty();
+    return !ui->emailLineEdit->text().isEmpty();
 }
 
 bool UserSettingsWindow::hasChanges() const

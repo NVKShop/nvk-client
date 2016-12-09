@@ -12,7 +12,6 @@ class ProductsView : public QGraphicsView
     Q_OBJECT
 public:
     ProductsView(QWidget* parent = 0);
-    void scrollToTop();
     ~ProductsView();
 protected:
     void mouseMoveEvent(QMouseEvent* e) Q_DECL_OVERRIDE;
@@ -29,6 +28,8 @@ private:
     QAction* m_addToCartAction;
     bool handleSwipe(QSwipeGesture* gesture);
     bool handleTapAndHold(QTapAndHoldGesture* gesture);
+public Q_SLOTS:
+    void scrollToTop();
 
 Q_SIGNALS:
     void addToCartActionTriggered();

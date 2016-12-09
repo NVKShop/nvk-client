@@ -21,6 +21,11 @@ void ProductPreviewController::setProduct(Product* product)
 
     m_productPreviewDialog->previewLabel()->setPixmap(product->originalPixmap());
     m_productPreviewDialog->previewLabel()->adjustSize();
+    QGraphicsDropShadowEffect* shadow = new QGraphicsDropShadowEffect;
+    shadow->setBlurRadius(10);
+    shadow->setOffset(10.0);
+    shadow->setColor(Qt::black);
+    m_productPreviewDialog->previewLabel()->setGraphicsEffect(shadow);
     m_product = product;
 
     m_productPreviewDialog->productNameLabel()->setText(prop.name());

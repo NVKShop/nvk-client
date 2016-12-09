@@ -19,8 +19,8 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget) Q_DECL_OVERRIDE;
     void reset();
     QPixmap originalPixmap() const;
-    bool isAddedToCart() const;
-
+    void setQuantity(const int& quantity);
+    int quantityInCart() const;
     QGraphicsPixmapItem* addedToCartItem() const;
 protected:
     QVariant itemChange(GraphicsItemChange change,
@@ -36,7 +36,7 @@ public Q_SLOTS:
 Q_SIGNALS:
     void doubleClicked(Product* product);
 private:
-    bool m_inCart;
+    int m_quantityInCart;
     ProductProperty m_properties;
     QPixmap m_originalPixmap;
     QGraphicsTextItem* m_productNameItem;

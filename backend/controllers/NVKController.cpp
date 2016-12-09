@@ -1,5 +1,4 @@
 #include "backend/controllers/NVKController.h"
-
 NVKController::NVKController(QObject *parent) : QObject(parent), m_mainWindow(new NVKMainWindow),
     m_loginController(new LoginController),
     m_forgotUserDataController(new ForgotUserDataController),
@@ -26,7 +25,8 @@ NVKController::NVKController(QObject *parent) : QObject(parent), m_mainWindow(ne
     connect(m_mainWindow, &NVKMainWindow::showSettings, this, &NVKController::showSettingsWindow);
 
     connect(m_productPreviewController, &ProductPreviewController::addToCart, this, &NVKController::addToCart);
-    connect(m_productPreviewController, &ProductPreviewController::addedToCart, this, &NVKController::addedToCart);
+    connect(m_mainWindow, &NVKMainWindow::shown, this, &NVKController::connectToScenes);
+
 }
 
 void NVKController::changeActiveWindow(QWidget *window)
@@ -145,8 +145,15 @@ void NVKController::addToCart(Product *product)
     m_mainWindow->order()->user()->cart()->addProduct(product);
 }
 
-void NVKController::addedToCart()
+void NVKController::connectToScenes()
 {
-    m_mainWindow->addedToCart();
+    connect(m_mainWindow->productsScene(), &ProductsScene::productDoubleClicked, m_mainWindow, &NVKMainWindow::productDoubleClicked);
+    connect(m_mainWindow->categoriesScene(), &CategoriesScene::selectionChangedNew, m_mainWindow, &NVKMainWindow::categoryChanged);
+
+    connect(m_productPreviewController, &ProductPreviewController::addedToCart, m_mainWindow->userPanelScene(), &UserPanelScene::itemAdded);
+    connect(m_placeOrderController, &PlaceOrderController::resetCartQuantityText, m_mainWindow->userPanelScene(), &UserPanelScene::resetCount);
+    connect(m_mainWindow->productsScene(), &ProductsScene::scrollToTop, m_mainWindow->productsView(), &ProductsView::scrollToTop);
+
+    disconnect(m_mainWindow, &NVKMainWindow::shown, this, &NVKController::connectToScenes);
 }
 

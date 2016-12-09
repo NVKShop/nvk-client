@@ -65,10 +65,17 @@ void PlaceOrderWindow::setOrder(Order *order)
     int row = 0;
     double totalPrice = 0;
     ui->cartTableWidget->setRowCount(m_order->user()->cart()->products().size());
+    QFont tableFont;
+    tableFont.setBold(true);
+    tableFont.setPointSize(13);
     foreach (Product* prod, m_order->user()->cart()->products()) {
         QTableWidgetItem* nameItem = new QTableWidgetItem;
-        QTableWidgetItem* countItem = new QTableWidgetItem("1");
+        QTableWidgetItem* countItem = new QTableWidgetItem(QString::number(prod->quantityInCart()));
         QTableWidgetItem* priceItem = new QTableWidgetItem;
+
+        nameItem->setFont(tableFont);
+        countItem->setFont(tableFont);
+        priceItem->setFont(tableFont);
 
         priceItem->setText(QString::number(prod->properties().price())+" HUF");
         priceItem->setFlags(priceItem->flags() & ~Qt::ItemIsEditable);
@@ -80,7 +87,7 @@ void PlaceOrderWindow::setOrder(Order *order)
         ui->cartTableWidget->setItem(row, 2, countItem);
         row++;
 
-        totalPrice+= prod->properties().price();
+        totalPrice+= prod->properties().price() * prod->quantityInCart();
     }
     ui->priceLabel->setText(QString::number(totalPrice)+ " HUF");
     ui->cartTableWidget->resizeColumnsToContents();

@@ -1,6 +1,7 @@
 #include "frontend/widgets/ProductPreviewDialog.h"
 #include "ui_productpreviewdialog.h"
 #include <QFont>
+#include <QGraphicsDropShadowEffect>
 
 ProductPreviewDialog::ProductPreviewDialog(QWidget *parent) :
     QDialog(parent),
