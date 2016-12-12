@@ -10,7 +10,6 @@ CategoriesScene::CategoriesScene(): QGraphicsScene()
 }
 
 
-
 void CategoriesScene::setItems(const QVector<Category *> &categories)
 {
     QRectF catRect = categories.at(0)->boundingRect();

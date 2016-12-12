@@ -85,7 +85,6 @@ bool ProductsScene::event(QEvent *event)
     return QGraphicsScene::event(event);
 }
 
-
 void ProductsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     QTransform t;

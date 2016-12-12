@@ -47,6 +47,7 @@ PlaceOrderWindow::PlaceOrderWindow(QWidget *parent) :
     priceFont.setBold(true);
     priceFont.setPointSize(18);
     ui->priceLabel->setFont(priceFont);
+    ui->cartTableWidget->horizontalHeader()->setStretchLastSection(true);
 
     connect(ui->resetCartButton, &QPushButton::clicked, this, &PlaceOrderWindow::resetCart);
     connect(ui->cancelButton, &QPushButton::clicked, this, &PlaceOrderWindow::reject);

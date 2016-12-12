@@ -1,4 +1,5 @@
 #include "PlaceOrderController.h"
+#include <QMessageBox>
 
 PlaceOrderController::PlaceOrderController(QObject *parent) : QObject(parent),
     m_placeOrderWindow(new PlaceOrderWindow)
@@ -24,13 +25,19 @@ PlaceOrderController::~PlaceOrderController()
 
 void PlaceOrderController::placeOrder()
 {
+    if (view()->order()->user()->cart()->products().size() == 0 )
+    {
+        QMessageBox::warning(0, "Error placing order", "Can't place an empty order!");
+    }
+    else
+    {
+        // stuff here + check connection
 
-    // stuff here + check connection
-
-    //if successful
-    m_placeOrderWindow->order()->user()->cart()->resetCart();
-    emit resetCartQuantityText();
-    m_placeOrderWindow->accept();
+        //if successful
+        m_placeOrderWindow->order()->user()->cart()->resetCart();
+        emit resetCartQuantityText();
+        m_placeOrderWindow->accept();
+    }
 }
 
 void PlaceOrderController::resetCart()
