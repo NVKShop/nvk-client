@@ -119,16 +119,11 @@ void NVKMainWindow::setupViews()
     //
     m_productsView = ui->productsView;
     m_productsView->show();
-    //m_productsView->resize(800, 600);
-    qDebug() << "here";
     ProductsScene* pScene = new ProductsScene(m_productsView->width());
     pScene->setItems(m_categoryMapped.values(m_categoryMapped.firstKey()));
     m_productsView->setScene(pScene);
 
-    qDebug() << "productsViewRect " << m_productsView->size();
-
     m_categoriesView = ui->categoriesView;
-    qDebug() << "catViewRect " << m_categoriesView->frameRect();
 
     CategoriesScene* cScene = new CategoriesScene();
     cScene->setItems(categories);
@@ -137,13 +132,13 @@ void NVKMainWindow::setupViews()
 
     m_userPanelView = ui->userPanelView;
     UserPanelScene* uScene = new UserPanelScene();
+
     connect(uScene, &UserPanelScene::cartClicked, this, &NVKMainWindow::showCart);
     connect(uScene, &UserPanelScene::settingsClicked, this, &NVKMainWindow::showSettings);
 
-    qDebug() << "userpanelviewsize" << m_userPanelView->size();
     uScene->setSceneRect(0,0, m_userPanelView->width(), m_userPanelView->height());
     uScene->setupScene();
-    uScene->setUserName("Retarded Bitch");
+    uScene->setUserName(m_order->user()->properties().name());
 
     m_userPanelView->setScene(uScene);
     ui->productsInCategoryLabel->setText(QString::number(

@@ -5,9 +5,9 @@ UserProperty::UserProperty(const QString &firstName,
                            const Address &address,
                            const bool banned,
                            UserProperty::Role role,
-                           const QString &phoneNumber): Property(firstName),
+                           const QString &phoneNumber, const QString& pw): Property(firstName),
     m_firstName(firstName), m_lastName(lastName), m_address(address), m_banned(banned), m_role(role),
-    m_phoneNumber(phoneNumber)
+    m_phoneNumber(phoneNumber), m_password(pw)
 {
 }
 
@@ -41,6 +41,11 @@ void UserProperty::setPhoneNumber(const QString &pnumber)
     m_phoneNumber = pnumber;
 }
 
+void UserProperty::setPassword(const QString &pw)
+{
+    m_password = pw;
+}
+
 void UserProperty::setRole(const UserProperty::Role &role)
 {
     m_role = role;
@@ -64,6 +69,11 @@ Address UserProperty::address() const
 QString UserProperty::phoneNumber() const
 {
     return m_phoneNumber;
+}
+
+QString UserProperty::password() const
+{
+    return m_password;
 }
 
 QString UserProperty::email() const

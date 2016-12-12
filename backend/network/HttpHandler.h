@@ -14,7 +14,7 @@ public:
     HttpHandler(const QUrl& url);
     HttpHandler() = default;
 public Q_SLOTS:
-    QJsonDocument post(const QString& msg);
+  //  JsonReply post(const JsonRequest& msg);
 };
 
 #endif // HTTPHANDLER_H

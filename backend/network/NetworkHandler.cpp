@@ -4,6 +4,7 @@
 #include <QNetworkInterface>
 #include <QList>
 #include <QEventLoop>
+#include <QTimer>
 
 NetworkHandler::NetworkHandler(QObject *parent) : QObject(parent),
     m_HttpReply(Q_NULLPTR), m_HttpRequest(Q_NULLPTR)
@@ -44,12 +45,30 @@ bool NetworkHandler::isConnectedToTheInternet()
     QNetworkRequest req(QUrl("http://www.google.com"));
     QNetworkReply *reply = nam.get(req);
     QEventLoop loop;
-    connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+    QTimer timer;
+    timer.setSingleShot(true);
+
+    connect(&timer, &QTimer::timeout, &loop, &QEventLoop::quit);
+    timer.start(2000);
+    connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
     loop.exec();
-    if(reply->bytesAvailable()) {
-        return true;
+    if (timer.isActive())
+    {
+        if(reply->bytesAvailable()) {
+            timer.stop();
+            delete reply;
+            return true;
+        }
+        else
+        {
+            delete reply;
+            return false;
+        }
     }
-    else {
+    else
+    {
+        reply->abort();
+        delete reply;
         return false;
     }
 }

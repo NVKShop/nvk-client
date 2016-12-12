@@ -39,6 +39,7 @@ private Q_SLOTS:
     void phoneNumberTextChanged();
     void firstNameTextChanged();
     void lastNameTextChanged();
+    void checkPhoneNumberFormat();
 protected:
     void showEvent(QShowEvent* event) Q_DECL_OVERRIDE;
 

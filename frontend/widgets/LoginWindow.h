@@ -18,6 +18,7 @@ public:
 
     QString userName() const;
     QString userPassword() const;
+    bool dataEntered() const;
 private:
     Ui::LoginWindow *ui;
     bool m_connected;
@@ -29,6 +30,7 @@ Q_SIGNALS:
     void cancelLogin();
 public Q_SLOTS:
     void loginError(const QString& message);
+
 private Q_SLOTS:
     void forgotUserNameClicked();
     void login();

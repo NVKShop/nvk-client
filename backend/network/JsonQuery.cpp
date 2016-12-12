@@ -2,10 +2,9 @@
 
 JsonQuery::JsonQuery(QObject *parent) : QObject(parent)
 {
-
 }
 
-QJsonDocument JsonQuery::getDocument() const
+QJsonDocument JsonQuery::document() const
 {
     return m_document;
 }

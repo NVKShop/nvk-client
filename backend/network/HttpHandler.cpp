@@ -8,14 +8,16 @@ HttpHandler::HttpHandler(const QUrl& url)
     m_HttpRequest= new QNetworkRequest(url);
 }
 
-QJsonDocument HttpHandler::post(const QString &msg)
+/*JsonReply HttpHandler::post(const JsonRequest &msg)
 {
-    sendRequest(msg);
+    //sendRequest();
     QJsonParseError* err = new QJsonParseError;
     QJsonDocument doc = QJsonDocument::fromJson(reply()->readAll(), err);
     if (!err->errorString().isEmpty()) {
         qDebug() << err->errorString();
         return QJsonDocument();
     }
-    return doc;
-}
+    QJsonDocument doc;
+    JsonReply reply(doc);
+    return reply;
+}*/

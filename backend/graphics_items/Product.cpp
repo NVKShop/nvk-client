@@ -122,7 +122,7 @@ void Product::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     if (event->button() & Qt::LeftButton)
     {
-   //     setSelected(!isSelected());
+        setSelected(!isSelected());
     }
 
     QGraphicsPixmapItem::mousePressEvent(event);

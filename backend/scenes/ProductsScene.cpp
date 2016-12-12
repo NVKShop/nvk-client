@@ -98,8 +98,4 @@ void ProductsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     {
         emit scrollToTop();
     }
-    else
-    {
-        itemUnderMouse->setSelected(!itemUnderMouse->isSelected());
-    }
 }

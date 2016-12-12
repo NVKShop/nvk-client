@@ -3,6 +3,9 @@
 #include <QPalette>
 #include <QColor>
 #include <QLineEdit>
+#include <QRegularExpression>
+#include <QRegularExpressionMatch>
+#include <QMessageBox>
 
 UserSettingsWindow::UserSettingsWindow(QWidget *parent) :
     QWidget(parent),
@@ -18,7 +21,7 @@ UserSettingsWindow::UserSettingsWindow(QWidget *parent) :
     connect(ui->firstNameLineEdit, &QLineEdit::textEdited, this, &UserSettingsWindow::firstNameTextChanged);
     connect(ui->lastNameLineEdit, &QLineEdit::textEdited, this, &UserSettingsWindow::lastNameTextChanged);
     connect(ui->phoneNumberLineEdit, &QLineEdit::textEdited, this, &UserSettingsWindow::phoneNumberTextChanged);
-
+    connect(ui->phoneNumberLineEdit, &QLineEdit::editingFinished, this, &UserSettingsWindow::checkPhoneNumberFormat);
     ui->cancelButton->setStyleSheet(QString::fromUtf8("QPushButton{background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,"
       "stop: 0 white, stop: 1 grey);"
       "border-style: solid;"
@@ -150,5 +153,14 @@ void UserSettingsWindow::emailTextChanged()
     if (!m_emailChanged)
     {
         m_emailChanged = true;
+    }
+}
+
+void UserSettingsWindow::checkPhoneNumberFormat()
+{
+    QRegularExpression phoneNumRegexp("\"(^$|[0-9]{10})\"");
+    if (!phoneNumRegexp.match(ui->phoneNumberLineEdit->text()).hasMatch())
+    {
+        QMessageBox::warning(0, "Phone number format error", "Error, phone number format is incorrect");
     }
 }

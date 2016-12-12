@@ -6,6 +6,7 @@
 #include <QScreen>
 #include <QDesktopServices>
 #include <QPalette>
+#include <QSettings>
 
 LoginWindow::LoginWindow(QWidget *parent) :
     QDialog(parent),
@@ -115,6 +116,21 @@ void LoginWindow::showEvent(QShowEvent *e)
 #else
     show();
 #endif
+
+    QSettings settings;
+
+    QVariant uname = settings.value("userName");
+    if (!uname.toString().isEmpty())
+    {
+        ui->userNameEdit->setText(uname.toString());
+    }
+
+    QVariant pass = settings.value("password");
+    if (!pass.toString().isEmpty())
+    {
+        ui->passwordEdit->setText(pass.toString());
+    }
+
     QDialog::showEvent(e);
 }
 
@@ -126,4 +142,9 @@ QString LoginWindow::userName() const
 QString LoginWindow::userPassword() const
 {
     return ui->passwordEdit->text();
+}
+
+bool LoginWindow::dataEntered() const
+{
+    return !ui->passwordEdit->text().isEmpty() && !ui->userNameEdit->text().isEmpty();
 }
