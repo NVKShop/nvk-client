@@ -36,8 +36,9 @@ public Q_SLOTS:
 Q_SIGNALS:
     void doubleClicked(Product* product);
 private:
-    int m_quantityInCart;
     ProductProperty m_properties;
+
+    int m_quantityInCart;
     QPixmap m_originalPixmap;
     QGraphicsTextItem* m_productNameItem;
     QGraphicsTextItem* m_productDescriptionItem;

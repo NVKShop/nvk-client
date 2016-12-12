@@ -20,7 +20,7 @@ ProductsScene::ProductsScene(const int viewWidth): QGraphicsScene(), m_viewWidth
 #else
     totalProductsFont.setPointSize(13);
 #endif
-    m_scrollToTopItem->setPixmap(QPixmap(":/images/top.png").scaledToWidth(viewWidth/6));
+    m_scrollToTopItem->setPixmap(QPixmap(":/images/top.png").scaledToWidth(viewWidth/5));
 
 }
 
@@ -67,7 +67,7 @@ void ProductsScene::setItems(const QList<Product *> &products)
     const bool addScrollTotopItem = (h < (row*productRect.height()*1.5));
     if (addScrollTotopItem)
     {
-        m_scrollToTopItem->setPos(m_viewWidth - m_viewWidth/5, row* productRect.height() );
+        m_scrollToTopItem->setPos(sceneRect().x() + sceneRect().width() -m_scrollToTopItem->pixmap().width() - 5, row* productRect.height() );
         m_scrollToTopItem->show();
         m_scrollToTopItem->update();
         addItem(m_scrollToTopItem);

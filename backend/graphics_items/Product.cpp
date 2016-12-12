@@ -8,8 +8,10 @@
 #include <QSwipeGesture>
 #include <QFontMetrics>
 #include <QPixmap>
+#include <QStyleOptionGraphicsItem>
+#include <QStyle>
 
-#define PRODUCT_RECT_MARGIN 80
+#define PRODUCT_RECT_MARGIN 100
 #define PRODUCT_TEXT_LEFT_MARGIN 80
 
 Product::Product(const QPixmap & pixmap, const ProductProperty &property) : QObject(),
@@ -18,7 +20,6 @@ Product::Product(const QPixmap & pixmap, const ProductProperty &property) : QObj
 
     QScreen *screen = QApplication::screens().at(0);
     int w = screen->size().width();
-    // int h = screen->size().height();
 
     w-= w/5;
 
@@ -32,7 +33,7 @@ Product::Product(const QPixmap & pixmap, const ProductProperty &property) : QObj
     m_originalPixmap = pixmap.scaledToWidth(originalScaled);
 
     setPixmap(pixmap.scaledToWidth(w/2 - PRODUCT_RECT_MARGIN *1.8, Qt::SmoothTransformation));
-    setOffset(PRODUCT_TEXT_LEFT_MARGIN,  55);
+    setOffset(PRODUCT_TEXT_LEFT_MARGIN/2,  85);
 
     setFlag(QGraphicsItem::ItemIsSelectable);
     setAcceptTouchEvents(true);
@@ -80,6 +81,7 @@ Product::Product(const QPixmap & pixmap, const ProductProperty &property) : QObj
     m_addedToCartItem->moveBy(PRODUCT_TEXT_LEFT_MARGIN - m_addedToCartItem->pixmap().width() - 10, 0);
     m_addedToCartItem->setParentItem(this);
     m_addedToCartItem->hide();
+
 }
 
 Product::~Product()
@@ -123,6 +125,7 @@ void Product::mousePressEvent(QGraphicsSceneMouseEvent *event)
     if (event->button() & Qt::LeftButton)
     {
         setSelected(!isSelected());
+        update(boundingRect());
     }
 
     QGraphicsPixmapItem::mousePressEvent(event);
@@ -135,6 +138,17 @@ void Product::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 void Product::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+    if (isSelected())
+    {
+        QPen pen;
+        pen.setWidth(4);
+        pen.setColor(Qt::red);
+        pen.setStyle(Qt::SolidLine);
+        painter->setPen(pen);
+        painter->drawRect(boundingRect().x()+5, boundingRect().y()+5, boundingRect().bottomRight().x()-10, boundingRect().bottomRight().y()-10);
+    }
+    QStyleOptionGraphicsItem myOption(*option);
+    myOption.state &= ~QStyle::State_Selected;
     QGraphicsPixmapItem::paint(painter, option, widget);
 }
 
