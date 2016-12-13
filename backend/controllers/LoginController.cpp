@@ -32,7 +32,7 @@ void LoginController::loginUser()
         properties.setPassword(m_loginWindow->userPassword());
         properties.setFirstName("Lakatos");
         properties.setLastName("Nintendó");
-        properties.setPhoneNumber("06 372 3292");
+        properties.setPhoneNumber("0063723292");
         properties.setEmail("f/kristof@hotmail.com");
         properties.setRole(UserProperty::ROLE_USER);
         //    properties.setBanned(true);

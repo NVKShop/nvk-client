@@ -11,6 +11,7 @@
 #include <QAction>
 #include <QResizeEvent>
 #include <QSize>
+#include <QTimeLine>
 
 #include <QDebug>
 
@@ -128,7 +129,13 @@ bool ProductsView::handleTapAndHold(QTapAndHoldGesture *gesture)
 
 void ProductsView::scrollToTop()
 {
-    this->verticalScrollBar()->setValue(verticalScrollBar()->minimum());
+    QTimeLine* timeLine = new QTimeLine(1300);
+    timeLine->setDirection(QTimeLine::Backward);
+    timeLine->setFrameRange(0, this->verticalScrollBar()->value());
+    timeLine->start();
+
+    connect(timeLine, &QTimeLine::frameChanged, this->verticalScrollBar(), &QScrollBar::setValue);
+    connect(timeLine, &QTimeLine::finished, timeLine, &QTimeLine::deleteLater);
 }
 
 void ProductsView::showEvent(QShowEvent *event)

@@ -20,20 +20,22 @@ UserSettingsWindow::UserSettingsWindow(QWidget *parent) :
     connect(ui->emailLineEdit, &QLineEdit::textEdited, this, &UserSettingsWindow::emailTextChanged);
     connect(ui->firstNameLineEdit, &QLineEdit::textEdited, this, &UserSettingsWindow::firstNameTextChanged);
     connect(ui->lastNameLineEdit, &QLineEdit::textEdited, this, &UserSettingsWindow::lastNameTextChanged);
+
     connect(ui->phoneNumberLineEdit, &QLineEdit::textEdited, this, &UserSettingsWindow::phoneNumberTextChanged);
-    connect(ui->phoneNumberLineEdit, &QLineEdit::editingFinished, this, &UserSettingsWindow::checkPhoneNumberFormat);
+    connect(ui->phoneNumberLineEdit, &QLineEdit::editingFinished, this, &UserSettingsWindow::phoneNumberEditingFinished);
+
     ui->cancelButton->setStyleSheet(QString::fromUtf8("QPushButton{background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,"
-      "stop: 0 white, stop: 1 grey);"
-      "border-style: solid;"
-      "border-width: 2px;"
-      "border-color: black;"
-      "border-radius: 15px;}"));
+                                                      "stop: 0 white, stop: 1 grey);"
+                                                      "border-style: solid;"
+                                                      "border-width: 2px;"
+                                                      "border-color: black;"
+                                                      "border-radius: 15px;}"));
     ui->saveSettingsButton->setStyleSheet(QString::fromUtf8("QPushButton{background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,"
-      "stop: 0 white, stop: 1 grey);"
-      "border-style: solid;"
-      "border-width: 2px;"
-      "border-color: black;"
-      "border-radius: 15px;}"));
+                                                            "stop: 0 white, stop: 1 grey);"
+                                                            "border-style: solid;"
+                                                            "border-width: 2px;"
+                                                            "border-color: black;"
+                                                            "border-radius: 15px;}"));
     QPalette pt(ui->label->palette());
     pt.setColor(QPalette::WindowText, QColor::fromRgb(0xFF, 0xCE,0x2B));
     foreach (QObject* o, children())
@@ -77,6 +79,8 @@ void UserSettingsWindow::setUser(User *user)
     ui->addressHouseNumberLineEdit->setText(address.houseNumber());
     ui->addressStreetLineEdit->setText(address.street());
     ui->addressZipLineEdit->setText(address.zip());
+
+    m_phoneNumberString = prop.phoneNumber();
 }
 
 bool UserSettingsWindow::emailSet() const
@@ -140,11 +144,19 @@ void UserSettingsWindow::lastNameTextChanged()
     }
 }
 
-void UserSettingsWindow::phoneNumberTextChanged()
+void UserSettingsWindow::phoneNumberTextChanged(const QString& newtext)
 {
-    if (!m_phoneNumberChanged)
+    if (checkPhoneNumberFormat(newtext))
     {
-        m_phoneNumberChanged = true;
+        if (!m_phoneNumberChanged)
+        {
+            m_phoneNumberChanged = true;
+        }
+        m_phoneNumberString = newtext;
+    }
+    else
+    {
+        m_phoneNumberChanged = false;
     }
 }
 
@@ -156,11 +168,27 @@ void UserSettingsWindow::emailTextChanged()
     }
 }
 
-void UserSettingsWindow::checkPhoneNumberFormat()
+bool UserSettingsWindow::checkPhoneNumberFormat(const QString& text)
 {
-    QRegularExpression phoneNumRegexp("\"(^$|[0-9]{10})\"");
-    if (!phoneNumRegexp.match(ui->phoneNumberLineEdit->text()).hasMatch())
+    if (text.length() > 10)
     {
-        QMessageBox::warning(0, "Phone number format error", "Error, phone number format is incorrect");
+        return false;
+    }
+    QRegularExpression phoneNumRegexp("(^$|[0-9]{10})");
+    QRegularExpressionMatch match = phoneNumRegexp.match(text);
+
+    return match.hasMatch();
+}
+
+void UserSettingsWindow::phoneNumberEditingFinished()
+{
+    if (checkPhoneNumberFormat(ui->phoneNumberLineEdit->text()))
+    {
+        m_phoneNumberString = ui->phoneNumberLineEdit->text();
+    }
+    else
+    {
+        QMessageBox::warning(0, "Error", "Phone format error!");
+        ui->phoneNumberLineEdit->setText(m_phoneNumberString);
     }
 }

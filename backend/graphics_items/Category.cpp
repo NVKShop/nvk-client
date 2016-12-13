@@ -17,7 +17,7 @@ Category::Category(const QPixmap & pixmap, const Property &property, const int w
     m_nameItem = new QGraphicsSimpleTextItem(m_name.name());
     QFont nameItemFont;
     nameItemFont.setBold(true);
-    nameItemFont.setPointSize(14);
+    nameItemFont.setPointSize(12);
     nameItemFont.setCapitalization(QFont::Capitalize);
 
     setAcceptHoverEvents(true);

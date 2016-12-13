@@ -33,13 +33,17 @@ private:
     bool m_lastNameChanged;
     bool m_addressChanged;
     bool m_phoneNumberChanged;
+
+    bool checkPhoneNumberFormat(const QString &text);
+
+    QString m_phoneNumberString;
 private Q_SLOTS:
     void addressChangedSomewhere();
     void emailTextChanged();
-    void phoneNumberTextChanged();
+    void phoneNumberTextChanged(const QString &newtext);
     void firstNameTextChanged();
     void lastNameTextChanged();
-    void checkPhoneNumberFormat();
+    void phoneNumberEditingFinished();
 protected:
     void showEvent(QShowEvent* event) Q_DECL_OVERRIDE;
 
