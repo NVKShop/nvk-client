@@ -61,10 +61,9 @@ void ProductsScene::setItems(const QList<Product *> &products)
         connect(prod, &Product::doubleClicked, this, &ProductsScene::productDoubleClicked);
     }
 
-
     QScreen *screen = QApplication::screens().at(0);
     const int h = screen->size().height();
-    const bool addScrollTotopItem = (h < (row*productRect.height()*1.5));
+    const bool addScrollTotopItem = (h < (row*productRect.height()*2));
     if (addScrollTotopItem)
     {
         m_scrollToTopItem->setPos(sceneRect().x() + sceneRect().width() -m_scrollToTopItem->pixmap().width() - 5, row* productRect.height() );

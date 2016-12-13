@@ -226,3 +226,8 @@ ProductsView* NVKMainWindow::productsView() const
 {
     return m_productsView;
 }
+
+CategoriesView* NVKMainWindow::categoriesView() const
+{
+    return m_categoriesView;
+}

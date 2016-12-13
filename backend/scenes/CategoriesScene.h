@@ -9,8 +9,11 @@ class CategoriesScene : public QGraphicsScene
 public:
     CategoriesScene();
     void setItems(const QVector<Category*>& categories);
+    void addCategory(Category* item);
     Category* selectedCategory() const;
+    void removeLast();
 private:
+
 private Q_SLOTS:
     void newCategory();
 Q_SIGNALS:

@@ -27,6 +27,8 @@ NVKController::NVKController(QObject *parent) : QObject(parent), m_mainWindow(ne
     connect(m_productPreviewController, &ProductPreviewController::addToCart, this, &NVKController::addToCart);
     connect(m_mainWindow, &NVKMainWindow::shown, this, &NVKController::connectToScenes);
 
+    connect(m_productSearchController, &ProductSearchController::searchProduct, this, &NVKController::searchProducts);
+    connect(this, &NVKController::searched, m_productSearchController, &ProductSearchController::searched);
 }
 
 void NVKController::changeActiveWindow(QWidget *window)
@@ -157,3 +159,26 @@ void NVKController::connectToScenes()
     disconnect(m_mainWindow, &NVKMainWindow::shown, this, &NVKController::connectToScenes);
 }
 
+void NVKController::searchProducts(ProductSearch *psearch)
+{
+    Property categoryName(psearch->searchTerm());
+    CategoriesScene* scene = m_mainWindow->categoriesScene();
+
+    Category* searchResultCategory = new Category(QPixmap(":/images/catBg.png"), categoryName, m_mainWindow->categoriesView()->width());
+
+    //if search ok..emit seached()
+
+    if (m_productSearchController->searchedAlready())
+    {
+        scene->removeLast();
+    }
+    if (!m_productSearchController->searchedAlready())
+    {
+        emit searched();
+    }
+
+    disconnect(this, &NVKController::searched, m_productSearchController, &ProductSearchController::searched);
+    scene->addCategory(searchResultCategory);
+
+    // do the stuff..add new category etc
+}

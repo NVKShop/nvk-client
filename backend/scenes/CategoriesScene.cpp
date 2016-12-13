@@ -39,3 +39,35 @@ Category* CategoriesScene::selectedCategory() const
 {
     return (selectedItems().isEmpty() ? nullptr : qgraphicsitem_cast<Category*>(selectedItems().at(0)));
 }
+
+void CategoriesScene::addCategory(Category *item)
+{
+    int lastCatPosH;
+
+    QList<QGraphicsItem*> itemss = items(Qt::DescendingOrder);
+    for(int i = 0; i < itemss.size(); ++i)
+    {
+        if (qgraphicsitem_cast<Category*>(itemss.at(i)))
+        {
+            lastCatPosH = itemss.at(i)->pos().y();
+            break;
+        }
+    }
+
+    item->setSelected(true);
+    item->setPos(0, lastCatPosH + item->boundingRect().height());
+    addItem(item);
+}
+
+void CategoriesScene::removeLast()
+{
+    QList<QGraphicsItem*> itemss = items(Qt::DescendingOrder);
+    for(int i = 0; i < itemss.size(); ++i)
+    {
+        if (qgraphicsitem_cast<Category*>(itemss.at(i)))
+        {
+            removeItem(itemss.at(i));
+            break;
+        }
+    }
+}

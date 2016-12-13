@@ -37,6 +37,11 @@ void ProductSearchController::search()
     }
 }
 
+void ProductSearchController::searched()
+{
+    m_searchedAlready = true;
+}
+
 #include <QDebug>
 void ProductSearchController::setCategories(const QStringList &categories)
 {
@@ -57,4 +62,9 @@ void ProductSearchController::setCategories(const QStringList &categories)
 ProductSearchController::~ProductSearchController()
 {
     delete m_productSearchWindow;
+}
+
+bool ProductSearchController::searchedAlready()
+{
+    return m_searchedAlready;
 }

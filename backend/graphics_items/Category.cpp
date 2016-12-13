@@ -17,14 +17,14 @@ Category::Category(const QPixmap & pixmap, const Property &property, const int w
     m_nameItem = new QGraphicsSimpleTextItem(m_name.name());
     QFont nameItemFont;
     nameItemFont.setBold(true);
-    nameItemFont.setPointSize(10);
+    nameItemFont.setPointSize(14);
     nameItemFont.setCapitalization(QFont::Capitalize);
 
     setAcceptHoverEvents(true);
     setAcceptedMouseButtons(Qt::AllButtons);
     m_nameItem->setFont(nameItemFont);
 
-    m_nameItem->setBrush(Qt::green);
+    m_nameItem->setBrush(QColor::fromRgb(0xF5,0xB4,0x91));
 
     const int moveX = this->boundingRect().width()/ 2 - this->boundingRect().width() / 3;
     const int moveY = this->boundingRect().height() / 2;
@@ -45,13 +45,13 @@ QVariant Category::itemChange(GraphicsItemChange change,
         if (isSelected())
         {
             QBrush brush = m_nameItem->brush();
-            brush.setColor(Qt::white);
+            brush.setColor(QColor::fromRgb(0xF7, 0xEB,0xE4));
             m_nameItem->setBrush(brush);
         }
         else
         {
             QBrush brush = m_nameItem->brush();
-            brush.setColor(Qt::green);
+            brush.setColor(QColor::fromRgb(0xF5,0xB4,0x91));
             m_nameItem->setBrush(brush);
         }
     }
@@ -77,6 +77,7 @@ void Category::mousePressEvent(QGraphicsSceneMouseEvent *event)
     {
         setSelected(false);
     }
+    QGraphicsPixmapItem::mousePressEvent(event);
 }
 
 void Category::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)

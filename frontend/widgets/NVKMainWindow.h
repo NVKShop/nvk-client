@@ -28,7 +28,7 @@ public:
     CategoriesScene* categoriesScene() const;
 
     ProductsView* productsView() const;
-
+    CategoriesView* categoriesView() const;
 Q_SIGNALS:
     void closing();
     void searchProductClicked();

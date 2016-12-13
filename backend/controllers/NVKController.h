@@ -10,6 +10,7 @@
 #include "backend/controllers/ProductPreviewController.h"
 #include "backend/controllers/ProductSearchController.h"
 #include "backend/controllers/UserSettingsController.h"
+#include "backend/ProductSearch.h"
 
 #include "frontend/widgets/NVKMainWindow.h"
 
@@ -38,6 +39,9 @@ private Q_SLOTS:
     void showSettingsWindow();
     void addToCart(Product* product);
     void connectToScenes();
+    void searchProducts(ProductSearch* psearch);
+Q_SIGNALS:
+    void searched();
 private:
 
     HttpHandler m_HttpHandler;
