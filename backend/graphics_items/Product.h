@@ -22,6 +22,8 @@ public:
     void setQuantity(const int& quantity);
     int quantityInCart() const;
     QGraphicsPixmapItem* addedToCartItem() const;
+
+    QJsonObject asJson() const;
 protected:
     QVariant itemChange(GraphicsItemChange change,
                          const QVariant &value) Q_DECL_OVERRIDE;

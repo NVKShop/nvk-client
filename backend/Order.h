@@ -16,6 +16,7 @@ public:
     int productsCount();
     int prodsCount() const;
     int orderTotalPrice() const;
+    QJsonDocument asJson() const;
 signals:
 
 public slots:

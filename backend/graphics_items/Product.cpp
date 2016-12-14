@@ -10,6 +10,7 @@
 #include <QPixmap>
 #include <QStyleOptionGraphicsItem>
 #include <QStyle>
+#include <QJsonObject>
 
 #define PRODUCT_RECT_MARGIN 100
 #define PRODUCT_TEXT_LEFT_MARGIN 80
@@ -210,6 +211,21 @@ void Product::setQuantity(const int& quantity)
 {
     m_quantityInCart = quantity;
 }
+
+QJsonObject Product::asJson() const
+{
+    QJsonObject prodObj;
+
+    QJsonValue prodName(m_properties.name());
+    QJsonValue productQuantityInCart(m_quantityInCart);
+
+    prodObj["name"] = prodName;
+    prodObj["quantity"] = productQuantityInCart;
+
+    return prodObj;
+}
+
+
 
 
 

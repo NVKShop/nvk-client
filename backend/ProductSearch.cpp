@@ -1,4 +1,7 @@
 #include "ProductSearch.h"
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
 
 ProductSearch::ProductSearch(const QString &term, const QStringList &categories,
                              const QPair<double, double> &priceInterval,
@@ -60,5 +63,28 @@ void ProductSearch::setPriceInterval(const QPair<double, double> &priceInterval)
 
 QJsonDocument ProductSearch::asJson() const
 {
-    return QJsonDocument();
+    QJsonDocument doc;
+
+    QJsonObject jsearchObj;
+    QJsonValue jsearchTerm(m_searchTerm);
+    QJsonValue jsortBy(m_sortBy);
+    QJsonValue jsortDirection(static_cast<int>(m_sortDirection));
+    QJsonValue jpriceFrom(m_priceInterval.first);
+    QJsonValue jpriceTo(m_priceInterval.second);
+    QJsonArray jsearchCategories;
+
+    foreach (const QString& cat, m_searchCategories) {
+        QJsonValue jcat(cat);
+        jsearchCategories.append(jcat);
+    }
+
+    jsearchObj["searchTerm"] = jsearchTerm;
+    jsearchObj["sortBy"] = jsortBy;
+    jsearchObj["direction"] = jsortDirection;
+    jsearchObj["priceFrom"] = jpriceFrom;
+    jsearchObj["priceTo"] = jpriceTo;
+    jsearchObj["categories"] = jsearchCategories;
+
+    doc.setObject(jsearchObj);
+    return doc;
 }

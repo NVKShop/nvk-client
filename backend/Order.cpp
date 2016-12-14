@@ -1,4 +1,8 @@
 #include "backend/Order.h"
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QJsonValue>
 
 Order::Order(User *user, QObject *parent) :  QObject(parent), m_user(user), m_orderProductsCount(0),
     m_orderTotalPrice(0.0)
@@ -39,4 +43,12 @@ int Order::productsCount()
 int Order::prodsCount() const
 {
     return m_orderProductsCount;
+}
+
+QJsonDocument Order::asJson() const
+{
+    QJsonDocument doc;
+
+
+    return doc;
 }
