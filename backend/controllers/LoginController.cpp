@@ -14,6 +14,11 @@ LoginWindow* LoginController::view() const
     return m_loginWindow;
 }
 
+LoginController::~LoginController()
+{
+    delete m_loginWindow;
+}
+
 void LoginController::loginUser()
 {
     if (!view()->dataEntered())

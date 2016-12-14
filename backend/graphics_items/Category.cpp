@@ -26,7 +26,7 @@ Category::Category(const QPixmap & pixmap, const Property &property, const int w
 
     m_nameItem->setBrush(QColor::fromRgb(0xF5,0xB4,0x91));
 
-    const int moveX = this->boundingRect().width()/ 2 - this->boundingRect().width() / 3;
+    const int moveX = this->boundingRect().width()/ 3 - this->boundingRect().width() / 5;
     const int moveY = this->boundingRect().height() / 2;
     m_nameItem->moveBy(moveX, moveY);
     m_nameItem->setParentItem(this);

@@ -14,10 +14,12 @@ public:
     ~PlaceOrderController();
     void setOrder(Order* order);
 Q_SIGNALS:
-    void resetCartQuantityText();
+    void setQuantityText(const int val);
 public Q_SLOTS:
     void placeOrder();
     void resetCart();
+private Q_SLOTS:
+    void cartCellChanged(int row, int val);
 private:
     PlaceOrderWindow* m_placeOrderWindow;
 };

@@ -10,6 +10,7 @@ class LoginController : public QObject
 public:
     explicit LoginController(QObject *parent = 0);
     LoginWindow* view() const;
+    ~LoginController();
 Q_SIGNALS:
     void showForgotUserWindow();
     void loginOk(User* user);

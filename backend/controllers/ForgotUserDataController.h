@@ -11,6 +11,7 @@ class ForgotUserDataController : public QObject
 public:
     explicit ForgotUserDataController(QObject *parent = 0);
     ForgotUserDataWindow* view() const;
+    ~ForgotUserDataController();
 Q_SIGNALS:
     void successfulReminder();
 private Q_SLOTS:

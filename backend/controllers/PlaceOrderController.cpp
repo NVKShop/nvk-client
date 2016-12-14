@@ -1,11 +1,14 @@
 #include "PlaceOrderController.h"
 #include <QMessageBox>
+#include <QTableWidget>
+#include <QSpinBox>
 
 PlaceOrderController::PlaceOrderController(QObject *parent) : QObject(parent),
     m_placeOrderWindow(new PlaceOrderWindow)
 {
     connect(m_placeOrderWindow, &PlaceOrderWindow::resetCart, this, &PlaceOrderController::resetCart);
     connect(m_placeOrderWindow, &PlaceOrderWindow::placeOrderButtonClicked, this, &PlaceOrderController::placeOrder);
+    connect(m_placeOrderWindow, &PlaceOrderWindow::cartCellChanged, this, &PlaceOrderController::cartCellChanged);
 }
 
 PlaceOrderWindow* PlaceOrderController::view() const
@@ -35,7 +38,7 @@ void PlaceOrderController::placeOrder()
 
         //if successful
         m_placeOrderWindow->order()->user()->cart()->resetCart();
-        emit resetCartQuantityText();
+        emit setQuantityText(0);
         m_placeOrderWindow->accept();
     }
 }
@@ -44,5 +47,13 @@ void PlaceOrderController::resetCart()
 {
     m_placeOrderWindow->order()->user()->cart()->resetCart();
     setOrder(m_placeOrderWindow->order());
-    emit resetCartQuantityText();
+    emit setQuantityText(0);
 }
+
+void PlaceOrderController::cartCellChanged(int row, int val)
+{
+    m_placeOrderWindow->order()->user()->cart()->products()[row]->setQuantity(val);
+    setOrder(m_placeOrderWindow->order());
+    emit setQuantityText(m_placeOrderWindow->order()->productsCount());
+}
+

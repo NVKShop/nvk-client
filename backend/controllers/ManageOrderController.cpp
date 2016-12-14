@@ -10,3 +10,8 @@ ManageOrderWindow* ManageOrderController::view() const
 {
     return m_manageOrderWindow;
 }
+
+ManageOrderController::~ManageOrderController()
+{
+    delete m_manageOrderWindow;
+}

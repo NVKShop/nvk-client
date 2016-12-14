@@ -11,7 +11,7 @@ class ManageOrderController : public QObject
 public:
     explicit ManageOrderController(QObject *parent = 0);
     ManageOrderWindow* view() const;
-
+    ~ManageOrderController();
 Q_SIGNALS:
 
 public Q_SLOTS:

@@ -105,8 +105,8 @@ void UserPanelScene::itemsRemoved(const int count)
     m_productsInCartCountText->setText("(" + QString::number(m_productsCount)+")");
 }
 
-void UserPanelScene::resetCount()
+void UserPanelScene::setQuantity(const int quantity)
 {
-    m_productsCount = 0;
-    m_productsInCartCountText->setText("(0)");
+    m_productsCount = quantity;
+    m_productsInCartCountText->setText("("+ QString::number(quantity)+")");
 }

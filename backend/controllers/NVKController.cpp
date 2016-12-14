@@ -153,7 +153,7 @@ void NVKController::connectToScenes()
     connect(m_mainWindow->categoriesScene(), &CategoriesScene::selectionChangedNew, m_mainWindow, &NVKMainWindow::categoryChanged);
 
     connect(m_productPreviewController, &ProductPreviewController::addedToCart, m_mainWindow->userPanelScene(), &UserPanelScene::itemAdded);
-    connect(m_placeOrderController, &PlaceOrderController::resetCartQuantityText, m_mainWindow->userPanelScene(), &UserPanelScene::resetCount);
+    connect(m_placeOrderController, &PlaceOrderController::setQuantityText, m_mainWindow->userPanelScene(), &UserPanelScene::setQuantity);
     connect(m_mainWindow->productsScene(), &ProductsScene::scrollToTop, m_mainWindow->productsView(), &ProductsView::scrollToTop);
 
     disconnect(m_mainWindow, &NVKMainWindow::shown, this, &NVKController::connectToScenes);

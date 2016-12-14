@@ -1,6 +1,7 @@
 #include "backend/Order.h"
 
-Order::Order(User *user, QObject *parent) :  QObject(parent), m_user(user)
+Order::Order(User *user, QObject *parent) :  QObject(parent), m_user(user), m_orderProductsCount(0),
+    m_orderTotalPrice(0.0)
 {
 }
 
@@ -12,4 +13,30 @@ void Order::setUser(User *user)
 User* Order::user() const
 {
     return m_user;
+}
+
+void Order::setOrderTotalPrice(int total)
+{
+    m_orderTotalPrice = total;
+}
+
+int Order::orderTotalPrice() const
+{
+    return m_orderTotalPrice;
+}
+
+int Order::productsCount()
+{
+    int total = 0;
+    foreach (Product* prod, m_user->cart()->products())
+    {
+        total+= prod->quantityInCart();
+    }
+    m_orderProductsCount = total;
+    return total;
+}
+
+int Order::prodsCount() const
+{
+    return m_orderProductsCount;
 }

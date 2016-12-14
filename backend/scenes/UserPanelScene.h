@@ -25,7 +25,7 @@ Q_SIGNALS:
     void settingsClicked();
 public Q_SLOTS:
     void itemAdded();
-    void resetCount();
+    void setQuantity(const int quantity);
     void itemRemoved();
     void itemsRemoved(const int count);
 };

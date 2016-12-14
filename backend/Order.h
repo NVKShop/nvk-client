@@ -12,11 +12,17 @@ public:
     Order() = default;
     void setUser(User* user);
     User* user() const;
+    void setOrderTotalPrice(int total);
+    int productsCount();
+    int prodsCount() const;
+    int orderTotalPrice() const;
 signals:
 
 public slots:
 private:
     User* m_user;
+    int m_orderProductsCount;
+    double m_orderTotalPrice;
 };
 
 #endif // ORDER_H

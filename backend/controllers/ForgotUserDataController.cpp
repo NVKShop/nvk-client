@@ -14,6 +14,11 @@ ForgotUserDataWindow* ForgotUserDataController::view() const
     return m_forgotUserDataWindow;
 }
 
+ForgotUserDataController::~ForgotUserDataController()
+{
+    delete m_forgotUserDataWindow;
+}
+
 void ForgotUserDataController::forgotUserData(const QString &email)
 {
     QRegularExpression rex("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-"

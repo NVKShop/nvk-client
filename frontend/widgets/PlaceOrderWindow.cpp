@@ -4,6 +4,8 @@
 #include <QShowEvent>
 #include <QPalette>
 #include <QColor>
+#include <QIntValidator>
+#include <QSpinBox>
 
 PlaceOrderWindow::PlaceOrderWindow(QWidget *parent) :
     QDialog(parent),
@@ -69,13 +71,16 @@ void PlaceOrderWindow::setOrder(Order *order)
     QFont tableFont;
     tableFont.setBold(true);
     tableFont.setPointSize(13);
+
+    ui->cartTableWidget->clearContents();
     foreach (Product* prod, m_order->user()->cart()->products()) {
         QTableWidgetItem* nameItem = new QTableWidgetItem;
-        QTableWidgetItem* countItem = new QTableWidgetItem(QString::number(prod->quantityInCart()));
         QTableWidgetItem* priceItem = new QTableWidgetItem;
+        QSpinBox* countSpinBox = new QSpinBox();
+        countSpinBox->setValue(prod->quantityInCart());
 
+        connect(countSpinBox, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &PlaceOrderWindow::cartCellChangedSlot);
         nameItem->setFont(tableFont);
-        countItem->setFont(tableFont);
         priceItem->setFont(tableFont);
 
         priceItem->setText(QString::number(prod->properties().price())+" HUF");
@@ -85,11 +90,12 @@ void PlaceOrderWindow::setOrder(Order *order)
         nameItem->setText(prod->properties().name());
         ui->cartTableWidget->setItem(row, 0, nameItem);
         ui->cartTableWidget->setItem(row, 1, priceItem);
-        ui->cartTableWidget->setItem(row, 2, countItem);
-        row++;
+        ui->cartTableWidget->setCellWidget(row, 2, countSpinBox);
 
+        row++;
         totalPrice+= prod->properties().price() * prod->quantityInCart();
     }
+    m_order->setOrderTotalPrice(totalPrice);
     ui->priceLabel->setText(QString::number(totalPrice)+ " HUF");
     ui->cartTableWidget->resizeColumnsToContents();
 }
@@ -107,4 +113,24 @@ void PlaceOrderWindow::showEvent(QShowEvent *e)
 Order* PlaceOrderWindow::order() const
 {
     return m_order;
+}
+
+QTableWidget* PlaceOrderWindow::cartTableWidget() const
+{
+    return ui->cartTableWidget;
+}
+
+void PlaceOrderWindow::cartCellChangedSlot(int val)
+{
+    QSpinBox* ssender = qobject_cast<QSpinBox*> (sender());
+    int row = 0;
+    for (; row < ui->cartTableWidget->rowCount();++row)
+    {
+        if (ui->cartTableWidget->cellWidget(row, 2) == ssender)
+        {
+            break;
+        }
+    }
+
+    emit cartCellChanged(row, val);
 }
