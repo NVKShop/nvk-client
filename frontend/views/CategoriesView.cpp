@@ -36,14 +36,12 @@ void CategoriesView::mousePressEvent(QMouseEvent *event)
     }
     else
     {
-        qDebug() << "NOT LEFT";
         event->ignore();
     }
 }
 
 void CategoriesView::contextMenuEvent(QContextMenuEvent *event)
 {
-    qDebug() << "CME";
     Q_UNUSED(event)
 }
 

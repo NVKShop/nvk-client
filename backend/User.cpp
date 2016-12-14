@@ -9,7 +9,6 @@ User::User() : m_cart(new Cart)
 {
 }
 
-
 Cart* User::cart() const
 {
     return m_cart;

@@ -30,7 +30,7 @@ ProductsView::ProductsView(QWidget *parent) : QGraphicsView(parent)
 
     m_addToCartMenu = new QMenu;
 
-    m_addToCartAction = new QAction(QIcon(QPixmap(":/images/addToCartAction.png")),"Add to cart");
+    m_addToCartAction = new QAction(QIcon(QPixmap(":/images/addToCartAction.png")),QLatin1String("Add to cart"));
     m_addToCartMenu->addAction(m_addToCartAction);
 
     connect(m_addToCartAction, &QAction::triggered, this, &ProductsView::addToCartActionTriggered);
@@ -68,12 +68,6 @@ void ProductsView::mouseReleaseEvent(QMouseEvent *e)
 
 void ProductsView::resizeEvent(QResizeEvent *event)
 {
-    if (scene())
-    {
-        qDebug() << event->size();
-       // resize(event->size().width(), event->size().height());
-    }
-
     QGraphicsView::resizeEvent(event);
 }
 

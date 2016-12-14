@@ -22,7 +22,7 @@ void UserPanelScene::setUserName(const QString &name)
 
     m_welcomeUserText->setBrush(QBrush(QColor::fromRgb(0xB9, 0x78,0x26)));
     m_welcomeUserText->setFont(welcomeUserFont);
-    m_welcomeUserText->setText("Welcome " + name);
+    m_welcomeUserText->setText(QLatin1String("Welcome ") + name);
 
     addItem(m_welcomeUserText);
 }
@@ -90,23 +90,23 @@ void UserPanelScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 void UserPanelScene::itemAdded()
 {
     ++m_productsCount;
-    m_productsInCartCountText->setText("(" + QString::number(m_productsCount)+")");
+    m_productsInCartCountText->setText(QLatin1String("(") + QString::number(m_productsCount)+QLatin1String(")"));
 }
 
 void UserPanelScene::itemRemoved()
 {
     --m_productsCount;
-    m_productsInCartCountText->setText("(" + QString::number(m_productsCount)+")");
+    m_productsInCartCountText->setText(QLatin1String("(") + QString::number(m_productsCount)+QLatin1String(")"));
 }
 
 void UserPanelScene::itemsRemoved(const int count)
 {
     m_productsCount-= count;
-    m_productsInCartCountText->setText("(" + QString::number(m_productsCount)+")");
+    m_productsInCartCountText->setText(QLatin1String("(") + QString::number(m_productsCount)+QLatin1String(")"));
 }
 
 void UserPanelScene::setQuantity(const int quantity)
 {
     m_productsCount = quantity;
-    m_productsInCartCountText->setText("("+ QString::number(quantity)+")");
+    m_productsInCartCountText->setText(QLatin1String("(") + QString::number(m_productsCount)+QLatin1String(")"));
 }

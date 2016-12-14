@@ -87,7 +87,7 @@ void LoginWindow::forgotUserNameClicked()
 void LoginWindow::loginError(const QString &message)
 {
     m_connected = false;
-    QMessageBox::warning(0, "Login error", "Error, " + message);
+    QMessageBox::warning(0, QLatin1String("Login error"), QLatin1String("Error, ") + message);
 }
 
 void LoginWindow::login()
@@ -105,7 +105,7 @@ void LoginWindow::login()
     }
     else
     {
-        QMessageBox::warning(0, "Connection error", "Error, no internet connection");
+        QMessageBox::warning(0, QLatin1String("Connection error"), QLatin1String("Error, no internet connection"));
     }
 }
 

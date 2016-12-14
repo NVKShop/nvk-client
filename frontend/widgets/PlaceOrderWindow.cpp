@@ -83,7 +83,7 @@ void PlaceOrderWindow::setOrder(Order *order)
         nameItem->setFont(tableFont);
         priceItem->setFont(tableFont);
 
-        priceItem->setText(QString::number(prod->properties().price())+" HUF");
+        priceItem->setText(QString::number(prod->properties().price())+QLatin1String(" HUF"));
         priceItem->setFlags(priceItem->flags() & ~Qt::ItemIsEditable);
 
         nameItem->setFlags(nameItem->flags() & ~Qt::ItemIsEditable);
@@ -96,7 +96,7 @@ void PlaceOrderWindow::setOrder(Order *order)
         totalPrice+= prod->properties().price() * prod->quantityInCart();
     }
     m_order->setOrderTotalPrice(totalPrice);
-    ui->priceLabel->setText(QString::number(totalPrice)+ " HUF");
+    ui->priceLabel->setText(QString::number(totalPrice)+ QLatin1String(" HUF"));
     ui->cartTableWidget->resizeColumnsToContents();
 }
 

@@ -59,7 +59,7 @@ void NVKMainWindow::setupViews()
 
         for (int i = 0; i < count; ++i)
         {
-            Property prop("Category " + QString::number(i));
+            Property prop(QLatin1String("Category ") + QString::number(i));
             Category* cat = new Category(QPixmap(":/images/catBg.png"), prop, w);
 
             categories[i] = cat;
@@ -190,14 +190,13 @@ void NVKMainWindow::categoryChanged(Category *newCategory)
 {
     if (m_categoriesView->currentCategory() != newCategory) {
         m_categoriesView->setCurrentCategory(newCategory);
-        qDebug() << "new category selected";
         //fill productsview
         ProductsScene* scene = static_cast<ProductsScene*>(m_productsView->scene());
         scene->setItems(m_categoryMapped.values(m_categoriesView->currentCategory()));
         m_productsView->scrollToTop();
 
         ui->productsInCategoryLabel->setText( QString::number(
-                    m_categoryMapped.values(m_categoriesView->currentCategory()).size()) + " products in this category");
+                    m_categoryMapped.values(m_categoriesView->currentCategory()).size()) + QLatin1String(" products in this category"));
         ui->productsInCategoryLabel->adjustSize();
     }
 }

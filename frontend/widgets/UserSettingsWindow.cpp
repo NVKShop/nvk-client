@@ -174,7 +174,7 @@ bool UserSettingsWindow::checkPhoneNumberFormat(const QString& text)
     {
         return false;
     }
-    QRegularExpression phoneNumRegexp("(^$|[0-9]{10})");
+    QRegularExpression phoneNumRegexp(QLatin1String("(^$|[0-9]{10})"));
     QRegularExpressionMatch match = phoneNumRegexp.match(text);
 
     return match.hasMatch();
@@ -188,7 +188,7 @@ void UserSettingsWindow::phoneNumberEditingFinished()
     }
     else
     {
-        QMessageBox::warning(0, "Error", "Phone format error!");
+        QMessageBox::warning(0, QLatin1String("Error"), QLatin1String("Phone format error!"));
         ui->phoneNumberLineEdit->setText(m_phoneNumberString);
     }
 }

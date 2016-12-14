@@ -49,7 +49,7 @@ bool NetworkHandler::isConnectedToTheInternet()
     timer.setSingleShot(true);
 
     connect(&timer, &QTimer::timeout, &loop, &QEventLoop::quit);
-    timer.start(2000);
+    timer.start(2500);
     connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
     loop.exec();
     if (timer.isActive())
