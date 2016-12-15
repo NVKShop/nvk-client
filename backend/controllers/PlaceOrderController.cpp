@@ -2,6 +2,8 @@
 #include <QMessageBox>
 #include <QTableWidget>
 #include <QSpinBox>
+#include <QDebug>
+#include <QJsonDocument>
 
 PlaceOrderController::PlaceOrderController(QObject *parent) : QObject(parent),
     m_placeOrderWindow(new PlaceOrderWindow)
@@ -37,6 +39,7 @@ void PlaceOrderController::placeOrder()
         // stuff here + check connection
 
         //if successful
+        qDebug() << m_placeOrderWindow->order()->asJson();
         m_placeOrderWindow->order()->user()->cart()->resetCart();
         emit setQuantityText(0);
         m_placeOrderWindow->accept();

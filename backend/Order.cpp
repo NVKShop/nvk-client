@@ -56,5 +56,7 @@ QJsonDocument Order::asJson() const
     }
     mainObj["user"] = m_user->asJson();
     mainObj["products"] = products;
+
+    doc.setObject(mainObj);
     return doc;
 }
