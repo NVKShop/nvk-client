@@ -24,6 +24,16 @@ ProductsScene::ProductsScene(const int viewWidth): QGraphicsScene(), m_viewWidth
 
 }
 
+bool ProductsScene::isProductOnPosition()
+{
+    if (qgraphicsitem_cast<Product*>(focusItem()))
+    {
+        return true;
+    }
+
+    return false;
+}
+
 void ProductsScene::setItems(const QList<Product *> &products)
 {
     foreach (QGraphicsItem* p, items()) {
@@ -87,6 +97,7 @@ bool ProductsScene::event(QEvent *event)
 void ProductsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     QTransform t;
+
     QGraphicsItem* itemUnderMouse = itemAt(event->scenePos().x(), event->scenePos().y(),t);
 
     if (!qgraphicsitem_cast<Product*>(itemUnderMouse))

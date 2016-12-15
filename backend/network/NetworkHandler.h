@@ -17,16 +17,17 @@ public:
 
     static bool isOnline();
     bool isConnectedToTheInternet();
+    QNetworkReply *reply() const;
+    void sendRequest(const QString &data);
+
 private:
     QNetworkAccessManager* m_NetworkAccessManager;
-    QNetworkReply* m_HttpReply;
 
 Q_SIGNALS:
     void readyRead(const QString& data);
 protected:
-    void sendRequest(const QString &data);
     QNetworkRequest* m_HttpRequest;
-    QNetworkReply *reply() const;
+    QNetworkReply* m_HttpReply;
 
 private Q_SLOTS:
     void replyReadyRead();

@@ -1,7 +1,7 @@
 #include "backend/ProductProperty.h"
 
-ProductProperty::ProductProperty(const QString &name, const QString &desc, const QString & cat, const double& price):
-    Property(name), m_description(desc), m_category(cat), m_price(price)
+ProductProperty::ProductProperty(const long& id,const QString &name, const QString &desc, const QString & cat, const double& price):
+    Property(name), m_id(id), m_description(desc), m_category(cat), m_price(price)
 {
 }
 
@@ -23,6 +23,11 @@ QString ProductProperty::category() const
 double ProductProperty::price() const
 {
     return m_price;
+}
+
+long ProductProperty::id() const
+{
+    return m_id;
 }
 
 void ProductProperty::setShortDescription(const QString &desc)

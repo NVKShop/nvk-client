@@ -122,6 +122,7 @@ void NVKController::showProductSearchWindow()
 void NVKController::showProductPreview(Product *product)
 {
     m_productPreviewController->setProduct(product);
+
     popUpWindow(m_productPreviewController->view());
 }
 

@@ -37,7 +37,7 @@ QJsonObject User::asJson() const
 
     QJsonValue juserName = m_properties.name();
 
-    user["userName"] = juserName;
+    user["name"] = juserName;
     user["address"] = m_properties.address().asJson();
     return user;
 }

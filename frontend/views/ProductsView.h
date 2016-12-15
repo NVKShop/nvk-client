@@ -23,16 +23,16 @@ protected:
     bool event(QEvent *event) Q_DECL_OVERRIDE;
     void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
 private:
-
+    int m_currentPage;
     QMenu* m_addToCartMenu;
     QAction* m_addToCartAction;
     bool handleSwipe(QSwipeGesture* gesture);
     bool handleTapAndHold(QTapAndHoldGesture* gesture);
 public Q_SLOTS:
     void scrollToTop();
-
+    void emitAddToCartActionTriggered();
 Q_SIGNALS:
-    void addToCartActionTriggered();
+    void addToCartActionTriggered(Product* pprod);
 
 };
 

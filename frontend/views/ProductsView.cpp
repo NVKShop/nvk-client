@@ -28,12 +28,12 @@ ProductsView::ProductsView(QWidget *parent) : QGraphicsView(parent)
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 #endif
 
-    m_addToCartMenu = new QMenu;
+    m_addToCartMenu = new QMenu(this);
 
     m_addToCartAction = new QAction(QIcon(QPixmap(":/images/addToCartAction.png")),QLatin1String("Add to cart"));
     m_addToCartMenu->addAction(m_addToCartAction);
 
-    connect(m_addToCartAction, &QAction::triggered, this, &ProductsView::addToCartActionTriggered);
+    connect(m_addToCartAction, &QAction::triggered, this, &ProductsView::emitAddToCartActionTriggered);
 
     QGraphicsView::setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
     QScroller::grabGesture(viewport(), QScroller::LeftMouseButtonGesture);
@@ -117,7 +117,12 @@ bool ProductsView::handleSwipe(QSwipeGesture *gesture)
 
 bool ProductsView::handleTapAndHold(QTapAndHoldGesture *gesture)
 {
-    m_addToCartMenu->exec(gesture->position().toPoint());
+    ProductsScene* sscene = qobject_cast<ProductsScene*>(scene());
+
+    if (sscene->isProductOnPosition())
+    {
+        m_addToCartMenu->exec(gesture->position().toPoint());
+    }
     return true;
 }
 
@@ -135,6 +140,21 @@ void ProductsView::scrollToTop()
 void ProductsView::showEvent(QShowEvent *event)
 {
     QGraphicsView::showEvent(event);
+}
+#include <QJsonObject>
+void ProductsView::emitAddToCartActionTriggered()
+{
+    ProductsScene* sscene = qobject_cast<ProductsScene*>(scene());
+    QTransform t;
+
+
+    Product* p = qgraphicsitem_cast<Product*>(
+                sscene->itemAt(QPointF(mapToScene(m_addToCartMenu->pos())), t));
+
+    emit addToCartActionTriggered(p);
+
+    qDebug() << m_addToCartMenu->pos();
+    qDebug() << p->asJson();
 }
 
 

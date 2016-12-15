@@ -7,18 +7,20 @@ class ProductProperty : public Property
 {
 public:
 
-    ProductProperty(const QString& name, const QString& desc, const QString& cat, const double& price);
+    ProductProperty(const long& id, const QString& name, const QString& desc, const QString& cat, const double& price);
 
     void setShortDescription(const QString& desc);
     QString description() const;
     QString shortDescription() const;
     QString category() const;
     double price() const;
+    long id() const;
 private:
     QString m_description;
     QString m_shortDescription;
     QString m_category;
     double m_price;
+    long m_id;
 };
 
 #endif // PRODUCTPROPERTY_H

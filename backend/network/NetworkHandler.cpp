@@ -14,8 +14,13 @@ NetworkHandler::NetworkHandler(QObject *parent) : QObject(parent),
 
 void NetworkHandler::sendRequest(const QString& data)
 {
-    m_HttpReply = m_NetworkAccessManager->post(*m_HttpRequest,
+   /* m_HttpReply = m_NetworkAccessManager->post(*m_HttpRequest,
                                                QByteArray::fromRawData(data.toStdString().c_str(), data.size()));
+
+    */
+    Q_UNUSED(data)
+
+    m_HttpReply = m_NetworkAccessManager->get(*m_HttpRequest);
     connect(m_HttpReply, &QNetworkReply::finished, this, &NetworkHandler::replyFinished);
     connect(m_HttpReply,
             static_cast<void(QNetworkReply::*)(QNetworkReply::NetworkError)>(&QNetworkReply::error),
@@ -28,8 +33,8 @@ void NetworkHandler::sendRequest(const QString& data)
 
 bool NetworkHandler::isOnline()
 {
-    QList<QNetworkInterface> networkInterfaces = QNetworkInterface::allInterfaces();
-    foreach (QNetworkInterface interface, networkInterfaces) {
+    const QList<QNetworkInterface>& networkInterfaces = QNetworkInterface::allInterfaces();
+    foreach (const QNetworkInterface& interface, networkInterfaces) {
         if (interface.flags().testFlag(QNetworkInterface::IsUp) &&
                 !interface.flags().testFlag(QNetworkInterface::IsLoopBack)) {
             return true;
@@ -87,9 +92,13 @@ NetworkHandler::~NetworkHandler()
 
 void NetworkHandler::replyReadyRead()
 {
-    qDebug() << "Ready to read!";
-    emit readyRead(m_HttpReply->header(QNetworkRequest::ServerHeader).toString());
-    qDebug() << m_HttpReply->header(QNetworkRequest::ServerHeader).toString();
+    qDebug() << "Ready to read";
+    QVariant httpStatus = m_HttpReply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
+
+    qDebug() << httpStatus.toString();
+
+    /*emit readyRead(m_HttpReply->header(QNetworkRequest::ServerHeader).toString());
+    qDebug() << m_HttpReply->header(QNetworkRequest::ServerHeader).toString();*/
 }
 
 void NetworkHandler::replyFinished()

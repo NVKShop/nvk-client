@@ -36,6 +36,8 @@ Q_SIGNALS:
     void showCart();
     void showSettings();
     void shown();
+    void nextPage();
+    void previousPage();
 private Q_SLOTS:
 
 protected:

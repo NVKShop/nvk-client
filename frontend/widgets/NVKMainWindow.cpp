@@ -28,6 +28,8 @@ NVKMainWindow::NVKMainWindow(QWidget *parent) :
     setAttribute(Qt::WA_DeleteOnClose);
 
     connect(ui->searchButton, &QPushButton::clicked, this, &NVKMainWindow::searchProductClicked);
+    connect(ui->nextPageButton, &QPushButton::clicked, this, &NVKMainWindow::nextPage);
+    connect(ui->previousPageButton, &QPushButton::clicked, this, &NVKMainWindow::previousPage);
     QPalette p(palette());
     setAutoFillBackground(true);
     p.setColor(QPalette::Background, QColor::fromRgb(0x42, 0x41, 0x3D));
@@ -36,6 +38,7 @@ NVKMainWindow::NVKMainWindow(QWidget *parent) :
     QPalette pt(ui->productsInCategoryLabel->palette());
     pt.setColor(QPalette::WindowText, QColor::fromRgb(0xFF, 0xCE,0x2B));
     ui->productsInCategoryLabel->setPalette(pt);
+    ui->pageSizeLabel->setPalette(pt);
 
     ui->searchButton->setStyleSheet(QString::fromUtf8("QPushButton{background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,"
       "stop: 0 white, stop: 1 grey);"
@@ -44,6 +47,19 @@ NVKMainWindow::NVKMainWindow(QWidget *parent) :
       "border-color: black;"
       "border-radius: 15px;}"));
 
+    ui->previousPageButton->setStyleSheet(QString::fromUtf8("QPushButton{background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,"
+      "stop: 0 white, stop: 1 grey);"
+      "border-style: solid;"
+      "border-width: 2px;"
+      "border-color: black;"
+      "border-radius: 15px;}"));
+
+    ui->nextPageButton->setStyleSheet(QString::fromUtf8("QPushButton{background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,"
+      "stop: 0 white, stop: 1 grey);"
+      "border-style: solid;"
+      "border-width: 2px;"
+      "border-color: black;"
+      "border-radius: 15px;}"));
 
 }
 
@@ -75,7 +91,7 @@ void NVKMainWindow::setupViews()
 
         for(int i = 0; i < count; ++i)
         {
-            ProductProperty prop("Product " + QString::number(i),
+            ProductProperty prop(i,"Product " + QString::number(i),
                                  "This is a fucking description you retarded bitch. "
                                  "Can you get it? No? Great, because neither I. "
                                  "Well, it sucks, but that's it. "
@@ -95,7 +111,7 @@ void NVKMainWindow::setupViews()
 
         for(int i = 0; i < count; ++i)
         {
-            ProductProperty prop("ProductCat1 " + QString::number(i),
+            ProductProperty prop(i*2,"ProductCat1 " + QString::number(i),
                                  "This is a fckin product you dumbass","cat", 1);
             Product* prod = new Product(QPixmap(":/images/noImage.png"), prop);
             products[i] = prod;
@@ -120,8 +136,8 @@ void NVKMainWindow::setupViews()
     m_productsView = ui->productsView;
     m_productsView->show();
     ProductsScene* pScene = new ProductsScene(m_productsView->width());
-    pScene->setItems(m_categoryMapped.values(m_categoryMapped.firstKey()));
     m_productsView->setScene(pScene);
+    pScene->setItems(m_categoryMapped.values(m_categoryMapped.firstKey()));
 
     m_categoriesView = ui->categoriesView;
 
@@ -190,10 +206,10 @@ void NVKMainWindow::categoryChanged(Category *newCategory)
 {
     if (m_categoriesView->currentCategory() != newCategory) {
         m_categoriesView->setCurrentCategory(newCategory);
-        //fill productsview
         ProductsScene* scene = static_cast<ProductsScene*>(m_productsView->scene());
-        scene->setItems(m_categoryMapped.values(m_categoriesView->currentCategory()));
         m_productsView->scrollToTop();
+
+        scene->setItems(m_categoryMapped.values(m_categoriesView->currentCategory()));
 
         ui->productsInCategoryLabel->setText( QString::number(
                     m_categoryMapped.values(m_categoriesView->currentCategory()).size()) + QLatin1String(" products in this category"));

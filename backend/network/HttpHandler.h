@@ -13,8 +13,10 @@ class HttpHandler : public NetworkHandler
 public:
     HttpHandler(const QUrl& url);
     HttpHandler() = default;
+    QVariant replyVar() const;
 public Q_SLOTS:
   //  JsonReply post(const JsonRequest& msg);
+public:
 };
 
 #endif // HTTPHANDLER_H

@@ -8,6 +8,17 @@ HttpHandler::HttpHandler(const QUrl& url)
     m_HttpRequest= new QNetworkRequest(url);
 }
 
+QVariant HttpHandler::replyVar() const
+{
+    if (m_HttpReply->isFinished())
+    {
+        QVariant rply(m_HttpReply->readAll());
+
+        return rply;
+    }
+    return QVariant();
+}
+
 /*JsonReply HttpHandler::post(const JsonRequest &msg)
 {
     //sendRequest();

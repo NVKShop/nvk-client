@@ -39,7 +39,6 @@ void PlaceOrderController::placeOrder()
         // stuff here + check connection
 
         //if successful
-        qDebug() << m_placeOrderWindow->order()->asJson();
         m_placeOrderWindow->order()->user()->cart()->resetCart();
         emit setQuantityText(0);
         m_placeOrderWindow->accept();

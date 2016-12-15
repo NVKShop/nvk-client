@@ -92,20 +92,26 @@ void LoginWindow::loginError(const QString &message)
 
 void LoginWindow::login()
 {
-    NetworkHandler networkHandler;
-
-    if (networkHandler.isConnectedToTheInternet())
+    if (NetworkHandler::isOnline())
     {
-        if (!m_connected)
+        NetworkHandler networkHandler;
+        if (networkHandler.isConnectedToTheInternet())
         {
-            m_connected = true;
+            if (!m_connected)
+            {
+                m_connected = true;
 
-            emit loginUser();
+                emit loginUser();
+            }
+        }
+        else
+        {
+            QMessageBox::warning(0, QLatin1String("Connection error"), QLatin1String("Error, no internet connection"));
         }
     }
     else
     {
-        QMessageBox::warning(0, QLatin1String("Connection error"), QLatin1String("Error, no internet connection"));
+        QMessageBox::warning(0, QLatin1String("Connection error"), QLatin1String("Error, no network interface online"));
     }
 }
 

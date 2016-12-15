@@ -11,6 +11,7 @@ public:
     ProductsScene(const int viewWidth);
     ~ProductsScene();
     void setItems(const QList<Product *> &products);
+    bool isProductOnPosition();
 private:
     int m_viewWidth;
 protected:
