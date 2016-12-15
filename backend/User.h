@@ -16,6 +16,7 @@ public:
     UserProperty properties() const;
     void setCart(Cart *cart);
     void setProperties(const UserProperty& properties);
+    QJsonObject asJson() const;
 signals:
 
 public slots:

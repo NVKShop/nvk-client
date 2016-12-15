@@ -2,6 +2,7 @@
 #define ADDRESS_H
 
 #include <QString>
+#include <QJsonObject>
 
 class Address
 {
@@ -21,6 +22,8 @@ public:
     void setZip(const QString& zip);
     void setHouseNumber(const QString& num);
     void setStreet(const QString& street);
+
+    QJsonObject asJson() const;
 private:
     QString m_country;
     QString m_zip;

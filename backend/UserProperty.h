@@ -38,11 +38,12 @@ private:
     QString m_lastName;
     Address m_address;
     QString m_email;
-    QString m_phoneNumber;
-    QString m_password;
     bool m_banned = false;
 
     Role m_role;
+
+    QString m_phoneNumber;
+    QString m_password;
 };
 
 #endif // USERPROPERTY_H

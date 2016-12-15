@@ -1,4 +1,6 @@
 #include "backend/User.h"
+#include <QJsonObject>
+#include <QJsonValue>
 
 User::User(const UserProperty &properties) : QObject(0),
     m_properties(properties), m_cart(new Cart())
@@ -27,4 +29,15 @@ void User::setCart(Cart *cart)
 void User::setProperties(const UserProperty &properties)
 {
     this->m_properties = properties;
+}
+
+QJsonObject User::asJson() const
+{
+    QJsonObject user;
+
+    QJsonValue juserName = m_properties.name();
+
+    user["userName"] = juserName;
+    user["address"] = m_properties.address().asJson();
+    return user;
 }

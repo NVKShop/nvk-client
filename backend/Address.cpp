@@ -54,3 +54,22 @@ void Address::setHouseNumber(const QString &num)
 {
     m_houseNumber = num;
 }
+
+QJsonObject Address::asJson() const
+{
+    QJsonObject address;
+
+    QJsonValue jcountry (m_country);
+    QJsonValue jcity(m_city);
+    QJsonValue jzip (m_zip);
+    QJsonValue jhnumber(m_houseNumber);
+    QJsonValue jstreet(m_street);
+
+    address["country"] = jcountry;
+    address["city"] = jcity;
+    address["zip"] = jzip;
+    address["street"] = jstreet;
+    address["houseNumber"] = jhnumber;
+
+    return address;
+}

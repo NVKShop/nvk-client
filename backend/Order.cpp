@@ -48,7 +48,13 @@ int Order::prodsCount() const
 QJsonDocument Order::asJson() const
 {
     QJsonDocument doc;
+    QJsonObject mainObj;
 
-
+    QJsonArray products;
+    foreach (Product* p, m_user->cart()->products()) {
+        products.append(p->asJson());
+    }
+    mainObj["user"] = m_user->asJson();
+    mainObj["products"] = products;
     return doc;
 }
