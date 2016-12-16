@@ -5,6 +5,7 @@
 #include "backend/network/JsonQuery.h"
 #include "backend/graphics_items/Product.h"
 #include "backend/User.h"
+#include "backend/graphics_items/Category.h"
 
 class JsonReply : public JsonQuery
 {
@@ -12,8 +13,11 @@ class JsonReply : public JsonQuery
 public:
     explicit JsonReply(const QJsonDocument& doc);
 
-    QVector<Product *> getProducts() const;
-    User *getUser() const;
+    QVector<Product *> products() const;
+    QVector<Category*> categories() const;
+    bool previousPageExists() const;
+    bool nextPageExists() const;
+    User *user() const;
 signals:
 
 public slots:

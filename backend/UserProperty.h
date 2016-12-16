@@ -8,7 +8,7 @@ class UserProperty : public Property
 {
 public:
     enum Role {
-        ROLE_ADMIN,
+        ROLE_ADMIN = 0,
         ROLE_USER
     };
 
@@ -21,7 +21,7 @@ public:
     void setRole(const Role& role);
     void setPhoneNumber(const QString& pnumber);
     void setPassword(const QString& pw);
-    UserProperty(const QString& firstName, const QString& lastName,
+    UserProperty(const long &id, const QString& firstName, const QString& lastName,
                  const Address &address,
                  const bool banned, Role role, const QString& phoneNumber, const QString &pw);
 

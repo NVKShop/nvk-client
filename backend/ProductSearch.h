@@ -31,6 +31,8 @@ public:
     QPair<double, double> priceInterval() const;
     QString sortBy() const;
     Direction direction() const;
+    int page() const;
+    int pageSize() const;
 
     QJsonDocument asJson() const;
 private:
@@ -40,6 +42,8 @@ private:
     QPair<double, double> m_priceInterval;
     QString m_sortBy;
     Direction m_sortDirection;
+    int m_page;
+    int m_pageSize;
 };
 
 #endif // PRODUCTSEARCH_H

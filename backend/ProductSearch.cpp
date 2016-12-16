@@ -61,6 +61,16 @@ void ProductSearch::setPriceInterval(const QPair<double, double> &priceInterval)
     m_priceInterval = priceInterval;
 }
 
+int ProductSearch::page() const
+{
+    return m_page;
+}
+
+int ProductSearch::pageSize() const
+{
+    return m_pageSize;
+}
+
 QJsonDocument ProductSearch::asJson() const
 {
     QJsonDocument doc;

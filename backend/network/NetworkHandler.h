@@ -25,6 +25,7 @@ private:
 
 Q_SIGNALS:
     void readyRead(const QString& data);
+    void replyErrors(const int&);
 protected:
     QNetworkRequest* m_HttpRequest;
     QNetworkReply* m_HttpReply;

@@ -13,6 +13,8 @@ namespace Ui {
 class NVKMainWindow;
 }
 
+
+class QComboBox;
 class NVKMainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -29,6 +31,8 @@ public:
 
     ProductsView* productsView() const;
     CategoriesView* categoriesView() const;
+
+    QComboBox* pageSizeCb() const;
 Q_SIGNALS:
     void closing();
     void searchProductClicked();
@@ -38,6 +42,7 @@ Q_SIGNALS:
     void shown();
     void nextPage();
     void previousPage();
+    void pageSizeChanged(int idx);
 private Q_SLOTS:
 
 protected:
@@ -54,6 +59,7 @@ private:
 
     Order* m_order;
     QMultiMap<Category*,Product*> m_categoryMapped;
+
 public Q_SLOTS:
     void categoryChanged(Category* newCategory);
 

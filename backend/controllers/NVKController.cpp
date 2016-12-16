@@ -162,7 +162,7 @@ void NVKController::connectToScenes()
 
 void NVKController::searchProducts(ProductSearch *psearch)
 {
-    Property categoryName(psearch->searchTerm());
+    Property categoryName(-INFINITY,psearch->searchTerm());
     CategoriesScene* scene = m_mainWindow->categoriesScene();
 
     Category* searchResultCategory = new Category(QPixmap(":/images/catBg.png"), categoryName, m_mainWindow->categoriesView()->width());
@@ -182,4 +182,19 @@ void NVKController::searchProducts(ProductSearch *psearch)
     scene->addCategory(searchResultCategory);
 
     // do the stuff..add new category etc
+}
+
+void NVKController::nextPage()
+{
+
+}
+
+void NVKController::previousPage()
+{
+
+}
+
+void NVKController::pageSizeChanged(int idx)
+{
+
 }

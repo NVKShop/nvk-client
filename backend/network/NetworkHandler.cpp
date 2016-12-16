@@ -109,7 +109,7 @@ void NetworkHandler::replyFinished()
 void NetworkHandler::replyError(QNetworkReply::NetworkError err)
 {
     Q_UNUSED(err)
-    qDebug() << m_HttpReply->errorString();
+    emit replyErrors(m_HttpReply->errorString().toInt());
 }
 
 #ifndef QT_NO_SSL

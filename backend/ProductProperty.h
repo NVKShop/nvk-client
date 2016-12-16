@@ -14,13 +14,11 @@ public:
     QString shortDescription() const;
     QString category() const;
     double price() const;
-    long id() const;
 private:
     QString m_description;
     QString m_shortDescription;
     QString m_category;
     double m_price;
-    long m_id;
 };
 
 #endif // PRODUCTPROPERTY_H

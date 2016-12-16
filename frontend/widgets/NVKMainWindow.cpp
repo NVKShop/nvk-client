@@ -4,6 +4,7 @@
 #include <QDesktopWidget>
 #include <QKeyEvent>
 #include <QScrollBar>
+#include <QComboBox>
 #include <QDebug>
 
 NVKMainWindow::NVKMainWindow(QWidget *parent) :
@@ -30,6 +31,7 @@ NVKMainWindow::NVKMainWindow(QWidget *parent) :
     connect(ui->searchButton, &QPushButton::clicked, this, &NVKMainWindow::searchProductClicked);
     connect(ui->nextPageButton, &QPushButton::clicked, this, &NVKMainWindow::nextPage);
     connect(ui->previousPageButton, &QPushButton::clicked, this, &NVKMainWindow::previousPage);
+    connect(ui->pageSizeComboBox, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &NVKMainWindow::pageSizeChanged);
     QPalette p(palette());
     setAutoFillBackground(true);
     p.setColor(QPalette::Background, QColor::fromRgb(0x42, 0x41, 0x3D));
@@ -67,6 +69,9 @@ void NVKMainWindow::setupViews()
 {
     // test items
 
+
+
+    //GET /listCategories
     auto c = [](int count,const int w) ->QVector<Category*>
     {
         QVector<Category*> categories;
@@ -75,13 +80,15 @@ void NVKMainWindow::setupViews()
 
         for (int i = 0; i < count; ++i)
         {
-            Property prop(QLatin1String("Category ") + QString::number(i));
+            Property prop(0,QLatin1String("Category ") + QString::number(i));
             Category* cat = new Category(QPixmap(":/images/catBg.png"), prop, w);
 
             categories[i] = cat;
         }
         return categories;
     };
+
+
 
     auto p = [](int count) -> QVector<Product*>
     {
@@ -209,6 +216,8 @@ void NVKMainWindow::categoryChanged(Category *newCategory)
         ProductsScene* scene = static_cast<ProductsScene*>(m_productsView->scene());
         m_productsView->scrollToTop();
 
+        //GET /productsByCategory?categoryId=<kategória id>&pageSize=<lap mérete>&pageNumber=<a lap sorszáma>
+
         scene->setItems(m_categoryMapped.values(m_categoriesView->currentCategory()));
 
         ui->productsInCategoryLabel->setText( QString::number(
@@ -224,17 +233,17 @@ QList<Category*> NVKMainWindow::categories() const
 
 UserPanelScene* NVKMainWindow::userPanelScene() const
 {
-    return reinterpret_cast<UserPanelScene*>(m_userPanelView->scene());
+    return qobject_cast<UserPanelScene*>(m_userPanelView->scene());
 }
 
 ProductsScene* NVKMainWindow::productsScene() const
 {
-    return reinterpret_cast<ProductsScene*>(m_productsView->scene());
+    return qobject_cast<ProductsScene*>(m_productsView->scene());
 }
 
 CategoriesScene* NVKMainWindow::categoriesScene() const
 {
-    return reinterpret_cast<CategoriesScene*>(m_categoriesView->scene());
+    return qobject_cast<CategoriesScene*>(m_categoriesView->scene());
 }
 
 ProductsView* NVKMainWindow::productsView() const
@@ -245,4 +254,9 @@ ProductsView* NVKMainWindow::productsView() const
 CategoriesView* NVKMainWindow::categoriesView() const
 {
     return m_categoriesView;
+}
+
+QComboBox* NVKMainWindow::pageSizeCb() const
+{
+    return ui->pageSizeComboBox;
 }

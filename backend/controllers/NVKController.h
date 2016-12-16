@@ -40,6 +40,9 @@ private Q_SLOTS:
     void addToCart(Product* product);
     void connectToScenes();
     void searchProducts(ProductSearch* psearch);
+    void nextPage();
+    void previousPage();
+    void pageSizeChanged(int idx);
 Q_SIGNALS:
     void searched();
 private:
@@ -56,6 +59,7 @@ private:
     UserSettingsController* m_userSettingsController;
 
     QWidget* m_activeWindow;
+
 };
 
 #endif // NVKCONTROLLER_H

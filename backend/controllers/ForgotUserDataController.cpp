@@ -43,16 +43,25 @@ void ForgotUserDataController::forgotUserData(const QString &email)
         }
         else
         {
-            QUrl url = "http://192.168.43.251:8080/nvk-web/forgottenPassword?email=" + email;
+            QUrl url = ForgotUserDataController::FORGOTTEN_PASSWORD_URL_STR + email;
             HttpHandler* httph  = new HttpHandler(url);
+            connect(httph, &HttpHandler::replyErrors, this, &ForgotUserDataController::serverReplyError);
             httph->sendRequest("");
-
+            ////////////////// TODO
             emit successfulReminder();
         }
     }
     else
     {
         QMessageBox::warning(0, "Enter an email address", "Error, email address is empty!");
+    }
+}
+
+void ForgotUserDataController::serverReplyError(const int& err)
+{
+    if (err == 400)
+    {
+        QMessageBox::warning(0, "Error" + QString::number(err),"");
     }
 }
 

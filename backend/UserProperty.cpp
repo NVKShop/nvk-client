@@ -1,11 +1,11 @@
 #include "backend/UserProperty.h"
 
-UserProperty::UserProperty(const QString &firstName,
+UserProperty::UserProperty(const long& id, const QString &firstName,
                            const QString &lastName,
                            const Address &address,
                            const bool banned,
                            UserProperty::Role role,
-                           const QString &phoneNumber, const QString& pw): Property(firstName),
+                           const QString &phoneNumber, const QString& pw): Property(id,firstName),
     m_firstName(firstName), m_lastName(lastName), m_address(address), m_banned(banned), m_role(role),
     m_phoneNumber(phoneNumber), m_password(pw)
 {
