@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QMultiMap>
+#include <QUrl>
 
 #include "backend/Order.h"
 #include "frontend/views/ProductsView.h"
@@ -33,6 +34,8 @@ public:
     CategoriesView* categoriesView() const;
 
     QComboBox* pageSizeCb() const;
+
+    int currentPage() const;
 Q_SIGNALS:
     void closing();
     void searchProductClicked();
@@ -57,9 +60,11 @@ private:
     CategoriesView* m_categoriesView;
     UserPanelView* m_userPanelView;
 
+    int m_currentPage;
+
     Order* m_order;
     QMultiMap<Category*,Product*> m_categoryMapped;
-
+    const QUrl LIST_CATEGORIES_REQUEST = QUrl("/listCategories");
 public Q_SLOTS:
     void categoryChanged(Category* newCategory);
 

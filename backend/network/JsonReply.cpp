@@ -1,4 +1,5 @@
 #include "backend/network/JsonReply.h"
+#include "backend/CategoryProperty.h"
 #include "backend/ProductProperty.h"
 #include <QJsonArray>
 #include <QJsonValue>
@@ -11,8 +12,6 @@ JsonReply::JsonReply(const QJsonDocument &doc)
 
 QVector<Product*> JsonReply::products() const
 {
-    // products from m_document
-
     QJsonObject jmainobj = m_document.object();
 
     QJsonArray jproducts = jmainobj["products"].toArray();
@@ -25,21 +24,41 @@ QVector<Product*> JsonReply::products() const
 
     for (int i = 0; i < jproducts.size(); ++i)
     {
-
         QJsonObject prod = jproducts[i].toObject();
 
-        QPixmap productImage;
+        QPixmap productPicture;
+        //prod["picture"]
         ProductProperty properties(static_cast<long>(prod["id"].toInt()),
                 prod["name"].toString(),
                 prod["description"].toString(),
                 prod["category"].toString(),
                 prod["price"].toDouble());
 
-        Product* p = new Product(productImage,properties);
+        Product* p = new Product(productPicture,properties);
         prods.push_back(p);
     }
 
     return prods;
+}
+
+QVector<Category*> JsonReply::categories() const
+{
+    QJsonArray jcatArray = m_document.array();
+    if (jcatArray.isEmpty())
+    {
+        return QVector<Category*>();
+    }
+    QVector<Category*> cats;
+    for (int i = 0; i < jcatArray.size(); ++i)
+    {
+        QJsonObject c = jcatArray[i].toObject();
+        QPixmap img;
+        CategoryProperty catProperty(static_cast<long>(c["categoryId"].toInt()), c["name"].toString(),
+                static_cast<long>(c["parentId"].toInt()));
+        Category* cat = new Category(img,catProperty,0); //// TODO WIDTH
+        cats.push_back(cat);
+    }
+    return cats;
 }
 
 bool JsonReply::nextPageExists() const

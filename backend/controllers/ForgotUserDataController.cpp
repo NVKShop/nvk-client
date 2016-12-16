@@ -46,7 +46,7 @@ void ForgotUserDataController::forgotUserData(const QString &email)
             QUrl url = ForgotUserDataController::FORGOTTEN_PASSWORD_URL_STR + email;
             HttpHandler* httph  = new HttpHandler(url);
             connect(httph, &HttpHandler::replyErrors, this, &ForgotUserDataController::serverReplyError);
-            httph->sendRequest("");
+            httph->sendRequest(QString());
             ////////////////// TODO
             emit successfulReminder();
         }

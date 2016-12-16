@@ -1,6 +1,7 @@
 #include "frontend/widgets/NVKMainWindow.h"
-#include "ui_nvkmainwindow.h"
+#include "backend/network/HttpHandler.h"
 
+#include "ui_nvkmainwindow.h"
 #include <QDesktopWidget>
 #include <QKeyEvent>
 #include <QScrollBar>
@@ -31,6 +32,7 @@ NVKMainWindow::NVKMainWindow(QWidget *parent) :
     connect(ui->searchButton, &QPushButton::clicked, this, &NVKMainWindow::searchProductClicked);
     connect(ui->nextPageButton, &QPushButton::clicked, this, &NVKMainWindow::nextPage);
     connect(ui->previousPageButton, &QPushButton::clicked, this, &NVKMainWindow::previousPage);
+
     connect(ui->pageSizeComboBox, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &NVKMainWindow::pageSizeChanged);
     QPalette p(palette());
     setAutoFillBackground(true);
@@ -43,25 +45,25 @@ NVKMainWindow::NVKMainWindow(QWidget *parent) :
     ui->pageSizeLabel->setPalette(pt);
 
     ui->searchButton->setStyleSheet(QString::fromUtf8("QPushButton{background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,"
-      "stop: 0 white, stop: 1 grey);"
-      "border-style: solid;"
-      "border-width: 2px;"
-      "border-color: black;"
-      "border-radius: 15px;}"));
+                                                      "stop: 0 white, stop: 1 grey);"
+                                                      "border-style: solid;"
+                                                      "border-width: 2px;"
+                                                      "border-color: black;"
+                                                      "border-radius: 15px;}"));
 
     ui->previousPageButton->setStyleSheet(QString::fromUtf8("QPushButton{background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,"
-      "stop: 0 white, stop: 1 grey);"
-      "border-style: solid;"
-      "border-width: 2px;"
-      "border-color: black;"
-      "border-radius: 15px;}"));
+                                                            "stop: 0 white, stop: 1 grey);"
+                                                            "border-style: solid;"
+                                                            "border-width: 2px;"
+                                                            "border-color: black;"
+                                                            "border-radius: 15px;}"));
 
     ui->nextPageButton->setStyleSheet(QString::fromUtf8("QPushButton{background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,"
-      "stop: 0 white, stop: 1 grey);"
-      "border-style: solid;"
-      "border-width: 2px;"
-      "border-color: black;"
-      "border-radius: 15px;}"));
+                                                        "stop: 0 white, stop: 1 grey);"
+                                                        "border-style: solid;"
+                                                        "border-width: 2px;"
+                                                        "border-color: black;"
+                                                        "border-radius: 15px;}"));
 
 }
 
@@ -69,9 +71,20 @@ void NVKMainWindow::setupViews()
 {
     // test items
 
-
-
     //GET /listCategories
+    /*HttpHandler handler(LIST_CATEGORIES_REQUEST);
+    handler.sendRequest(QString());
+
+    QJsonDocument replyDoc = QJsonDocument::fromBinaryData(handler.reply()->readAll());
+
+    if (replyDoc.isNull())
+    {
+        //unable to fetch categories/ do something
+    }
+
+    JsonReply jreply (replyDoc);
+    QVector<Category*> cats = jreply.categories();*/
+
     auto c = [](int count,const int w) ->QVector<Category*>
     {
         QVector<Category*> categories;
@@ -80,7 +93,7 @@ void NVKMainWindow::setupViews()
 
         for (int i = 0; i < count; ++i)
         {
-            Property prop(0,QLatin1String("Category ") + QString::number(i));
+            CategoryProperty prop(0,QLatin1String("Category ") + QString::number(i),0);
             Category* cat = new Category(QPixmap(":/images/catBg.png"), prop, w);
 
             categories[i] = cat;
@@ -198,7 +211,7 @@ void NVKMainWindow::showEvent(QShowEvent *event)
 #else
     show();
 #endif
-    setupViews(); 
+    setupViews();
     emit shown();
     QMainWindow::showEvent(event);
 }
@@ -218,10 +231,16 @@ void NVKMainWindow::categoryChanged(Category *newCategory)
 
         //GET /productsByCategory?categoryId=<kategória id>&pageSize=<lap mérete>&pageNumber=<a lap sorszáma>
 
+       /* QUrl productsByCatUrl ("productsByCategory?categoryId=" +
+                               QString::number(newCategory->properties().id())+
+                               "&pageSize=" + QString::number(ui->pageSizeComboBox->currentText().toInt())+
+                               "&pageNumber=" + QString::number(m_currentPage));
+        HttpHandler httpHandler(productsByCatUrl);
+        httpHandler.sendRequest(QString());*/
         scene->setItems(m_categoryMapped.values(m_categoriesView->currentCategory()));
 
         ui->productsInCategoryLabel->setText( QString::number(
-                    m_categoryMapped.values(m_categoriesView->currentCategory()).size()) + QLatin1String(" products in this category"));
+                                                  m_categoryMapped.values(m_categoriesView->currentCategory()).size()) + QLatin1String(" products in this category"));
         ui->productsInCategoryLabel->adjustSize();
     }
 }
@@ -259,4 +278,9 @@ CategoriesView* NVKMainWindow::categoriesView() const
 QComboBox* NVKMainWindow::pageSizeCb() const
 {
     return ui->pageSizeComboBox;
+}
+
+int NVKMainWindow::currentPage() const
+{
+    return m_currentPage;
 }

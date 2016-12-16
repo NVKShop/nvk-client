@@ -14,13 +14,18 @@ NetworkHandler::NetworkHandler(QObject *parent) : QObject(parent),
 
 void NetworkHandler::sendRequest(const QString& data)
 {
-   /* m_HttpReply = m_NetworkAccessManager->post(*m_HttpRequest,
-                                               QByteArray::fromRawData(data.toStdString().c_str(), data.size()));
 
-    */
-    Q_UNUSED(data)
+    if (data.isNull())
+    {
+        m_HttpReply = m_NetworkAccessManager->get(*m_HttpRequest);
+    }
+    else
+    {
+        m_HttpReply = m_NetworkAccessManager->post(*m_HttpRequest,
+                                                   QByteArray::fromRawData(data.toStdString().c_str(), data.size()));
+    }
 
-    m_HttpReply = m_NetworkAccessManager->get(*m_HttpRequest);
+
     connect(m_HttpReply, &QNetworkReply::finished, this, &NetworkHandler::replyFinished);
     connect(m_HttpReply,
             static_cast<void(QNetworkReply::*)(QNetworkReply::NetworkError)>(&QNetworkReply::error),

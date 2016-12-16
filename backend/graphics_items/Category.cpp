@@ -5,8 +5,8 @@
 #include <QGraphicsSceneHoverEvent>
 
 #define CATEGORY_BOUNDING_RECT_HEIGHT_PADDING 50
-Category::Category(const QPixmap & pixmap, const Property &property, const int width) :
-    QGraphicsPixmapItem(pixmap), m_name(property)
+Category::Category(const QPixmap & pixmap, const CategoryProperty &property, const int width) :
+    QGraphicsPixmapItem(pixmap), m_properties(property)
 {
 
     setPixmap(pixmap.scaledToWidth(width, Qt::SmoothTransformation));
@@ -14,7 +14,7 @@ Category::Category(const QPixmap & pixmap, const Property &property, const int w
     setOffset(0, CATEGORY_BOUNDING_RECT_HEIGHT_PADDING/2);
     setFlag(QGraphicsItem::ItemIsSelectable);
 
-    m_nameItem = new QGraphicsSimpleTextItem(m_name.name());
+    m_nameItem = new QGraphicsSimpleTextItem(m_properties.name());
     QFont nameItemFont;
     nameItemFont.setBold(true);
     nameItemFont.setPointSize(12);
@@ -108,5 +108,10 @@ void Category::hoverLeaveEvent(QGraphicsSceneHoverEvent *e)
 
 QString Category::name()
 {
-    return m_name.name();
+    return m_properties.name();
+}
+
+CategoryProperty Category::properties() const
+{
+    return m_properties;
 }

@@ -47,7 +47,8 @@ SOURCES += main.cpp\
     frontend/widgets/PlaceOrderWindow.cpp \
     frontend/widgets/ProductPreviewDialog.cpp \
     frontend/widgets/UserSettingsWindow.cpp \
-    frontend/widgets/ProductSearchWindow.cpp
+    frontend/widgets/ProductSearchWindow.cpp \
+    backend/CategoryProperty.cpp
 
 HEADERS  += backend/controllers/ForgotUserDataController.h \
     backend/controllers/LoginController.h \
@@ -86,7 +87,8 @@ HEADERS  += backend/controllers/ForgotUserDataController.h \
     frontend/widgets/PlaceOrderWindow.h \
     frontend/widgets/ProductPreviewDialog.h \
     frontend/widgets/UserSettingsWindow.h \
-    frontend/widgets/ProductSearchWindow.h
+    frontend/widgets/ProductSearchWindow.h \
+    backend/CategoryProperty.h
 
 FORMS+= frontend/ui/forgotuserdatawindow.ui \
     frontend/ui/loginwindow.ui \
