@@ -115,3 +115,26 @@ User* JsonReply::user() const
     user->setProperties(properties);
     return user;
 }
+
+QPixmap JsonReply::productPreviewPicture() const
+{
+    if (m_document.isEmpty())
+    {
+        return QPixmap();
+    }
+
+    QJsonValue picByte = m_document.object()["pictureAsByte"];
+    QPixmap pic(picByte.toVariant().toByteArray());
+    return pic;
+}
+
+QString JsonReply::productDescription() const
+{
+    if (m_document.isEmpty())
+    {
+        return QString();
+    }
+
+    QString description(m_document.object()["description"].toString());
+    return description;
+}

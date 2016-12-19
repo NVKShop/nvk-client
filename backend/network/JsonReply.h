@@ -15,6 +15,8 @@ public:
 
     QVector<Product *> products() const;
     QVector<Category*> categories() const;
+    QPixmap productPreviewPicture() const;
+    QString productDescription() const;
     bool previousPageExists() const;
     bool nextPageExists() const;
     User *user() const;

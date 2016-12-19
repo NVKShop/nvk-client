@@ -5,6 +5,7 @@
 #include <QMultiMap>
 #include <QUrl>
 
+#include "backend/network/HttpHandler.h"
 #include "backend/Order.h"
 #include "frontend/views/ProductsView.h"
 #include "frontend/views/CategoriesView.h"

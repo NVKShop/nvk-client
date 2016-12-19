@@ -20,8 +20,6 @@ private Q_SLOTS:
 
 private:
     ForgotUserDataWindow* m_forgotUserDataWindow;
-    const QString FORGOTTEN_PASSWORD_URL_STR =
-            "http://192.168.43.251:8080/nvk-web/forgottenPassword?email=";
 };
 
 #endif // FORGOTUSERDATACONTROLLER_H

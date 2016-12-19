@@ -121,6 +121,15 @@ void NVKController::showProductSearchWindow()
 
 void NVKController::showProductPreview(Product *product)
 {
+
+    ///GET /detailedProduct/<termék id-ja>
+    const long pid = product->properties().id();
+    HttpHandler detailedProductGet(QUrl(HttpHandler::DETAILED_PRODUCT_URL_STRING.arg(pid)));
+    //
+    detailedProductGet.sendRequest(QString());
+
+    JsonReply detailedProductReply(QJsonDocument::fromBinaryData(detailedProductGet.reply()->readAll()));
+    // reply
     m_productPreviewController->setProduct(product);
 
     popUpWindow(m_productPreviewController->view());

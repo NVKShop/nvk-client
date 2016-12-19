@@ -4,6 +4,7 @@
 #include <QSpinBox>
 #include <QDebug>
 #include <QJsonDocument>
+#include <QJsonObject>
 
 PlaceOrderController::PlaceOrderController(QObject *parent) : QObject(parent),
     m_placeOrderWindow(new PlaceOrderWindow)
@@ -38,7 +39,13 @@ void PlaceOrderController::placeOrder()
     {
         // stuff here + check connection
 
-        //if successful
+        // NEW
+        /*QUrl placeOrderUrl(HttpHandler::ORDER_PLACEMENT_URL_STRING);
+        HttpHandler placeOrderHandler(placeOrderUrl);
+
+        QString orderstr = m_placeOrderWindow->order()->asJson().toJson(QJsonDocument::Compact);
+        placeOrderHandler.sendRequest(orderstr);*/
+
         m_placeOrderWindow->order()->user()->cart()->resetCart();
         emit setQuantityText(0);
         m_placeOrderWindow->accept();

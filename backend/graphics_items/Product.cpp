@@ -216,10 +216,10 @@ QJsonObject Product::asJson() const
 {
     QJsonObject prodObj;
 
-    QJsonValue prodName(m_properties.name());
+    QJsonValue prodId(static_cast<int>(m_properties.id()));
     QJsonValue productQuantityInCart(m_quantityInCart);
 
-    prodObj["name"] = prodName;
+    prodObj["productId"] = prodId;
     prodObj["quantity"] = productQuantityInCart;
 
     return prodObj;

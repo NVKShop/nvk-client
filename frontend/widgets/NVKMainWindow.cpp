@@ -1,5 +1,4 @@
 #include "frontend/widgets/NVKMainWindow.h"
-#include "backend/network/HttpHandler.h"
 
 #include "ui_nvkmainwindow.h"
 #include <QDesktopWidget>
@@ -71,8 +70,9 @@ void NVKMainWindow::setupViews()
 {
     // test items
 
+    // NEW
     //GET /listCategories
-    /*HttpHandler handler(LIST_CATEGORIES_REQUEST);
+    /*HttpHandler handler(HttpHandler::LIST_CATEGORIES_URL_STRING);
     handler.sendRequest(QString());
 
     QJsonDocument replyDoc = QJsonDocument::fromBinaryData(handler.reply()->readAll());
@@ -157,6 +157,8 @@ void NVKMainWindow::setupViews()
     m_productsView->show();
     ProductsScene* pScene = new ProductsScene(m_productsView->width());
     m_productsView->setScene(pScene);
+    // NEW
+    // categorychanged..
     pScene->setItems(m_categoryMapped.values(m_categoryMapped.firstKey()));
 
     m_categoriesView = ui->categoriesView;
@@ -230,13 +232,17 @@ void NVKMainWindow::categoryChanged(Category *newCategory)
         m_productsView->scrollToTop();
 
         //GET /productsByCategory?categoryId=<kategória id>&pageSize=<lap mérete>&pageNumber=<a lap sorszáma>
+        // NEW
 
-       /* QUrl productsByCatUrl ("productsByCategory?categoryId=" +
-                               QString::number(newCategory->properties().id())+
-                               "&pageSize=" + QString::number(ui->pageSizeComboBox->currentText().toInt())+
-                               "&pageNumber=" + QString::number(m_currentPage));
+        /*QUrl productsByCatUrl = HttpHandler::PRODUCTS_BY_CATEGORY_URL_STRING.arg(QString::number(newCategory->properties().id())).
+                arg(QString::number(ui->pageSizeComboBox->currentText().toInt()))
+                .arg(QString::number(m_currentPage));
         HttpHandler httpHandler(productsByCatUrl);
-        httpHandler.sendRequest(QString());*/
+        httpHandler.sendRequest(QString());
+
+        JsonReply productsRequestReply(httpHandler.reply()->readAll());
+        scene->setItems(productsRequestReply.products());*/
+
         scene->setItems(m_categoryMapped.values(m_categoriesView->currentCategory()));
 
         ui->productsInCategoryLabel->setText( QString::number(

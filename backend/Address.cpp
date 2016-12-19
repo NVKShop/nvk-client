@@ -1,7 +1,7 @@
 #include "backend/Address.h"
 
-Address::Address(const QString &country, const QString &zip, const QString &street, const QString &hnum, const QString &city)
-    : m_country(country), m_zip(zip), m_street(street), m_houseNumber(hnum), m_city(city)
+Address::Address(const long &id, const QString &country, const QString &zip, const QString &street, const QString &hnum, const QString &city)
+    : m_id(id), m_country(country), m_zip(zip), m_street(street), m_houseNumber(hnum), m_city(city)
 {
 }
 
@@ -30,6 +30,11 @@ QString Address::street() const
     return m_street;
 }
 
+long Address::id() const
+{
+    return m_id;
+}
+
 void Address::setCity(const QString &city)
 {
     m_city = city;
@@ -48,6 +53,11 @@ void Address::setZip(const QString &zip)
 void Address::setStreet(const QString &street)
 {
     m_street = street;
+}
+
+void Address::setId(const long &id)
+{
+    m_id = id;
 }
 
 void Address::setHouseNumber(const QString &num)

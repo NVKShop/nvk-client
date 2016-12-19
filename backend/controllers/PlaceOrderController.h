@@ -2,6 +2,7 @@
 #define PLACEORDERCONTROLLER_H
 
 #include "frontend/widgets/PlaceOrderWindow.h"
+#include "backend/network/HttpHandler.h"
 #include "backend/Order.h"
 #include <QObject>
 
