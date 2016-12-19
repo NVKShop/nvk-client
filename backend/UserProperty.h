@@ -17,19 +17,16 @@ public:
     void setFirstName(const QString& name);
     void setLastName(const QString& name);
     void setAddress(const Address& address);
-    void setBanned(const bool banned);
     void setRole(const Role& role);
     void setPhoneNumber(const QString& pnumber);
     void setPassword(const QString& pw);
     UserProperty(const long &id, const QString& firstName, const QString& lastName,
-                 const Address &address,
-                 const bool banned, Role role, const QString& phoneNumber, const QString &pw);
+                 const Address &address, Role role, const QString& phoneNumber, const QString &pw);
 
     QString firstName() const;
     QString lastName() const;
     Address address() const;
     QString email() const;
-    bool isBanned() const;
     Role role() const;
     QString phoneNumber() const;
     QString password() const;
@@ -38,7 +35,6 @@ private:
     QString m_lastName;
     Address m_address;
     QString m_email;
-    bool m_banned = false;
 
     Role m_role;
 

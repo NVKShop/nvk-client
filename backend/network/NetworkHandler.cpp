@@ -7,13 +7,25 @@
 #include <QTimer>
 
 NetworkHandler::NetworkHandler(QObject *parent) : QObject(parent),
-    m_HttpReply(Q_NULLPTR), m_HttpRequest(Q_NULLPTR)
+    m_HttpReply(Q_NULLPTR), m_HttpRequest(Q_NULLPTR), m_authenticator(new QAuthenticator)
 {
     m_NetworkAccessManager = new QNetworkAccessManager(this);
+    connect(m_NetworkAccessManager, &QNetworkAccessManager::authenticationRequired, this, &NetworkHandler::auth);
+}
+
+void NetworkHandler::setUser(const QString &user)
+{
+    m_authenticator->setUser(user);
+}
+
+void NetworkHandler::setPassword(const QString &pw)
+{
+    m_authenticator->setPassword(pw);
 }
 
 void NetworkHandler::sendRequest(const QString& data)
 {
+    m_finished = false;
 
     if (data.isNull())
     {
@@ -25,12 +37,10 @@ void NetworkHandler::sendRequest(const QString& data)
                                                    QByteArray::fromRawData(data.toStdString().c_str(), data.size()));
     }
 
-
     connect(m_HttpReply, &QNetworkReply::finished, this, &NetworkHandler::replyFinished);
-    connect(m_HttpReply,
+    /*connect(m_HttpReply,
             static_cast<void(QNetworkReply::*)(QNetworkReply::NetworkError)>(&QNetworkReply::error),
-            this, &NetworkHandler::replyError);
-    connect(m_HttpReply, &QNetworkReply::readyRead, this, &NetworkHandler::replyReadyRead);
+            this, &NetworkHandler::replyError);*/
 #ifndef QT_NO_SSL
     connect(m_HttpReply, &QNetworkReply::sslErrors, this, &NetworkHandler::sslError);
 #endif
@@ -95,26 +105,18 @@ NetworkHandler::~NetworkHandler()
     delete m_NetworkAccessManager;
 }
 
-void NetworkHandler::replyReadyRead()
-{
-    qDebug() << "Ready to read";
-    QVariant httpStatus = m_HttpReply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
-
-    qDebug() << httpStatus.toString();
-
-    /*emit readyRead(m_HttpReply->header(QNetworkRequest::ServerHeader).toString());
-    qDebug() << m_HttpReply->header(QNetworkRequest::ServerHeader).toString();*/
-}
-
 void NetworkHandler::replyFinished()
 {
-    qDebug() << "Finished!";
-}
-
-void NetworkHandler::replyError(QNetworkReply::NetworkError err)
-{
-    Q_UNUSED(err)
-    emit replyErrors(m_HttpReply->errorString().toInt());
+    if (m_HttpReply->errorString().isEmpty())
+    {
+        emit finished();
+        emit readyRead(QString(m_HttpReply->readAll()));
+    }
+    else
+    {
+        emit replyErrors(m_HttpReply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt());
+        qDebug() << m_HttpReply->errorString();
+    }
 }
 
 #ifndef QT_NO_SSL
@@ -125,3 +127,11 @@ void NetworkHandler::sslError(const QList<QSslError> &errors)
     }
 }
 #endif
+
+void NetworkHandler::auth(QNetworkReply *reply, QAuthenticator *auth)
+{
+    Q_UNUSED(reply)
+    qDebug() << "auth: " << auth->realm();
+    auth->setUser(m_authenticator->user());
+    auth->setPassword(m_authenticator->password());
+}

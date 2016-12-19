@@ -1,13 +1,14 @@
 #include "ForgotUserDataController.h"
-#include "backend/network/HttpHandler.h"
 #include <QMessageBox>
 #include <QRegularExpressionMatch>
 
 ForgotUserDataController::ForgotUserDataController(QObject *parent) : QObject(parent),
-    m_forgotUserDataWindow(new ForgotUserDataWindow)
+    m_forgotUserDataWindow(new ForgotUserDataWindow), m_httpHandler(new HttpHandler)
 {
     connect(m_forgotUserDataWindow, &ForgotUserDataWindow::forgotUserDataSent,
             this, &ForgotUserDataController::forgotUserData);
+    connect(m_httpHandler, &HttpHandler::finished, this, &ForgotUserDataController::successfulReminder);
+    connect(m_httpHandler, &HttpHandler::replyErrors, this, &ForgotUserDataController::unsuccessfulReminder);
 }
 
 ForgotUserDataWindow* ForgotUserDataController::view() const
@@ -45,10 +46,9 @@ void ForgotUserDataController::forgotUserData(const QString &email)
         {
             // NEW
             QUrl url = HttpHandler::FORGOTTEN_PASSWORD_URL_STRING.arg(email);
-            HttpHandler httph(url);
-            connect(&httph, &HttpHandler::replyErrors, this, &ForgotUserDataController::serverReplyError);
-            httph.sendRequest(QString());
-            emit successfulReminder();
+            qDebug() << "sending stuff..";
+            m_httpHandler->setUrl(url);
+            m_httpHandler->sendRequest(QString());
         }
     }
     else
@@ -57,11 +57,18 @@ void ForgotUserDataController::forgotUserData(const QString &email)
     }
 }
 
-void ForgotUserDataController::serverReplyError(const int& err)
+void ForgotUserDataController::unsuccessfulReminder(const int &code)
 {
-    if (err == 400)
+    if (code == 400)
     {
-        QMessageBox::warning(0, "Error" + QString::number(err),"");
+        //email nope
+        QMessageBox::warning(0, "Error" + QString::number(code),"");
     }
+    else if (code == 404)
+    {
+        //server nope
+        QMessageBox::warning(0, "Error" + QString::number(code),"");
+    }
+    qDebug() << "errorcode: " << QString::number(code);
 }
 

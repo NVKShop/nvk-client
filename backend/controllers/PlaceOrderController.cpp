@@ -7,11 +7,14 @@
 #include <QJsonObject>
 
 PlaceOrderController::PlaceOrderController(QObject *parent) : QObject(parent),
-    m_placeOrderWindow(new PlaceOrderWindow)
+    m_placeOrderWindow(new PlaceOrderWindow), m_placeOrderHandler(new HttpHandler)
 {
     connect(m_placeOrderWindow, &PlaceOrderWindow::resetCart, this, &PlaceOrderController::resetCart);
     connect(m_placeOrderWindow, &PlaceOrderWindow::placeOrderButtonClicked, this, &PlaceOrderController::placeOrder);
     connect(m_placeOrderWindow, &PlaceOrderWindow::cartCellChanged, this, &PlaceOrderController::cartCellChanged);
+    connect(m_placeOrderHandler, &HttpHandler::finished, this, &PlaceOrderController::resetCart);
+    connect(m_placeOrderHandler, &HttpHandler::finished, view(), &PlaceOrderWindow::accept);
+    connect(m_placeOrderHandler, &HttpHandler::replyErrors, this, &PlaceOrderController::orderPlacementFailed);
 }
 
 PlaceOrderWindow* PlaceOrderController::view() const
@@ -37,18 +40,12 @@ void PlaceOrderController::placeOrder()
     }
     else
     {
-        // stuff here + check connection
-
         // NEW
-        /*QUrl placeOrderUrl(HttpHandler::ORDER_PLACEMENT_URL_STRING);
-        HttpHandler placeOrderHandler(placeOrderUrl);
+        QUrl placeOrderUrl(HttpHandler::ORDER_PLACEMENT_URL_STRING);
+        m_placeOrderHandler->setUrl(placeOrderUrl);
 
         QString orderstr = m_placeOrderWindow->order()->asJson().toJson(QJsonDocument::Compact);
-        placeOrderHandler.sendRequest(orderstr);*/
-
-        m_placeOrderWindow->order()->user()->cart()->resetCart();
-        emit setQuantityText(0);
-        m_placeOrderWindow->accept();
+        m_placeOrderHandler->sendRequest(orderstr);
     }
 }
 
@@ -66,3 +63,7 @@ void PlaceOrderController::cartCellChanged(int row, int val)
     emit setQuantityText(m_placeOrderWindow->order()->productsCount());
 }
 
+void PlaceOrderController::orderPlacementFailed(const int &code)
+{
+    qDebug() << QString::number(code);
+}

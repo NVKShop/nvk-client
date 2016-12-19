@@ -20,7 +20,7 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui->forgotUserNameLabel->setOpenExternalLinks(false);
     ui->forgotUserNameLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
 
-    ui->registerUserLabel->setText(tr("New user? <a href=\"http://google.com\">Register!<a/>"));
+    ui->registerUserLabel->setText(tr("New user? <a href=\"http://89.46.73.165/nvkshop/registration\">Register!<a/>"));
     ui->registerUserLabel->setOpenExternalLinks(true);
     ui->forgotUserNameLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
 

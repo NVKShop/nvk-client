@@ -195,7 +195,7 @@ void NVKController::searchProducts(ProductSearch *psearch)
 
 void NVKController::nextPage()
 {
-
+    //view currentpage..
 }
 
 void NVKController::previousPage()

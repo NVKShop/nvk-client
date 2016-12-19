@@ -82,8 +82,7 @@ User* JsonReply::user() const
         return nullptr;
     }
 
-    QJsonObject mainObj = m_document.object();
-    QJsonObject juser = mainObj["user"].toObject();
+    QJsonObject juser = m_document.object();
     if (juser.isEmpty())
     {
         return nullptr;

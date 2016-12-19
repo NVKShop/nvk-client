@@ -7,6 +7,7 @@
 #include <QNetworkRequest>
 #include <QSslError>
 #include <QSsl>
+#include <QAuthenticator>
 
 class NetworkHandler : public QObject
 {
@@ -20,20 +21,23 @@ public:
     QNetworkReply *reply() const;
     void sendRequest(const QString &data);
 
+    void setUser(const QString& user);
+    void setPassword(const QString& pw);
+protected:
+    QNetworkReply* m_HttpReply;
+    QNetworkRequest* m_HttpRequest;
 private:
     QNetworkAccessManager* m_NetworkAccessManager;
-
+    QAuthenticator* m_authenticator;
+    bool m_finished = false;
 Q_SIGNALS:
     void readyRead(const QString& data);
     void replyErrors(const int&);
-protected:
-    QNetworkRequest* m_HttpRequest;
-    QNetworkReply* m_HttpReply;
+    void finished();
 
 private Q_SLOTS:
-    void replyReadyRead();
     void replyFinished();
-    void replyError(QNetworkReply::NetworkError);
+    void auth(QNetworkReply* reply, QAuthenticator* auth);
 #ifndef QT_NO_SSL
     void sslError(const QList<QSslError> &errors);
 #endif

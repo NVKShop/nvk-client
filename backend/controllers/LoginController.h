@@ -2,6 +2,7 @@
 #define LOGINCONTROLLER_H
 
 #include "frontend/widgets/LoginWindow.h"
+#include "backend/network/HttpHandler.h"
 #include <QObject>
 
 class LoginController : public QObject
@@ -19,9 +20,11 @@ public Q_SLOTS:
 
 private Q_SLOTS:
     void loginUser();
-
+    void loginFinished();
+    void emitLoginError();
 private:
     LoginWindow* m_loginWindow;
+    HttpHandler* m_loginHandler;
 };
 
 #endif // LOGINCONTROLLER_H

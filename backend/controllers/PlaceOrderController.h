@@ -21,8 +21,10 @@ public Q_SLOTS:
     void resetCart();
 private Q_SLOTS:
     void cartCellChanged(int row, int val);
+    void orderPlacementFailed(const int& code);
 private:
     PlaceOrderWindow* m_placeOrderWindow;
+    HttpHandler* m_placeOrderHandler;
 };
 
 #endif // PLACEORDERCONTROLLER_H

@@ -3,10 +3,9 @@
 UserProperty::UserProperty(const long& id, const QString &firstName,
                            const QString &lastName,
                            const Address &address,
-                           const bool banned,
                            UserProperty::Role role,
                            const QString &phoneNumber, const QString& pw): Property(id,firstName),
-    m_firstName(firstName), m_lastName(lastName), m_address(address), m_banned(banned), m_role(role),
+    m_firstName(firstName), m_lastName(lastName), m_address(address), m_role(role),
     m_phoneNumber(phoneNumber), m_password(pw)
 {
 }
@@ -14,11 +13,6 @@ UserProperty::UserProperty(const long& id, const QString &firstName,
 void UserProperty::setAddress(const Address &address)
 {
     m_address = address;
-}
-
-void UserProperty::setBanned(const bool banned)
-{
-    m_banned = banned;
 }
 
 void UserProperty::setEmail(const QString &email)
@@ -84,11 +78,6 @@ QString UserProperty::email() const
 UserProperty::Role UserProperty::role() const
 {
     return m_role;
-}
-
-bool UserProperty::isBanned() const
-{
-    return m_banned;
 }
 
 
