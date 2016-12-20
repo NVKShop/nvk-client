@@ -73,7 +73,6 @@ Product::Product(const QPixmap & pixmap, const ProductProperty &property) : QObj
     m_addedToCartItem->moveBy(PRODUCT_TEXT_LEFT_MARGIN - m_addedToCartItem->pixmap().width() - 10, 0);
     m_addedToCartItem->setParentItem(this);
     m_addedToCartItem->hide();
-
 }
 
 Product::~Product()

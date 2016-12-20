@@ -124,6 +124,11 @@ User* JsonReply::user() const
     return user;
 }
 
+int JsonReply::totalProducts() const
+{
+    return m_document.object()["totalElements"].toInt();
+}
+
 QPixmap JsonReply::productPreviewPicture() const
 {
     if (m_document.isEmpty())

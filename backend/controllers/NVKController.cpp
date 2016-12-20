@@ -275,7 +275,7 @@ void NVKController::loadProductsInCategory()
         }
     }
 
-    view()->productsInCategoryLabel()->setText(QString::number(productsRequestReply.products().size()) + QLatin1String(" products in this category"));
+    view()->productsInCategoryLabel()->setText(QString::number(productsRequestReply.totalProducts()) + QLatin1String(" products in this category"));
     view()->productsInCategoryLabel()->adjustSize();
 }
 
