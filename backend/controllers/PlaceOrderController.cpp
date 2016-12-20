@@ -40,11 +40,12 @@ void PlaceOrderController::placeOrder()
     }
     else
     {
-        // NEW
         QUrl placeOrderUrl(HttpHandler::ORDER_PLACEMENT_URL_STRING);
         m_placeOrderHandler->setUrl(placeOrderUrl);
-
-        QString orderstr = m_placeOrderWindow->order()->asJson().toJson(QJsonDocument::Compact);
+        m_placeOrderHandler->request()->setRawHeader("Content-Type", "application/json");
+        m_placeOrderHandler->setUser(view()->order()->user()->properties().name());
+        m_placeOrderHandler->setPassword(view()->order()->user()->properties().password());
+        QByteArray orderstr = m_placeOrderWindow->order()->asJson().toJson(QJsonDocument::Compact);
         m_placeOrderHandler->sendRequest(orderstr);
     }
 }
@@ -65,5 +66,6 @@ void PlaceOrderController::cartCellChanged(int row, int val)
 
 void PlaceOrderController::orderPlacementFailed(const int &code)
 {
-    qDebug() << QString::number(code);
+    QMessageBox::warning(0, "Error placing order", m_placeOrderHandler->reply()->errorString());
+    Q_UNUSED(code)
 }

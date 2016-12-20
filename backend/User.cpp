@@ -43,3 +43,8 @@ void User::setUserName(const QString &userName)
 {
     m_properties.setName(userName);
 }
+
+void User::setPassword(const QString &pw)
+{
+    m_properties.setPassword(pw);
+}

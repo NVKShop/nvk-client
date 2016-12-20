@@ -19,7 +19,8 @@ public:
     static bool isOnline();
     bool isConnectedToTheInternet();
     QNetworkReply *reply() const;
-    void sendRequest(const QString &data);
+    QNetworkRequest* request() const;
+    void sendRequest(const QByteArray &data);
 
     void setUser(const QString& user);
     void setPassword(const QString& pw);

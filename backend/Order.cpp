@@ -54,7 +54,6 @@ QJsonDocument Order::asJson() const
     foreach (Product* p, m_user->cart()->products()) {
         products.append(p->asJson());
     }
-    mainObj["addressId"] = static_cast<int>(m_user->properties().address().id());
     mainObj["items"] = products;
 
     doc.setObject(mainObj);

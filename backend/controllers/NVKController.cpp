@@ -130,7 +130,7 @@ void NVKController::showProductPreview(Product *product)
 {
     const long pid = product->properties().id();
     m_detailedProductHandler->setUrl(QUrl(HttpHandler::DETAILED_PRODUCT_URL_STRING.arg(pid)));
-    m_detailedProductHandler->sendRequest(QString());
+    m_detailedProductHandler->sendRequest(QByteArray());
 
     m_productPreviewController->setProduct(product);
 }
@@ -167,7 +167,7 @@ void NVKController::connectToScenes()
     connect(m_mainWindow->productsScene(), &ProductsScene::scrollToTop, m_mainWindow->productsView(), &ProductsView::scrollToTop);
 
     m_mainWindowHandler->setUrl(QUrl(HttpHandler::LIST_CATEGORIES_URL_STRING));
-    m_mainWindowHandler->sendRequest(QString());
+    m_mainWindowHandler->sendRequest(QByteArray());
 
     disconnect(m_mainWindow, &NVKMainWindow::shown, this, &NVKController::connectToScenes);
 }
@@ -182,7 +182,7 @@ void NVKController::categoryChanged(Category *newCategory)
                 arg(QString::number(view()->pageSizeCb()->currentText().toInt()))
                 .arg(QString::number(view()->currentPage()));
         m_mainWindowHandler->setUrl(productsByCatUrl);
-        m_mainWindowHandler->sendRequest(QString());
+        m_mainWindowHandler->sendRequest(QByteArray());
     }
 }
 
@@ -218,7 +218,7 @@ void NVKController::nextPage()
             arg(QString::number(view()->pageSizeCb()->currentText().toInt()))
             .arg(QString::number(view()->currentPage()));
     m_mainWindowHandler->setUrl(productsByCatUrl);
-    m_mainWindowHandler->sendRequest(QString());
+    m_mainWindowHandler->sendRequest(QByteArray());
 
     view()->currentPageLabel()->setText(QString::number(view()->currentPage()));
 }
@@ -230,7 +230,7 @@ void NVKController::previousPage()
             arg(QString::number(view()->pageSizeCb()->currentText().toInt()))
             .arg(QString::number(view()->currentPage()));
     m_mainWindowHandler->setUrl(productsByCatUrl);
-    m_mainWindowHandler->sendRequest(QString());
+    m_mainWindowHandler->sendRequest(QByteArray());
     view()->currentPageLabel()->setText(QString::number(view()->currentPage()));
 }
 
@@ -241,23 +241,25 @@ void NVKController::pageSizeChanged(int idx)
             arg(QString::number(val))
             .arg(QString::number(view()->currentPage()));
     m_mainWindowHandler->setUrl(productsByCatUrl);
-    m_mainWindowHandler->sendRequest(QString());
+    m_mainWindowHandler->sendRequest(QByteArray());
 }
 
 void NVKController::loadProductsInCategory()
 {
     JsonReply productsRequestReply(QJsonDocument::fromJson(m_mainWindowHandler->reply()->readAll()));
     ProductsScene* scene = static_cast<ProductsScene*>(view()->productsScene());
-
+    QVector<Product*> prods = productsRequestReply.products();
     view()->previousPageButton()->setEnabled(productsRequestReply.previousPageExists());
     view()->nextPageButton()->setEnabled(productsRequestReply.nextPageExists());
-    scene->setItems(productsRequestReply.products());
+    scene->setItems(prods);
 
     foreach (Product* p, view()->order()->user()->cart()->products())
     {
-        if (productsRequestReply.products().contains(p))
-        {
-
+        foreach (Product* pr, prods) {
+            if (p->properties().id() == pr->properties().id())
+            {
+                p->addedToCart();
+            }
         }
     }
 

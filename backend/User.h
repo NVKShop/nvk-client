@@ -16,6 +16,7 @@ public:
     UserProperty properties() const;
     void setCart(Cart *cart);
     void setUserName(const QString& userName);
+    void setPassword(const QString& pw);
     void setProperties(const UserProperty& properties);
     QJsonObject asJson() const;
 signals:

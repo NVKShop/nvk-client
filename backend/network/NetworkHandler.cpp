@@ -23,7 +23,7 @@ void NetworkHandler::setPassword(const QString &pw)
     m_authenticator->setPassword(pw);
 }
 
-void NetworkHandler::sendRequest(const QString& data)
+void NetworkHandler::sendRequest(const QByteArray& data)
 {
     m_finished = false;
 
@@ -33,14 +33,11 @@ void NetworkHandler::sendRequest(const QString& data)
     }
     else
     {
-        m_HttpReply = m_NetworkAccessManager->post(*m_HttpRequest,
-                                                   QByteArray::fromRawData(data.toStdString().c_str(), data.size()));
+        m_HttpReply = m_NetworkAccessManager->post(*m_HttpRequest, data);
     }
 
     connect(m_HttpReply, &QNetworkReply::finished, this, &NetworkHandler::replyFinished);
-    /*connect(m_HttpReply,
-            static_cast<void(QNetworkReply::*)(QNetworkReply::NetworkError)>(&QNetworkReply::error),
-            this, &NetworkHandler::replyError);*/
+
 #ifndef QT_NO_SSL
     connect(m_HttpReply, &QNetworkReply::sslErrors, this, &NetworkHandler::sslError);
 #endif
@@ -98,6 +95,11 @@ QNetworkReply *NetworkHandler::reply() const
     return m_HttpReply;
 }
 
+QNetworkRequest* NetworkHandler::request() const
+{
+    return m_HttpRequest;
+}
+
 NetworkHandler::~NetworkHandler()
 {
     delete m_HttpReply;
@@ -134,4 +136,5 @@ void NetworkHandler::auth(QNetworkReply *reply, QAuthenticator *auth)
     qDebug() << "auth: " << auth->realm();
     auth->setUser(m_authenticator->user());
     auth->setPassword(m_authenticator->password());
+    qDebug() << m_authenticator->user() << " " << m_authenticator->password();
 }

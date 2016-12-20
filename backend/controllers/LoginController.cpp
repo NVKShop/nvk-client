@@ -37,7 +37,7 @@ void LoginController::loginUser()
         m_loginHandler->setUser(view()->userName());
         m_loginHandler->setPassword(view()->userPassword());
 
-        m_loginHandler->sendRequest(QString());
+        m_loginHandler->sendRequest(QByteArray());
     }
 }
 
@@ -54,7 +54,7 @@ void LoginController::loginFinished()
 
     User* u = reply.user();
     u->setUserName(view()->userName());
-
+    u->setPassword(view()->userPassword());
     QSettings settings;
     settings.setValue("userName", view()->userName());
     settings.setValue("password", view()->userPassword());
