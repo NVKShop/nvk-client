@@ -46,5 +46,6 @@ void Cart::resetCart()
         prod->removedFromCart();
     }
     m_products.clear();
+    qDeleteAll(m_products);
     m_products.resize(0);
 }
