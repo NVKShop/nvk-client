@@ -95,7 +95,7 @@ void LoginWindow::login()
     if (NetworkHandler::isOnline())
     {
         NetworkHandler networkHandler;
-        if (networkHandler.isConnectedToTheInternet())
+        //if (networkHandler.isConnectedToTheInternet())
         {
             if (!m_connected)
             {
@@ -104,10 +104,10 @@ void LoginWindow::login()
                 emit loginUser();
             }
         }
-        else
+        /*else
         {
             QMessageBox::warning(0, QLatin1String("Connection error"), QLatin1String("Error, no internet connection"));
-        }
+        }*/
     }
     else
     {

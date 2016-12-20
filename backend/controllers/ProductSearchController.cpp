@@ -8,7 +8,6 @@ ProductSearchController::ProductSearchController(QObject *parent) : QObject(pare
 {
     connect(m_productSearchWindow, &ProductSearchWindow::search, this, &ProductSearchController::search);
     connect(this, &ProductSearchController::searchDataOk, m_productSearchWindow, &ProductSearchWindow::close);
-
 }
 
 ProductSearchWindow* ProductSearchController::view() const

@@ -258,7 +258,7 @@ void NVKController::loadProductsInCategory()
         foreach (Product* pr, prods) {
             if (p->properties().id() == pr->properties().id())
             {
-                p->addedToCart();
+                pr->addedToCart();
             }
         }
     }
