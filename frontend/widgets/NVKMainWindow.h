@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QMultiMap>
 #include <QUrl>
+#include <QLabel>
 
 #include "backend/network/HttpHandler.h"
 #include "backend/Order.h"
@@ -34,6 +35,8 @@ public:
     ProductsView* productsView() const;
     CategoriesView* categoriesView() const;
 
+    QLabel* productsInCategoryLabel() const;
+
     QComboBox* pageSizeCb() const;
 
     int currentPage() const;
@@ -48,7 +51,6 @@ Q_SIGNALS:
     void previousPage();
     void pageSizeChanged(int idx);
 private Q_SLOTS:
-
 protected:
     void showEvent(QShowEvent *event);
     void closeEvent(QCloseEvent *event);
@@ -61,13 +63,11 @@ private:
     CategoriesView* m_categoriesView;
     UserPanelView* m_userPanelView;
 
-    int m_currentPage;
+    int m_currentPage = 1;
 
     Order* m_order;
     QMultiMap<Category*,Product*> m_categoryMapped;
-    const QUrl LIST_CATEGORIES_REQUEST = QUrl("/listCategories");
 public Q_SLOTS:
-    void categoryChanged(Category* newCategory);
 
 };
 

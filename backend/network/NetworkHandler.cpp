@@ -107,7 +107,7 @@ NetworkHandler::~NetworkHandler()
 
 void NetworkHandler::replyFinished()
 {
-    if (m_HttpReply->errorString().isEmpty())
+    if (m_HttpReply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() == 200)
     {
         emit finished();
         emit readyRead(QString(m_HttpReply->readAll()));

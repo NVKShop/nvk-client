@@ -14,15 +14,17 @@ public:
     explicit JsonReply(const QJsonDocument& doc);
 
     QVector<Product *> products() const;
-    QVector<Category*> categories() const;
+    QVector<Category*> categories(const int& width) const;
     QPixmap productPreviewPicture() const;
     QString productDescription() const;
     bool previousPageExists() const;
     bool nextPageExists() const;
     User *user() const;
-signals:
+Q_SIGNALS:
 
-public slots:
+public Q_SLOTS:
+
+private:
 
 };
 

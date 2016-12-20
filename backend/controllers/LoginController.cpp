@@ -1,5 +1,6 @@
 #include "LoginController.h"
 #include <QMessageBox>
+#include <QJsonParseError>
 #include <QSettings>
 #include <QDebug>
 
@@ -48,30 +49,14 @@ void LoginController::emitLoginError()
 
 void LoginController::loginFinished()
 {
-    User* user = new User;
-    UserProperty properties;
+    QString r = QString::fromUtf8(m_loginHandler->reply()->readAll());
+    JsonReply reply(QJsonDocument::fromJson(r.toUtf8()));
 
-    Address userAddress;
-    userAddress.setCity("Debrecen");
-    userAddress.setCountry("Hungary");
-    userAddress.setZip("4027");
-    userAddress.setHouseNumber("13");
-    userAddress.setStreet("Egyetem sgt");
-
-    properties.setAddress(userAddress);
-
-    properties.setName(m_loginWindow->userName());
-    properties.setPassword(m_loginWindow->userPassword());
-    properties.setFirstName("Lakatos");
-    properties.setLastName("Nintendó");
-    properties.setPhoneNumber("0063723292");
-    properties.setEmail("f/kristof@hotmail.com");
-    properties.setRole(UserProperty::ROLE_USER);
-
-    user->setProperties(properties);
+    User* u = reply.user();
+    u->setUserName(view()->userName());
 
     QSettings settings;
-    settings.setValue("userName", properties.name());
-    settings.setValue("password", properties.password());
-    emit loginOk(user);
+    settings.setValue("userName", view()->userName());
+    settings.setValue("password", view()->userPassword());
+    emit loginOk(u);
 }

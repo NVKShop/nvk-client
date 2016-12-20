@@ -68,41 +68,6 @@ NVKMainWindow::NVKMainWindow(QWidget *parent) :
 
 void NVKMainWindow::setupViews()
 {
-    // test items
-
-    // NEW
-    //GET /listCategories
-    /*HttpHandler handler(HttpHandler::LIST_CATEGORIES_URL_STRING);
-    handler.sendRequest(QString());
-
-    QJsonDocument replyDoc = QJsonDocument::fromBinaryData(handler.reply()->readAll());
-
-    if (replyDoc.isNull())
-    {
-        //unable to fetch categories/ do something
-    }
-
-    JsonReply jreply (replyDoc);
-    QVector<Category*> cats = jreply.categories();*/
-
-    auto c = [](int count,const int w) ->QVector<Category*>
-    {
-        QVector<Category*> categories;
-        categories.reserve(count);
-        categories.resize(count);
-
-        for (int i = 0; i < count; ++i)
-        {
-            CategoryProperty prop(0,QLatin1String("Category ") + QString::number(i),0);
-            Category* cat = new Category(QPixmap(":/images/catBg.png"), prop, w);
-
-            categories[i] = cat;
-        }
-        return categories;
-    };
-
-
-
     auto p = [](int count) -> QVector<Product*>
     {
         QVector<Product*> products;
@@ -140,17 +105,17 @@ void NVKMainWindow::setupViews()
         return  products;
     };
 
-    QVector<Category*> categories = c(6, ui->categoriesView->width() ); //
+   // QVector<Category*> categories = c(6, ui->categoriesView->width() ); //
     QVector<Product*> c1p = p(40);
     QVector<Product*> c2p = p1(5);
 
-    foreach (Product* prod, c1p) {
+    /*foreach (Product* prod, c1p) {
         m_categoryMapped.insert(categories.at(0), prod);
     }
 
     foreach (Product* prod, c2p) {
         m_categoryMapped.insert(categories.at(1), prod);
-    }
+    }*/
 
     //
     m_productsView = ui->productsView;
@@ -159,14 +124,14 @@ void NVKMainWindow::setupViews()
     m_productsView->setScene(pScene);
     // NEW
     // categorychanged..
-    pScene->setItems(m_categoryMapped.values(m_categoryMapped.firstKey()));
+    //pScene->setItems(m_categoryMapped.values(m_categoryMapped.firstKey()));
 
     m_categoriesView = ui->categoriesView;
 
     CategoriesScene* cScene = new CategoriesScene();
-    cScene->setItems(categories);
+    //cScene->setItems(categories);
     m_categoriesView->setScene(cScene);
-    m_categoriesView->setCurrentCategory(categories.at(0));
+    //m_categoriesView->setCurrentCategory(cats.at(0));
 
     m_userPanelView = ui->userPanelView;
     UserPanelScene* uScene = new UserPanelScene();
@@ -224,33 +189,6 @@ void NVKMainWindow::closeEvent(QCloseEvent *event)
     QMainWindow::closeEvent(event);
 }
 
-void NVKMainWindow::categoryChanged(Category *newCategory)
-{
-    if (m_categoriesView->currentCategory() != newCategory) {
-        m_categoriesView->setCurrentCategory(newCategory);
-        ProductsScene* scene = static_cast<ProductsScene*>(m_productsView->scene());
-        m_productsView->scrollToTop();
-
-        //GET /productsByCategory?categoryId=<kategória id>&pageSize=<lap mérete>&pageNumber=<a lap sorszáma>
-        // NEW
-
-        /*QUrl productsByCatUrl = HttpHandler::PRODUCTS_BY_CATEGORY_URL_STRING.arg(QString::number(newCategory->properties().id())).
-                arg(QString::number(ui->pageSizeComboBox->currentText().toInt()))
-                .arg(QString::number(m_currentPage));
-        HttpHandler httpHandler(productsByCatUrl);
-        httpHandler.sendRequest(QString());
-
-        JsonReply productsRequestReply(httpHandler.reply()->readAll());
-        scene->setItems(productsRequestReply.products());*/
-
-        scene->setItems(m_categoryMapped.values(m_categoriesView->currentCategory()));
-
-        ui->productsInCategoryLabel->setText( QString::number(
-                                                  m_categoryMapped.values(m_categoriesView->currentCategory()).size()) + QLatin1String(" products in this category"));
-        ui->productsInCategoryLabel->adjustSize();
-    }
-}
-
 QList<Category*> NVKMainWindow::categories() const
 {
     return m_categoryMapped.uniqueKeys();
@@ -290,3 +228,9 @@ int NVKMainWindow::currentPage() const
 {
     return m_currentPage;
 }
+
+QLabel* NVKMainWindow::productsInCategoryLabel() const
+{
+    return ui->productsInCategoryLabel;
+}
+

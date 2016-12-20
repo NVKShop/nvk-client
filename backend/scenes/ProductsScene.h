@@ -10,7 +10,7 @@ class ProductsScene : public QGraphicsScene
 public:
     ProductsScene(const int viewWidth);
     ~ProductsScene();
-    void setItems(const QList<Product *> &products);
+    void setItems(const QVector<Product *> &products);
     bool isProductOnPosition();
 private:
     int m_viewWidth;

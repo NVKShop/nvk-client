@@ -15,6 +15,7 @@ public:
     Cart *cart() const;
     UserProperty properties() const;
     void setCart(Cart *cart);
+    void setUserName(const QString& userName);
     void setProperties(const UserProperty& properties);
     QJsonObject asJson() const;
 signals:

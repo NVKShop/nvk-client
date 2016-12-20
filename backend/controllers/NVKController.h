@@ -43,12 +43,16 @@ private Q_SLOTS:
     void nextPage();
     void previousPage();
     void pageSizeChanged(int idx);
+    void loadCategories();
+    void loadProductsInCategory();
+    void categoryChanged(Category *newCategory);
+
 Q_SIGNALS:
     void searched();
 private:
 
-    HttpHandler m_HttpHandler;
     NVKMainWindow* m_mainWindow;
+    HttpHandler* m_mainWindowHandler;
 
     LoginController* m_loginController;
     ForgotUserDataController* m_forgotUserDataController;

@@ -4,10 +4,15 @@
 #include <QJsonArray>
 #include <QJsonValue>
 #include <QJsonDocument>
+#include <QDebug>
 
 JsonReply::JsonReply(const QJsonDocument &doc)
 {
     m_document = doc;
+    if (doc.isEmpty())
+    {
+        qDebug() << "fucking emptysomehow";
+    }
 }
 
 QVector<Product*> JsonReply::products() const
@@ -26,22 +31,30 @@ QVector<Product*> JsonReply::products() const
     {
         QJsonObject prod = jproducts[i].toObject();
 
-        QPixmap productPicture;
-        //prod["picture"]
+        QJsonValue picByte = prod["picture"];
+        QPixmap pic = QPixmap::fromImage(
+                QImage::fromData(picByte.toVariant().toByteArray()));
+
+        //qDebug() << picByte.toVariant().toByteArray();
+        /*if (pic.isNull())
+        {
+            pic = QPixmap(":/images/noImage.png");
+        }*/
+
         ProductProperty properties(static_cast<long>(prod["id"].toInt()),
                 prod["name"].toString(),
                 prod["description"].toString(),
                 prod["category"].toString(),
                 prod["price"].toDouble());
 
-        Product* p = new Product(productPicture,properties);
+        Product* p = new Product(pic,properties);
         prods.push_back(p);
     }
 
     return prods;
 }
 
-QVector<Category*> JsonReply::categories() const
+QVector<Category*> JsonReply::categories(const int &width) const
 {
     QJsonArray jcatArray = m_document.array();
     if (jcatArray.isEmpty())
@@ -52,12 +65,13 @@ QVector<Category*> JsonReply::categories() const
     for (int i = 0; i < jcatArray.size(); ++i)
     {
         QJsonObject c = jcatArray[i].toObject();
-        QPixmap img;
+        QPixmap img (":/images/catBg.png");
         CategoryProperty catProperty(static_cast<long>(c["categoryId"].toInt()), c["name"].toString(),
                 static_cast<long>(c["parentId"].toInt()));
-        Category* cat = new Category(img,catProperty,0); //// TODO WIDTH
+        Category* cat = new Category(img,catProperty,width);
         cats.push_back(cat);
     }
+
     return cats;
 }
 
@@ -81,7 +95,6 @@ User* JsonReply::user() const
     {
         return nullptr;
     }
-
     QJsonObject juser = m_document.object();
     if (juser.isEmpty())
     {
@@ -93,12 +106,9 @@ User* JsonReply::user() const
     User* user = new User();
 
     UserProperty properties;
-    properties.setId(static_cast<long>(juser["id"].toInt()));
     properties.setEmail(juser["email"].toString());
     properties.setLastName(juser["lastName"].toString());
     properties.setFirstName(juser["firstName"].toString());
-    properties.setPassword(juser["password"].toString());
-    properties.setName(juser["name"].toString());
     properties.setRole(static_cast<UserProperty::Role>(juser["role"].toInt()));
     properties.setPhoneNumber(juser["phoneNumber"].toString());
 
@@ -137,3 +147,4 @@ QString JsonReply::productDescription() const
     QString description(m_document.object()["description"].toString());
     return description;
 }
+

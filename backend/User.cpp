@@ -35,10 +35,11 @@ QJsonObject User::asJson() const
 {
     QJsonObject user;
 
-    QJsonValue juserName = m_properties.name();
-    QJsonValue juserId = static_cast<int>(m_properties.id());
-    user["name"] = juserName;
-    user["id"] = juserId;
     user["address"] = m_properties.address().asJson();
     return user;
+}
+
+void User::setUserName(const QString &userName)
+{
+    m_properties.setName(userName);
 }

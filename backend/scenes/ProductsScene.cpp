@@ -34,7 +34,7 @@ bool ProductsScene::isProductOnPosition()
     return false;
 }
 
-void ProductsScene::setItems(const QList<Product *> &products)
+void ProductsScene::setItems(const QVector<Product *> &products)
 {
     foreach (QGraphicsItem* p, items()) {
         if (dynamic_cast<Product*>(p))

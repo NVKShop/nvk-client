@@ -6,7 +6,8 @@ NVKController::NVKController(QObject *parent) : QObject(parent), m_mainWindow(ne
     m_placeOrderController(new PlaceOrderController),
     m_productPreviewController(new ProductPreviewController),
     m_productSearchController(new ProductSearchController),
-    m_userSettingsController(new UserSettingsController)
+    m_userSettingsController(new UserSettingsController),
+    m_mainWindowHandler(new HttpHandler)
 {
 
     connect(m_loginController->view(), &LoginWindow::showForgotUserWindow, this, &NVKController::showForgotUserWindow);
@@ -29,6 +30,9 @@ NVKController::NVKController(QObject *parent) : QObject(parent), m_mainWindow(ne
 
     connect(m_productSearchController, &ProductSearchController::searchProduct, this, &NVKController::searchProducts);
     connect(this, &NVKController::searched, m_productSearchController, &ProductSearchController::searched);
+
+    connect(m_mainWindowHandler, &HttpHandler::finished, this, &NVKController::loadCategories);
+
 }
 
 void NVKController::changeActiveWindow(QWidget *window)
@@ -160,13 +164,33 @@ void NVKController::addToCart(Product *product)
 void NVKController::connectToScenes()
 {
     connect(m_mainWindow->productsScene(), &ProductsScene::productDoubleClicked, m_mainWindow, &NVKMainWindow::productDoubleClicked);
-    connect(m_mainWindow->categoriesScene(), &CategoriesScene::selectionChangedNew, m_mainWindow, &NVKMainWindow::categoryChanged);
+    connect(m_mainWindow->categoriesScene(), &CategoriesScene::selectionChangedNew, this, &NVKController::categoryChanged);
 
     connect(m_productPreviewController, &ProductPreviewController::addedToCart, m_mainWindow->userPanelScene(), &UserPanelScene::itemAdded);
     connect(m_placeOrderController, &PlaceOrderController::setQuantityText, m_mainWindow->userPanelScene(), &UserPanelScene::setQuantity);
     connect(m_mainWindow->productsScene(), &ProductsScene::scrollToTop, m_mainWindow->productsView(), &ProductsView::scrollToTop);
 
+    m_mainWindowHandler->setUrl(QUrl(HttpHandler::LIST_CATEGORIES_URL_STRING));
+    m_mainWindowHandler->sendRequest(QString());
+
     disconnect(m_mainWindow, &NVKMainWindow::shown, this, &NVKController::connectToScenes);
+}
+
+void NVKController::categoryChanged(Category *newCategory)
+{
+    if (view()->categoriesView()->currentCategory() != newCategory) {
+        view()->categoriesView()->setCurrentCategory(newCategory);
+        view()->productsView()->scrollToTop();
+
+        //GET /productsByCategory?categoryId=<kategória id>&pageSize=<lap mérete>&pageNumber=<a lap sorszáma>
+        // NEW
+
+        QUrl productsByCatUrl = HttpHandler::PRODUCTS_BY_CATEGORY_URL_STRING.arg(QString::number(newCategory->properties().id())).
+                arg(QString::number(view()->pageSizeCb()->currentText().toInt()))
+                .arg(QString::number(view()->currentPage()));
+        m_mainWindowHandler->setUrl(productsByCatUrl);
+        m_mainWindowHandler->sendRequest(QString());
+    }
 }
 
 void NVKController::searchProducts(ProductSearch *psearch)
@@ -206,4 +230,29 @@ void NVKController::previousPage()
 void NVKController::pageSizeChanged(int idx)
 {
 
+}
+
+void NVKController::loadProductsInCategory()
+{
+    JsonReply productsRequestReply(QJsonDocument::fromJson(m_mainWindowHandler->reply()->readAll()));
+    ProductsScene* scene = static_cast<ProductsScene*>(view()->productsScene());
+
+    scene->setItems(productsRequestReply.products());
+
+
+    view()->productsInCategoryLabel()->setText( QString::number(productsRequestReply.products().size()) + QLatin1String(" products in this category"));
+    view()->productsInCategoryLabel()->adjustSize();
+}
+
+void NVKController::loadCategories()
+{
+    QString r = QString::fromUtf8(m_mainWindowHandler->reply()->readAll());
+    qDebug() << r;
+    JsonReply reply(QJsonDocument::fromJson(r.toUtf8()));
+
+    QVector<Category*> cats = reply.categories(m_mainWindow->categoriesView()->width());
+    view()->categoriesScene()->setItems(cats);
+
+    disconnect(m_mainWindowHandler, &HttpHandler::finished, this, &NVKController::loadCategories);
+    connect(m_mainWindowHandler, &HttpHandler::finished, this, &NVKController::loadProductsInCategory);
 }
