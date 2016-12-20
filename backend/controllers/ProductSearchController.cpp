@@ -2,6 +2,7 @@
 #include <QMessageBox>
 #include <QStandardItem>
 #include <QStandardItemModel>
+#include <QDebug>
 
 ProductSearchController::ProductSearchController(QObject *parent) : QObject(parent),
     m_productSearchWindow(new ProductSearchWindow)
@@ -32,7 +33,7 @@ void ProductSearchController::search()
         productSearch->setSearchCategories(m_productSearchWindow->categories());
 
         emit searchDataOk();
-        emit searchProduct(productSearch); // TODO in main controller do the stuff
+        emit searchProduct(productSearch);
     }
 }
 
@@ -41,7 +42,6 @@ void ProductSearchController::searched()
     m_searchedAlready = true;
 }
 
-#include <QDebug>
 void ProductSearchController::setCategories(const QStringList &categories)
 {
     QStandardItemModel* categoriesModel = new QStandardItemModel(categories.size(),1);

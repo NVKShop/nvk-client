@@ -3,6 +3,7 @@
 
 #include "frontend/widgets/ProductSearchWindow.h"
 #include "backend/ProductSearch.h"
+#include "backend/network/HttpHandler.h"
 
 #include <QObject>
 
@@ -18,9 +19,11 @@ public:
 Q_SIGNALS:
     void searchProduct(ProductSearch* search);
     void searchDataOk();
+    void searchResult(QVector<Product*> prods);
 public Q_SLOTS:
     void search();
     void searched();
+
 private:
     ProductSearchWindow* m_productSearchWindow;
     bool m_searchedAlready;

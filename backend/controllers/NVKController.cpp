@@ -8,7 +8,8 @@ NVKController::NVKController(QObject *parent) : QObject(parent), m_mainWindow(ne
     m_productSearchController(new ProductSearchController),
     m_userSettingsController(new UserSettingsController),
     m_mainWindowHandler(new HttpHandler),
-    m_detailedProductHandler(new HttpHandler)
+    m_detailedProductHandler(new HttpHandler),
+    m_searchHandler(new HttpHandler)
 {
     connect(m_loginController->view(), &LoginWindow::showForgotUserWindow, this, &NVKController::showForgotUserWindow);
     connect(m_loginController->view(), &LoginWindow::rejected, this, &NVKController::loginCancelled);
@@ -36,6 +37,8 @@ NVKController::NVKController(QObject *parent) : QObject(parent), m_mainWindow(ne
 
     connect(m_mainWindowHandler, &HttpHandler::finished, this, &NVKController::loadCategories);
     connect(m_detailedProductHandler, &HttpHandler::finished, this, &NVKController::showDetailedProductPreview);
+
+    connect(m_searchHandler, &HttpHandler::finished, this, &NVKController::searchFinished);
 }
 
 void NVKController::changeActiveWindow(QWidget *window)
@@ -175,6 +178,7 @@ void NVKController::connectToScenes()
 void NVKController::categoryChanged(Category *newCategory)
 {
     if (view()->categoriesView()->currentCategory() != newCategory) {
+        view()->setCurrentPage(0);
         view()->categoriesView()->setCurrentCategory(newCategory);
         view()->productsView()->scrollToTop();
 
@@ -193,8 +197,6 @@ void NVKController::searchProducts(ProductSearch *psearch)
 
     Category* searchResultCategory = new Category(QPixmap(":/images/catBg.png"), categoryName, m_mainWindow->categoriesView()->width());
 
-    //if search ok..emit seached()
-
     if (m_productSearchController->searchedAlready())
     {
         scene->removeLast();
@@ -204,10 +206,20 @@ void NVKController::searchProducts(ProductSearch *psearch)
         emit searched();
     }
 
+    QString categoriesString;
+
+    foreach (const QString& s, psearch->searchCategories())
+    {
+        categoriesString += (s + ",");
+    }
+    QString direction = psearch->direction() == ProductSearch::ASC ? QLatin1String("ASC") : QLatin1String("DESC");
+    QUrl url = HttpHandler::PRODUCT_SEARCH_URL_STRING.arg(psearch->searchTerm()).arg(QString::number(psearch->page())).
+            arg(QString::number(psearch->pageSize())).arg(psearch->sortBy()).arg(direction).arg(categoriesString);
+    m_searchHandler->setUrl(url);
+    m_searchHandler->sendRequest(QByteArray());
+
     disconnect(this, &NVKController::searched, m_productSearchController, &ProductSearchController::searched);
     scene->addCategory(searchResultCategory);
-
-    // do the stuff..add new category etc
 }
 
 void NVKController::nextPage()
@@ -285,6 +297,10 @@ void NVKController::showDetailedProductPreview()
     if (m_productPreviewController->product()->originalPixmap().isNull())
     {
         QPixmap img = detailedProductReply.productPreviewPicture();
+        if (img.isNull())
+        {
+            img = QPixmap(":/images/noImage.png");
+        }
         m_productPreviewController->setPixmap(img);
     }
     else
@@ -293,4 +309,28 @@ void NVKController::showDetailedProductPreview()
     }
 
     popUpWindow(m_productPreviewController->view());
+}
+
+void NVKController::searchFinished()
+{
+    view()->categoriesView()->setCurrentCategory(view()->categories().last());
+    JsonReply searchRequestReply(QJsonDocument::fromJson(m_mainWindowHandler->reply()->readAll()));
+    ProductsScene* scene = static_cast<ProductsScene*>(view()->productsScene());
+    QVector<Product*> prods = searchRequestReply.products();
+    view()->previousPageButton()->setEnabled(searchRequestReply.previousPageExists());
+    view()->nextPageButton()->setEnabled(searchRequestReply.nextPageExists());
+    scene->setItems(prods);
+
+    foreach (Product* p, view()->order()->user()->cart()->products())
+    {
+        foreach (Product* pr, prods) {
+            if (p->properties().id() == pr->properties().id())
+            {
+                pr->addedToCart();
+            }
+        }
+    }
+
+    view()->productsInCategoryLabel()->setText(QString::number(prods.size()) + QLatin1String(" products in this category"));
+    view()->productsInCategoryLabel()->adjustSize();
 }

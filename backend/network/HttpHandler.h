@@ -21,6 +21,7 @@ public:
     static const QString PRODUCTS_BY_CATEGORY_URL_STRING;
     static const QString FORGOTTEN_PASSWORD_URL_STRING;
     static const QString USER_LOGIN_INFORMATIONS_QUERY_URL_STRING;
+    static const QString PRODUCT_SEARCH_URL_STRING;
 public Q_SLOTS:
   //  JsonReply post(const JsonRequest& msg);
 public:
