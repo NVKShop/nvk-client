@@ -38,6 +38,7 @@ QVector<Product*> JsonReply::products() const
         {
             pic = QPixmap(":/images/noImage.png");
         }*/
+        pic = QPixmap(":/images/noImage.png");
 
         ProductProperty properties(static_cast<long>(prod["id"].toInt()),
                 prod["name"].toString(),
