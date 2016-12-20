@@ -25,7 +25,7 @@ void HttpHandler::setUrl(const QUrl &url)
     m_HttpRequest = new QNetworkRequest(url);
 }
 
-#if 0
+#if 1
 const QString HttpHandler::DETAILED_PRODUCT_URL_STRING = QLatin1String("http://192.168.43.251:8080/nvk-integration/detailedProduct/%1");
 const QString HttpHandler::LIST_CATEGORIES_URL_STRING = QLatin1String("http://192.168.43.251:8080/nvk-integration/listCategories");
 const QString HttpHandler::ORDER_PLACEMENT_URL_STRING = QLatin1String("http://192.168.43.251:8080/nvk-integration/secured/orderPlacement");

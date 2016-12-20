@@ -15,7 +15,18 @@ void Cart::addProduct(Product* product)
 
 bool Cart::removeProduct(Product* product)
 {
-    return m_products.removeOne(product);
+    for (int i = 0; i < m_products.size(); ++i)
+    {
+        Product* p = m_products[i];
+        if (p->properties().id() == product->properties().id())
+        {
+            p->setQuantity(0);
+            m_products.remove(i);
+            return true;
+        }
+    }
+
+    return false;
 }
 
 void Cart::addProducts(const QVector<Product *> &products)
