@@ -94,10 +94,13 @@ void NVKMainWindow::setupViews()
     uScene->setUserName(m_order->user()->properties().name());
 
     m_userPanelView->setScene(uScene);
-    ui->productsInCategoryLabel->setText(QString::number(
-                                             m_categoryMapped.values(m_categoriesView->currentCategory()).size())+ " products in this category");
-    ui->productsInCategoryLabel->adjustSize();
 }
+
+QVector<Category*> NVKMainWindow::categories() const
+{
+    return qobject_cast<CategoriesScene*>(m_categoriesView->scene())->categories();
+}
+
 
 NVKMainWindow::~NVKMainWindow()
 {
@@ -137,11 +140,6 @@ void NVKMainWindow::closeEvent(QCloseEvent *event)
 {
     emit closing();
     QMainWindow::closeEvent(event);
-}
-
-QList<Category*> NVKMainWindow::categories() const
-{
-    return m_categoryMapped.uniqueKeys();
 }
 
 UserPanelScene* NVKMainWindow::userPanelScene() const

@@ -31,7 +31,6 @@ void LoginController::loginUser()
     }
     else
     {
-        //  NEW
         QUrl url = HttpHandler::USER_LOGIN_INFORMATIONS_QUERY_URL_STRING;
         m_loginHandler->setUrl(url);
         m_loginHandler->setUser(view()->userName());

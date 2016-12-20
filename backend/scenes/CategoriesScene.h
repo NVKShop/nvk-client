@@ -12,8 +12,9 @@ public:
     void addCategory(Category* item);
     Category* selectedCategory() const;
     void removeLast();
+    QVector<Category*> categories() const;
 private:
-
+    QVector<Category*> m_categories;
 private Q_SLOTS:
     void newCategory();
 Q_SIGNALS:

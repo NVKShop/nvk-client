@@ -79,8 +79,8 @@ void PlaceOrderWindow::setOrder(Order *order)
         QSpinBox* countSpinBox = new QSpinBox();
         countSpinBox->setValue(prod->quantityInCart());
 
-        countSpinBox->setStyleSheet(QLatin1String("QSpinBox::up-button {width: 40px;  height: 40px}"
-                                                  "QSpinBox::down-button {width: 40px; height: 40px}"));
+        countSpinBox->setStyleSheet(QLatin1String("QSpinBox::up-button {width: 20px;  height: 20px}"
+                                                  "QSpinBox::down-button {width: 20px; height: 20px}"));
         countSpinBox->resize(countSpinBox->width(), 140);
         connect(countSpinBox, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &PlaceOrderWindow::cartCellChangedSlot);
         nameItem->setFont(tableFont);

@@ -27,7 +27,7 @@ public:
     explicit NVKMainWindow(QWidget *parent = 0);
     ~NVKMainWindow();
     Order* order() const;
-    QList<Category*> categories() const;
+    QVector<Category*> categories() const;
 
     UserPanelScene* userPanelScene() const;
     ProductsScene* productsScene() const;
@@ -80,7 +80,6 @@ private:
     bool m_previousPageExists = false;
     bool m_nextPageExists = false;
     Order* m_order;
-    QMultiMap<Category*,Product*> m_categoryMapped;
 public Q_SLOTS:
 
 };

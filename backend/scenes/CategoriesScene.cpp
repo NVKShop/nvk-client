@@ -26,6 +26,7 @@ void CategoriesScene::setItems(const QVector<Category *> &categories)
         addItem(cat);
         row++;
     }
+    m_categories = categories;
 }
 
 void CategoriesScene::newCategory()
@@ -57,6 +58,7 @@ void CategoriesScene::addCategory(Category *item)
     item->setSelected(true);
     item->setPos(0, lastCatPosH + item->boundingRect().height());
     addItem(item);
+    m_categories.push_back(item);
 }
 
 void CategoriesScene::removeLast()
@@ -67,7 +69,13 @@ void CategoriesScene::removeLast()
         if (qgraphicsitem_cast<Category*>(itemss.at(i)))
         {
             removeItem(itemss.at(i));
+            m_categories.removeAt(i);
             break;
         }
     }
 }
+QVector<Category*> CategoriesScene::categories() const
+{
+    return m_categories;
+}
+

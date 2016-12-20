@@ -25,7 +25,6 @@ bool Cart::removeProduct(Product* product)
             return true;
         }
     }
-
     return false;
 }
 

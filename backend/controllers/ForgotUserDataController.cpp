@@ -44,9 +44,7 @@ void ForgotUserDataController::forgotUserData(const QString &email)
         }
         else
         {
-            // NEW
             QUrl url = HttpHandler::FORGOTTEN_PASSWORD_URL_STRING.arg(email);
-            qDebug() << "sending stuff..";
             m_httpHandler->setUrl(url);
             m_httpHandler->sendRequest(QByteArray());
         }
