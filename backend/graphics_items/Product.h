@@ -22,6 +22,7 @@ public:
     void setQuantity(const int& quantity);
     int quantityInCart() const;
     QGraphicsPixmapItem* addedToCartItem() const;
+    void setOriginalPixmap(const QPixmap& pixmap);
 
     QJsonObject asJson() const;
 protected:

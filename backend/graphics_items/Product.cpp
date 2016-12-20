@@ -24,15 +24,6 @@ Product::Product(const QPixmap & pixmap, const ProductProperty &property) : QObj
 
     w-= w/5;
 
-    int originalScaled;
-
-#ifdef Q_OS_ANDROID
-    originalScaled = screen->size().width() - screen->size().width() / 4;
-#else
-    originalScaled = pixmap.size().width();
-#endif
-    m_originalPixmap = pixmap.scaledToWidth(originalScaled);
-
     setPixmap(pixmap.scaledToWidth(w/2 - PRODUCT_RECT_MARGIN *1.8, Qt::SmoothTransformation));
     setOffset(PRODUCT_TEXT_LEFT_MARGIN/2,  85);
 
@@ -223,6 +214,20 @@ QJsonObject Product::asJson() const
     prodObj["quantity"] = productQuantityInCart;
 
     return prodObj;
+}
+
+void Product::setOriginalPixmap(const QPixmap &pixmap)
+{
+    QScreen *screen = QApplication::screens().at(0);
+
+    int originalScaled;
+
+#ifdef Q_OS_ANDROID
+    originalScaled = screen->size().width() - screen->size().width() / 4;
+#else
+    originalScaled = pixmap.size().width();
+#endif
+    m_originalPixmap = pixmap.scaledToWidth(originalScaled);
 }
 
 

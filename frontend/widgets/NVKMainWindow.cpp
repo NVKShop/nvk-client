@@ -63,61 +63,11 @@ NVKMainWindow::NVKMainWindow(QWidget *parent) :
                                                         "border-width: 2px;"
                                                         "border-color: black;"
                                                         "border-radius: 15px;}"));
-
+    ui->previousPageButton->setDisabled(true);
 }
 
 void NVKMainWindow::setupViews()
 {
-    auto p = [](int count) -> QVector<Product*>
-    {
-        QVector<Product*> products;
-        products.reserve(count);
-        products.resize(count);
-
-        for(int i = 0; i < count; ++i)
-        {
-            ProductProperty prop(i,"Product " + QString::number(i),
-                                 "This is a fucking description you retarded bitch. "
-                                 "Can you get it? No? Great, because neither I. "
-                                 "Well, it sucks, but that's it. "
-                                 "I mean de mieert. What the crap should I write here so this retarded description gets longer and longer? I have no clue man sheiiiit.", "cat", 1);
-            Product* prod = new Product(QPixmap(":/images/noImage.png"), prop);
-            products[i] = prod;
-        }
-
-        return  products;
-    };
-
-    auto p1 = [](int count) -> QVector<Product*>
-    {
-        QVector<Product*> products;
-        products.reserve(count);
-        products.resize(count);
-
-        for(int i = 0; i < count; ++i)
-        {
-            ProductProperty prop(i*2,"ProductCat1 " + QString::number(i),
-                                 "This is a fckin product you dumbass","cat", 1);
-            Product* prod = new Product(QPixmap(":/images/noImage.png"), prop);
-            products[i] = prod;
-        }
-
-        return  products;
-    };
-
-   // QVector<Category*> categories = c(6, ui->categoriesView->width() ); //
-    QVector<Product*> c1p = p(40);
-    QVector<Product*> c2p = p1(5);
-
-    /*foreach (Product* prod, c1p) {
-        m_categoryMapped.insert(categories.at(0), prod);
-    }
-
-    foreach (Product* prod, c2p) {
-        m_categoryMapped.insert(categories.at(1), prod);
-    }*/
-
-    //
     m_productsView = ui->productsView;
     m_productsView->show();
     ProductsScene* pScene = new ProductsScene(m_productsView->width());
@@ -232,5 +182,45 @@ int NVKMainWindow::currentPage() const
 QLabel* NVKMainWindow::productsInCategoryLabel() const
 {
     return ui->productsInCategoryLabel;
+}
+
+QLabel* NVKMainWindow::currentPageLabel() const
+{
+    return ui->currentPageLabel;
+}
+
+QPushButton* NVKMainWindow::nextPageButton() const
+{
+    return ui->nextPageButton;
+}
+
+QPushButton* NVKMainWindow::previousPageButton() const
+{
+    return ui->previousPageButton;
+}
+
+void NVKMainWindow::setPreviousPageExists(bool exists)
+{
+    m_previousPageExists = exists;
+}
+
+void NVKMainWindow::setNextPageExists(bool exists)
+{
+    m_nextPageExists = exists;
+}
+
+void NVKMainWindow::setCurrentPage(const int & page)
+{
+    m_currentPage = page;
+}
+
+bool NVKMainWindow::nextPageExists() const
+{
+    return m_nextPageExists;
+}
+
+bool NVKMainWindow::previousPageExists() const
+{
+    return m_previousPageExists;
 }
 

@@ -15,6 +15,7 @@ public:
     ProductPreviewDialog* view() const;
     void setProduct(Product* product);
 
+    void setPixmap(const QPixmap& pixmap);
     Product* product() const;
     ~ProductPreviewController();
 Q_SIGNALS:

@@ -46,14 +46,14 @@ private Q_SLOTS:
     void loadCategories();
     void loadProductsInCategory();
     void categoryChanged(Category *newCategory);
-
+    void showDetailedProductPreview();
 Q_SIGNALS:
     void searched();
 private:
 
     NVKMainWindow* m_mainWindow;
     HttpHandler* m_mainWindowHandler;
-
+    HttpHandler* m_detailedProductHandler;
     LoginController* m_loginController;
     ForgotUserDataController* m_forgotUserDataController;
     ManageOrderController* m_manageOrderController;

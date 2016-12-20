@@ -32,9 +32,7 @@ QVector<Product*> JsonReply::products() const
         QJsonObject prod = jproducts[i].toObject();
 
         QJsonValue picByte = prod["picture"];
-        QPixmap pic = QPixmap::fromImage(
-                QImage::fromData(picByte.toVariant().toByteArray()));
-
+        QPixmap pic = QPixmap::fromImage(QImage((uchar*)picByte.toVariant().toByteArray().data(), 210, 66, QImage::Format_RGB888));
         //qDebug() << picByte.toVariant().toByteArray();
         /*if (pic.isNull())
         {

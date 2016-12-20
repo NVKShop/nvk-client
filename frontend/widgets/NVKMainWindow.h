@@ -5,6 +5,7 @@
 #include <QMultiMap>
 #include <QUrl>
 #include <QLabel>
+#include <QPushButton>
 
 #include "backend/network/HttpHandler.h"
 #include "backend/Order.h"
@@ -36,8 +37,20 @@ public:
     CategoriesView* categoriesView() const;
 
     QLabel* productsInCategoryLabel() const;
+    QLabel* currentPageLabel() const;
+
+    bool previousPageExists() const;
+    bool nextPageExists() const;
+
+    QPushButton* nextPageButton() const;
+    QPushButton* previousPageButton() const;
 
     QComboBox* pageSizeCb() const;
+
+    void setNextPageExists(bool exists);
+    void setPreviousPageExists(bool exists);
+
+    void setCurrentPage(const int& page);
 
     int currentPage() const;
 Q_SIGNALS:
@@ -64,7 +77,8 @@ private:
     UserPanelView* m_userPanelView;
 
     int m_currentPage = 1;
-
+    bool m_previousPageExists = false;
+    bool m_nextPageExists = false;
     Order* m_order;
     QMultiMap<Category*,Product*> m_categoryMapped;
 public Q_SLOTS:

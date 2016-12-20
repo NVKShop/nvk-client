@@ -106,11 +106,18 @@
        </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,1,2">
         <item>
          <widget class="QPushButton" name="previousPageButton">
           <property name="text">
            <string>&lt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="currentPageLabel">
+          <property name="text">
+           <string> </string>
           </property>
          </widget>
         </item>
